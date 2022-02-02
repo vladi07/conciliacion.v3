@@ -1,0 +1,67 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Centros|{{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="card card-body">
+        <h1>Centros Registrados</h1>
+        <div class="d-flex bd-highlight mb-3">
+            <div class="p-2 bd-highlight">
+                <a class="btn btn-success" href="{{ path('centro_nuevo') }}">
+                    <i class="bi bi-plus-square"></i>
+                    Nuevo
+                </a>
+            </div>
+            <div class="ml-auto p-2 bd-highlight">
+                <a class="btn btn-info" href="">
+                    Centros Registrados:
+                </a>
+            </div>
+        </div>
+
+        <table class="table table-responsive table-hover justify-content-center">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Nombre</th>
+                    <th>Matrícula</th>
+                    <th>Fecha de Actualización</th>
+                    <th>Tipo</th>
+                    <th>Departamento</th>
+                    <th>Telefono/ Celular</th>
+                    <th>Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for centro in centros %}
+                    <tr>
+                        <td>{{ centro.id }}</td>
+                        <td>{{ centro.nombre }}</td>
+                        <td>{{ centro.matricula }}</td>
+                        <td>{{ centro.vigencia|date('d-m-Y') }}</td>
+                        <td>{{ centro.tipo }}</td>
+                        <td>{{ centro.departamento }}</td>
+                        <td>{{ centro.telefono }}</td>
+                        <td>
+                            <a class="btn btn-success" href="">
+                                <i class="bi bi-eye-fill"></i>
+                                Ver
+                            </a>
+                            <a class="btn btn-info" href="">
+                                <i class="bi bi-pencil-square"></i>
+                                Editar
+                            </a>
+                        </td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="22">No se encontraron registros</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+{% endblock %}

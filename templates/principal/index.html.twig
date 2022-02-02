@@ -1,0 +1,80 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Conciliación{% endblock %}
+
+{% block body %}
+
+    <!-- Small boxes (Stat box) -->
+    <div class="row">
+        <div class="col-lg-4 col-6">
+            <!-- small box -->
+            <div class="small-box bg-primary">
+                <div class="inner">
+                    <h2 class="font-weight-bold">CASOS CONCILIATORIOS</h2>
+                    <br>
+                </div>
+                <div class="icon">
+                    <i class="ion bi bi-inboxes-fill"></i>
+                </div>
+                <a href="#" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-6">
+            <!-- small box -->
+            <div class="small-box bg-success">
+                <div class="inner">
+                    <h2 class="font-weight-bold">AGENDA DE CONCILIACIONES</h2>
+                    <br>
+                </div>
+                <div class="icon">
+                    <i class="ion bi bi-calendar3"></i>
+                </div>
+                <a href="#" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-6">
+            <!-- small box -->
+            <div class="small-box bg-info">
+                <div class="inner">
+                    <h2 class="font-weight-bold">REPORTES SEMESTRALES</h2>
+                    <br>
+                </div>
+                <div class="icon">
+                    <i class="ion bi bi-bar-chart-line-fill"></i>
+                </div>
+                <a href="#" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-6">
+            <!-- small box -->
+            <div class="small-box bg-warning">
+                <div class="inner">
+                    <h2 class="font-weight-bold">GESTIÓN DE USUARIOS</h2>
+                    <br>
+                </div>
+                <div class="icon">
+                    <i class="ion bi bi-people-fill"></i>
+                </div>
+                <a href="{{ path('usuario_index') }}" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+        <div class="col-lg-4 col-6">
+            <!-- small box -->
+            <div class="small-box bg-danger">
+                <div class="inner">
+                    <h2 class="font-weight-bold">GESTIÓN DE CENTROS</h2>
+                    <br>
+                </div>
+                <div class="icon">
+                    <i class="ion bi bi-house-door-fill"></i>
+                </div>
+                <a href="{{ path('centro_index') }}" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+        <!-- ./col -->
+    </div>
+{% endblock %}
