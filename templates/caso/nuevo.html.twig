@@ -1,0 +1,23 @@
+{% extends'base.html.twig' %}
+
+{% block title %}
+    Registro_Caso|{{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <h1>Registrar Caso</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-success">
+            <i class="bi bi-bookmark-check"></i>
+            {{ button-label | default('Guardar') }}
+        </button>
+    {{ form_end(form) }}
+
+    <a class="btn btn-primary" href="{{ path('caso_index') }}">
+        <i class="bi bi-arrow-left-square"></i>
+        Volver
+    </a>
+
+{% endblock %}

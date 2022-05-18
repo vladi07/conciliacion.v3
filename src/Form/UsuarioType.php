@@ -52,14 +52,21 @@ class UsuarioType extends AbstractType
                 'label' => 'Segundo Apellido',
                 'required' => false
             ])
-            ->add('tipo_documento')
+            ->add('tipo_documento', ChoiceType::class,[
+                'label' => 'Tipo de Documento',
+                'placeholder' => 'Seleccione un tipo de documento',
+                'choices' => [
+                    'CÉDULA DE IDENTIDAD' => 'Cedula de Identidad',
+                    'LIBRETA DE SERVICIO MILITAR' => 'Libreta de Servicio Militar',
+                    'NÚMERO DE PASPORTE' => 'Número de Pasaporte'
+                ]
+            ])
             ->add('numero_documento', NumberType::class, [
                 'label' => 'Número de Documento',
                 'required' => false
             ])
             ->add('expedido', ChoiceType::class,[
-                'label' => 'Expedido',
-                'mapped' => false,
+                'label' => 'Expedido en',
                 'placeholder' => 'Seleccione un departamento',
                 'choices' => [
                     'BENI' => 'Beni',
@@ -70,13 +77,12 @@ class UsuarioType extends AbstractType
                     'PANDO' => 'Pando',
                     'POTOSI' => 'Potosi',
                     'SANTA CRUZ' => 'Santa Cruz',
-                    'TARIJA' => 'Tarija',
+                    'TARIJA' => 'Tarija'
                 ]
             ])
             ->add('domicilio')
             ->add('departamento', ChoiceType::class,[
                 'label' => 'Departamento',
-                'mapped' => false,
                 'placeholder' => 'Seleccione un departamento',
                 'choices' => [
                     'BENI' => 'Beni',
@@ -103,7 +109,16 @@ class UsuarioType extends AbstractType
                     'MASCULINO' => 'Masculino'
                 ]
             ])
-            ->add('grado_academico')
+            ->add('grado_academico', ChoiceType::class,[
+                'label' => 'Grado Academico',
+                'placeholder' => 'Seleccione una opción',
+                'choices' => [
+                    'BACHILLER' => 'Bachiller',
+                    'LICENCIATURA' => 'Licenciatura',
+                    'MAESTRIA' => 'Maestria',
+                    'DOCTORADO' => 'Doctorado'
+                ]
+            ])
             ->add('profesion')
             ->add('telefono', NumberType::class,[
                 'label' => 'Telefono o Celular',
@@ -127,13 +142,12 @@ class UsuarioType extends AbstractType
                 'multiple' => false,
                 'expanded' => false,
             ])
-            //->add('fecha_creacion')
             ->add('activo', CheckboxType::class, [
                 'label' => 'Activo',
                 'label_attr' => ['class' => 'switch-custom'],
                 'required' => false,
             ])
-
+            //->add('fecha_creacion')
             //->add('caso_conciliatorio')
             //->add('agenda')
             //->add('Registrar', SubmitType::class)

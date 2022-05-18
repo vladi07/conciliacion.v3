@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Detalle del Caso|{{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="container-sm">
+        <div class="card card-success card-outline">
+            <div class="card-header"> {# CARD CABEZERA #}
+                <h2 class="card-title">Detalle del Caso: <strong>{{ usuario }}</strong></h2>
+                <div class="card-tools">
+                    <a class="btn btn-primary" href="{{ path('caso_index') }}">
+                        <i class="bi bi-arrow-left-square"></i>
+                        Volver
+                    </a>
+                    <a class="btn btn-info" href="">
+                        <i class="bi bi-pencil-square"></i>
+                        Editar Datos
+                    </a>
+                    {{ include('caso/eliminar.html.twig') }}
+                </div>
+            </div>
+            <div class="card-body"> {# CARD CUERPO #}
+                <table class="table table-striped table-sm">
+                    <tbody>
+                        <tr>
+                            <th>ID</th>
+                            <td>{{ caso.id }}</td>
+                        </tr>
+                        <tr>
+                            <th>Fecha de Registro</th>
+                            <td>{{ caso.fecha | date('d-m-Y') }}</td>
+                        </tr>
+                        <tr>
+                            <th>Materia</th>
+                            <td>{{ caso.materia }}</td>
+                        </tr>
+                        <tr>
+                            <th>Tipo de Conciliación</th>
+                            <td>{{ caso.tipoConciliacion }}</td>
+                        </tr>
+                        <tr>
+                            <th>Idioma</th>
+                            <td>{{ caso.idioma }}</td>
+                        </tr>
+                        <tr>
+                            <th>Etapa</th>
+                            <td>{{ caso.etapa }}</td>
+                        </tr>
+                        <tr>
+                            <th>Estado</th>
+                            <td>{{ caso.estado }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

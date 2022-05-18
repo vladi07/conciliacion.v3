@@ -3,11 +3,14 @@
 {% block title %}Edit Usuario{% endblock %}
 
 {% block body %}
-    <h1>Edit Usuario</h1>
+    <h1>Editar Datos</h1>
 
-    {{ include('usuario/_form.html.twig', {'button_label': 'Update'}) }}
+    {{ include('usuario/_form.html.twig', {'button_label': 'Actualizar'}) }}
 
-    <a href="{{ path('usuario_index') }}">back to list</a>
+    <a class="btn btn-primary" href="{{ path('usuario_index') }}">
+        <i class="bi bi-arrow-left-square"></i>
+        Volver
+    </a>
 
     {{ include('usuario/_delete_form.html.twig') }}
 {% endblock %}

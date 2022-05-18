@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CasoConciliatorioRepository::class)]
 class CasoConciliatorio
 {
+    const REGISTRO_EXITOSO = "Se ha registrado exitosamente";
+
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column(type: 'integer')]

@@ -12,6 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 #[Route('/usuario')]
 class UsuarioController extends AbstractController
@@ -30,25 +31,26 @@ class UsuarioController extends AbstractController
         $this->addFlash('success', Usuario::REGISTRO_EXITOSO);
 
         return $this->render('usuario/index.html.twig', [
-            'usuarios' => $usuarioRepository->findAll(),
+            'usuarios' => $usuarioRepository->findBy([],['nombres'=>'ASC']),
         ]);
     }
 
     #[Route('/new', name: 'usuario_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, string $fotoDir): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder , string $fotoDir): Response
     {
         $usuario = new Usuario();
         $form = $this->createForm(UsuarioType::class, $usuario);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
+            //Encriptamos el Password
+            $usuario -> setPassword($passwordEncoder->encodePassword($usuario, $form['password']-> getData()));
+            //Aasiganmos los Roles a los Usuarios
             $rolAsignado = $form['roles'] -> getData();
             $usuario -> setRoles($this->permisos[$rolAsignado]);
-
-
+            //Cargamos la foto archivo del Ususario
             if ($foto = $form['foto']-> getData()){
-                $nombreFoto = bin2hex(random_bytes(6)).'.'.$foto -> guessExtension();
+                $nombreFoto = bin2hex(random_bytes(4)).'.'.$foto -> guessExtension();
                 try {
                     $foto -> move($fotoDir, $nombreFoto);
                 } catch (FileException $exception){
@@ -62,7 +64,6 @@ class UsuarioController extends AbstractController
 
             return $this->redirectToRoute('usuario_index', [], Response::HTTP_SEE_OTHER);
         }
-
         return $this->renderForm('usuario/new.html.twig', [
             'usuario' => $usuario,
             'form' => $form,
@@ -78,14 +79,16 @@ class UsuarioController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'usuario_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Usuario $usuario, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Usuario $usuario, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager): Response
     {
         $form = $this->createForm(UsuarioType::class, $usuario);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+            //Enriptamos el Password
+            $usuario -> setPassword($passwordEncoder -> encodePassword($usuario, $form['password']->getData()));
 
+            $entityManager->flush();
             return $this->redirectToRoute('usuario_index', [], Response::HTTP_SEE_OTHER);
         }
 

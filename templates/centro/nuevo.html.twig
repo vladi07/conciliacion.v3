@@ -7,5 +7,19 @@
 {% block body %}
     <h1>Crear Centro</h1>
 
-    {{ form(formulario) }}
+    {{ form_start(formulario) }}
+        {{ form_widget(formulario) }}
+        <button class="btn btn-success">
+            <i class="bi bi-bookmark-check"></i>
+            Guardar
+        </button>
+    {{ form_end(formulario) }}
+
+    <a class="btn btn-primary" href="{{ path('centro_index') }}">
+        <i class="bi bi-arrow-left-square"></i>
+        Volver
+    </a>
+
+
+
 {% endblock %}

@@ -20,7 +20,7 @@ class CentroController extends AbstractController
         $this -> addFlash('success', Centro::REGISTRO_EXITOSO);
 
         return $this->render('centro/index.html.twig', [
-            'centros' => $centroRepository -> findAll(),
+            'centros' => $centroRepository -> findBy([],['nombre'=>'ASC']),
         ]);
     }
 
@@ -39,8 +39,20 @@ class CentroController extends AbstractController
             return $this -> redirectToRoute('centro_index');
         }
 
-        return $this->render('centro/nuevo.html.twig', [
-            'formulario' => $form -> createView(),
+        return $this->renderForm('centro/nuevo.html.twig', [
+            'centro' => $centro,
+            'formulario' => $form,
         ]);
     }
+
+    #[Route('/{id}', name:'centro_detalle', methods:['GET', 'POST'])]
+    public function show(Centro $centro): Response
+    {
+        return $this -> render('centro/detalle.html.twig',[
+            'centro' => $centro,
+        ]);
+    }
+
+    #[Route('/{id}/edit', name: 'centro_editar', methods: ['GET','POST'])]
+    public function edit(){}
 }

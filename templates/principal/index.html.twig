@@ -1,6 +1,8 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Conciliación{% endblock %}
+{% block title %}
+    Home Page|{{ parent() }}
+{% endblock %}
 
 {% block body %}
 
@@ -77,4 +79,45 @@
         </div>
         <!-- ./col -->
     </div>
+
+
+    <!-- MODAL -->
+    <button class="btn btn-success" data-toggle="modal" data-target="#ventanaModal">
+        Abrir ventana modal
+    </button>
+
+    <div class="modal fade" id="ventanaModal" tabindex="-1" role="dialog" aria-labelledby="tituloVentana" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!--CABEZERA DEL MODAL -->
+                <div class="modal-header">
+                    <h4 class="modal-title" id="tituloVentana">Titulo del Modal</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <!-- CUERPO DEL MODAL -->
+                <div class="modal-body">
+                    <p>Modal por defecto</p>
+                    <div class="alert alert-success" role="alert">
+                        <h5><strong>Tus datos se han guardado exitodamente</strong></h5>
+                    </div>
+                </div>
+                <!-- PIE DEL MODAL -->
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">
+                        Cerrar
+                    </button>
+                    <button type="button" class="btn btn-primary" >
+                        Guardar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
 {% endblock %}

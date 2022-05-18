@@ -5,93 +5,106 @@
 {% endblock %}
 
 {% block body %}
-    <div class="card card-body">
-        <h1>Usuarios Registrados</h1>
-        <div class="d-flex bd-highlight mb-3">
-            <div class="p-2 bd-highlight">
-                <a class="btn btn-success" href="{{ path('usuario_new') }}">
-                    <i class="bi bi-plus-square"></i>
-                    Nuevo
-                </a>
+    {# <div class="container-fluid align-items-stretch"> #}
+        <div class="card card-primary card-outline">
+            <h2 class="card-header font-weight-bold">Usuarios Registrados</h2>
+            <div class="card-body p-2">
+                <div class="d-flex bd-highlight mb-1">
+                    <div class="p-1 bd-highlight">
+                        <a class="btn btn-primary" href="{{ path('principal') }}">
+                            <i class="bi bi-arrow-left-square"></i>
+                            Volver
+                        </a>
+                        <a class="btn btn-success" href="{{ path('usuario_new') }}">
+                            <i class="bi bi-plus-square"></i>
+                            Nuevo
+                        </a>
+                    </div>
+                    <div class="ml-auto p-1 bd-highlight">
+                        <a class="btn btn-warning" href="">
+                            Cantidad de Usuarios Registrados:
+                        </a>
+                    </div>
+                </div>
+                <hr>
+                <table class="table table-responsive table-hover justify-content-center table-sm">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Nombres</th>
+                        <th>Primer Apellido</th>
+                        <th>Segundo Apellido</th>
+                        <th>Tipo Documento</th>
+                        <th>Número Documento</th>
+                        <th>Fecha de Nacimiento</th>
+                        <th>Teléfono</th>
+                        <th>Departamento</th>
+                        <th>Usuario</th>
+                        {# <th>Cargo</th> #}
+                        <th>Centro de Conciliación</th>
+                        {#<th>Password</th>
+                        <th>Expedido</th>
+                        <th>Domicilio</th>
+                        <th>Genero</th>
+                        <th>Grado_academico</th>
+                        <th>Profesion</th>
+                        <th>Correo</th>
+                        <th>Foto</th>
+                        <th>Fecha_creacion</th>#}
+                        <th>Activo</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for usuario in usuarios %}
+                        <tr>
+                            <td>{{ usuario.id }}</td>
+                            <td>{{ usuario.nombres|upper }}</td>
+                            <td>{{ usuario.primerApellido }}</td>
+                            <td>{{ usuario.segundoApellido }}</td>
+                            <td>{{ usuario.tipoDocumento }}</td>
+                            <td>{{ usuario.numeroDocumento }}</td>
+                            <td>{{ usuario.fechaNacimiento|date('d-m-Y')}}</td>
+                            <td>{{ usuario.telefono }}</td>
+                            <td>{{ usuario.departamento }}</td>
+                            <td>{{ usuario.username }}</td>
+                            {# <td>{{ usuario.roles ? usuario.roles|json_encode : '' }}</td> #}
+                            <td>{{ usuario.centro }}</td>
+                            {#<td>{{ usuario.password }}</td>
+                            <td>{{ usuario.expedido }}</td>
+                            <td>{{ usuario.domicilio }}</td>
+                            <td>{{ usuario.genero }}</td>
+                            <td>{{ usuario.gradoAcademico }}</td>
+                            <td>{{ usuario.profesion }}</td>
+                            <td>{{ usuario.correo }}</td>
+                            <td>{{ usuario.foto }}</td>
+                            <td>{{ usuario.fechaCreacion|date('d-m-Y H:i:s')}}</td>#}
+                            <td>{{ usuario.activo ? 'Si' : 'No' }}</td>
+                            <td>
+                                <div class="text-center btn-group">
+                                    <a class="btn btn-success btn-sm" href="{{ path('usuario_show', {'id': usuario.id}) }}">
+                                        <i class="bi bi-eye-fill"></i>
+                                        Ver
+                                    </a>
+                                    <a class="btn btn-info btn-sm" href="{{ path('usuario_edit', {'id': usuario.id}) }}">
+                                        <i class="bi bi-pencil-square"></i>
+                                        Editar
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="22">No se encontraron registros</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
             </div>
-            <div class="ml-auto p-2 bd-highlight">
-                <a class="btn btn-info" href="">
-                    Usuarios Registrados:
-                </a>
+            <div class="card-footer">
+                Footer donde ira la paginacion
             </div>
         </div>
+    {# </div> #}
 
-
-        <table class="table table-responsive table-hover justify-content-center">
-            <thead>
-            <tr>
-                <th>Id</th>
-                <th>Nombres</th>
-                <th>Primer Apellido</th>
-                <th>Segundo Apellido</th>
-                <th>Tipo Documento</th>
-                <th>Número Documento</th>
-                <th>Fecha de Nacimiento</th>
-                <th>Teléfono</th>
-                <th>Departamento</th>
-                <th>Usuario</th>
-                <th>Cargo</th>
-                <th>Centro de Conciliación</th>
-                {#<th>Password</th>
-                <th>Expedido</th>
-                <th>Domicilio</th>
-                <th>Genero</th>
-                <th>Grado_academico</th>
-                <th>Profesion</th>
-                <th>Correo</th>
-                <th>Foto</th>
-                <th>Fecha_creacion</th>#}
-                <th>Activo</th>
-                <th>Acciones</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for usuario in usuarios %}
-                <tr>
-                    <td>{{ usuario.id }}</td>
-                    <td>{{ usuario.nombres }}</td>
-                    <td>{{ usuario.primerApellido }}</td>
-                    <td>{{ usuario.segundoApellido }}</td>
-                    <td>{{ usuario.tipoDocumento }}</td>
-                    <td>{{ usuario.numeroDocumento }}</td>
-                    <td>{{ usuario.fechaNacimiento|date('d-m-Y')}}</td>
-                    <td>{{ usuario.telefono }}</td>
-                    <td>{{ usuario.departamento }}</td>
-                    <td>{{ usuario.username }}</td>
-                    <td>{{ usuario.roles ? usuario.roles|json_encode : '' }}</td>
-                    <td>{{ usuario.centro }}</td>
-                    {#<td>{{ usuario.password }}</td>
-                    <td>{{ usuario.expedido }}</td>
-                    <td>{{ usuario.domicilio }}</td>#}
-                    {#<td>{{ usuario.genero }}</td>
-                    <td>{{ usuario.gradoAcademico }}</td>
-                    <td>{{ usuario.profesion }}</td>
-                    <td>{{ usuario.correo }}</td>
-                    <td>{{ usuario.foto }}</td>
-                    <td>{{ usuario.fechaCreacion|date('d-m-Y H:i:s')}}</td>#}
-                    <td>{{ usuario.activo ? 'Si' : 'No' }}</td>
-                    <td>
-                        <a class="btn btn-success" href="{{ path('usuario_show', {'id': usuario.id}) }}">
-                            <i class="bi bi-eye-fill"></i>
-                            Ver
-                        </a>
-                        <a class="btn btn-info" href="{{ path('usuario_edit', {'id': usuario.id}) }}">
-                            <i class="bi bi-pencil-square"></i>
-                            Editar
-                        </a>
-                    </td>
-                </tr>
-            {% else %}
-                <tr>
-                    <td colspan="22">No se encontraron registros</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-    </div>
 {% endblock %}

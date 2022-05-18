@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Editar caso | {{ parent }}
+{% endblock %}
+
+{% block body %}
+    <h2>Editar Caso</h2>
+    {# FOMULARIO CASO #}
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+        <button class="btn btn-success">
+            <i class="bi bi-bookmark-check"></i>
+            {{ button-label | default('Actualizar') }}
+        </button>
+    {{ form_end(form) }}
+    {# BOTON VOLVER #}
+    <a class="btn btn-primary" href="{{ path('caso_index') }}">
+        <i class="bi bi-arrow-left-square"></i>
+        Volver
+    </a>
+    {# ELIMINAR #}
+    <form method="post" action="{{ path('caso_eliminar', {'id':caso.id}) }}"
+          onsubmit="return confirm('¿Esta seguro de eliminar este CASO?');">
+        <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ caso.id) }}">
+        <button class="btn btn-danger">
+            <i class="bi bi-trash-fill"></i>
+            Eliminar
+        </button>
+    </form>
+
+{% endblock %}

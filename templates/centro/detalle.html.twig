@@ -1,0 +1,89 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Detalle Centro°{{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {# <div class="container-sm"> #}
+        <div class="card card-success card-outline">
+            <div class="card-header">
+                <h1 class="card-title">Datos del Centros: <strong>{{ centro.nombre }}</strong></h1>
+                <br>
+                <h1 class="card-title">Matricula: <strong>{{ centro.matricula }}</strong> </h1>
+                <div class="card-tools">
+                    <a class="btn btn-primary" href="{{ path('centro_index') }}">
+                        <i class="bi bi-arrow-left-circle"></i>
+                        Volver
+                    </a>
+                    <a class="btn btn-info" href="">
+                        <i class="bi bi-pencil-square"></i>
+                        Editar
+                    </a>
+                </div>
+            </div>
+            <div class="card-body">
+                <table class="table table-striped table-sm">
+                    <tbody>
+                    <tr>
+                        <th>ID</th>
+                        <td>{{ centro.id }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nombre del Centro</th>
+                        <td>{{ centro.nombre }}</td>
+                    </tr>
+                    <tr>
+                        <th>Matricula</th>
+                        <td>{{ centro.matricula }}</td>
+                    </tr>
+                    <tr>
+                        <th>Resolución</th>
+                        <td>{{ centro.resolucion }}</td>
+                    </tr>
+                    <tr>
+                        <th>Fecha de Autorización</th>
+                        <td>{{ centro.vigencia|date('d-m-y')}}</td>
+                    </tr>
+                    <tr>
+                        <th>Tipo de Centro</th>
+                        <td>{{ centro.tipo }}</td>
+                    </tr>
+                    <tr>
+                        <th>Nombre del Representante Legal</th>
+                        <td>{{ centro.representante }}</td>
+                    </tr>
+                    <tr>
+                        <th>Cargo del Representante Legal</th>
+                        <td>{{ centro.cargoRepresentante }}</td>
+                    </tr>
+                    <tr>
+                        <th>Dirección</th>
+                        <td>{{ centro.direccion }}</td>
+                    </tr>
+                    <tr>
+                        <th>Zona</th>
+                        <td>{{ centro.zona }}</td>
+                    </tr>
+                    <tr>
+                        <th>Departamento</th>
+                        <td>{{ centro.departamento }}</td>
+                    </tr>
+                    <tr>
+                        <th>Teléfono o Celular</th>
+                        <td>{{ centro.telefono }}</td>
+                    </tr>
+                    <tr>
+                        <th>Correo Electronico</th>
+                        <td>{{ centro.correo }}</td>
+                    </tr>
+                    <tr>
+                        <th>Número de Fax</th>
+                        <td>{{ centro.fax }}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    {# </div> #}
+{% endblock %}

@@ -1,0 +1,217 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Casos|{{ parent() }}
+{% endblock %}
+
+{% block body %}
+    {# <div class="container align-items-stretch"> CONTENEDOR #}
+        <div class="card card-primary card-outline"> {# CARD #}
+            <h2 class="card-header font-weight-bold">Casos Conciliatorios</h2>{# TITULO DL CARD #}
+            <div class="card-body p-2">{# CUERPO DEL CARD #}
+
+                <div class="d-flex bd-highlight mb-1">
+                    <div class="p-1 bd-highlight">
+                        <a class="btn btn-primary" href="{{ path('principal') }}">
+                            <i class="bi bi-arrow-left-square"></i>
+                            Volver
+                        </a>
+
+                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#crearModal">
+                            Nuevo Modal
+                        </button>
+
+                        <a class="btn btn-success" href="#">
+                            <i class="bi bi-plus-square"></i>
+                            Nuevo Registro
+                        </a>
+                    </div>
+                    <div class="ml-auto p-1 bd-highlight">
+                        <a class="btn btn-warning" href="">
+                            Cantidad de Casos Registrados:
+                        </a>
+                    </div>
+                </div>
+                <hr>
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Fecha de Registro</th>
+                        <th>Materia</th>
+                        <th>Tipo de Conciliación</th>
+                        <th>Idioma</th>
+                        <th>Invitación</th>
+                        <th>Documento</th>
+                        <th>Etapa</th>
+                        <th>Estado</th>
+                        <th>Acciones</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for casoConciliatorio in casos %}
+                        <tr>
+                            <td>{{ casoConciliatorio.id }}</td>
+                            <td>{{ casoConciliatorio.fecha|date('d-m-Y') }}</td>
+                            <td>{{ casoConciliatorio.materia }}</td>
+                            <td>{{ casoConciliatorio.tipoConciliacion }}</td>
+                            <td>{{ casoConciliatorio.idioma }}</td>
+                            <td>{{ casoConciliatorio.invitacion }}</td>
+                            <td>{{ casoConciliatorio.documento }}</td>
+                            <td>{{ casoConciliatorio.etapa }}</td>
+                            <td>{{ casoConciliatorio.estado }}</td>
+                            <td>
+                                <div class="text-center btn-group">
+                                    <a class="btn btn-success btn-sm" href="{{ path('caso_detalle',{'id':casoConciliatorio.id}) }}">
+                                        <i class="bi bi-eye-fill"></i>
+                                        Ver
+                                    </a>
+                                    <a class="btn btn-info btn-sm" href="{{ path('caso_edit',{'id':casoConciliatorio.id}) }}">
+                                        <i class="bi bi-pencil-square"></i>
+                                        Editar
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                        {#
+                        {% set submit_url = path('caso_nuevo') %}
+                        {% include '_modal.html.twig' with {url: submit_url} %}
+                        #}
+                    {% else %}
+                        <tr>
+                            <td colspan="9">No se registraron CASOS</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="card-footer"> {# PIE DEL CARD #}
+                Footer del CARD- Paginacion de los Casos
+            </div>
+        </div>
+    {# </div> #}
+
+
+    {# MODAL #}
+    <div class="modal fade" id="crearModal" tabindex="-1" role="dialog" aria-labelledby="añadirRegistro" aria-hidden="true">
+        {# {{ form_start(casos) }}  #}
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <!--CABEZERA DEL MODAL -->
+                <div class="modal-header bg-primary">
+                    <h4 class="modal-title" id="añadirRegistro">Nuevo Registro de Caso</h4>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Cerrar">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <!-- CUERPO DEL MODAL -->
+                <div class="modal-body">
+
+
+                </div>
+                <!-- PIE DEL MODAL -->
+                <div class="modal-footer justify-content-between">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-success">Guardar</button>
+                </div>
+
+            </div>
+        </div>
+        {# {{ form_end(casos) }} #}
+    </div>
+
+    {#
+    <script>
+        $("btnNuevo").click(function (){
+            $(".modal-header").css("background-color", "#0000FF");
+
+            $(".modal-title").text("Nuevo Centro");
+            $("modalCRUD").modal("show");
+        })
+    </script>
+    #}
+
+
+{% endblock %}
+
+{#
+<div class="card-body p-2">
+    <div class="d-flex bd-highlight mb-1">
+        <div class="p-1 bd-highlight">
+            <a class="btn btn-primary" href="{{ path('principal') }}">
+                <i class="bi bi-arrow-left-square"></i>
+                Volver
+            </a>
+            <a class="btn btn-success" href="">
+                <i class="bi bi-plus-square"></i>
+                Nuevo
+            </a>
+        </div>
+        <div class="ml-auto p-1 bd-highlight">
+            <a class="btn btn-warning">
+                Cantidad de Casos Registrados:
+            </a>
+        </div>
+    </div>
+    <hr>
+    <table id="" class="table table-responsive table-hover justify-content-center table-sm">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Fecha de Registro</th>
+            <th>Materia</th>
+            <th>Tipo de Conciliación</th>
+            <th>Idioma</th>
+            <th>Invitación</th>
+            <th>Documento</th>
+            <th>Etapa</th>
+            <th>Estado</th>
+            <th>Acciones</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for casosConciliatorio in casos %}
+            <tr>
+                <td>{{ casosConciliatorio.id }}</td>
+                <td>{{ casosConciliatorio.fecha|date('d-m-Y') }}</td>
+                <td>{{ casosConciliatorio.materia }}</td>
+                <td>{{ casosConciliatorio.tipoConciliacion }}</td>
+                <td>{{ casosConciliatorio.idioma }}</td>
+                <td>{{ casosConciliatorio.invitacion }}</td>
+                <td>{{ casosConciliatorio.documento }}</td>
+                <td>{{ casosConciliatorio.etapa }}</td>
+                <td>{{ casosConciliatorio.estado }}</td>
+                <td>
+                    <div class="text-center">
+                        <div class="btn-group">
+                            <a class="btn btn-success btn-sm" href="{{ path('',{'id':casoConciliatorio.id}) }}">
+                                <i class="bi bi-eye-fill"></i>
+                                Ver
+                            </a>
+                            <a class="btn btn-info btn-sm" href="">
+                                <i class="bi bi-pencil-square"></i>
+                                Editar
+                            </a>
+                        </div>
+                    </div>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="22">No se encontraron registros</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+#}
+
+{#
+<!-- MODAL -->
+<button id="btnNuevo" class="btn btn-success" type="button" data-toggle="modal" data-target="#nuevoCentro">
+    Abrir ventana modal
+</button>
+#}
+

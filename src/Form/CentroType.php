@@ -27,21 +27,25 @@ class CentroType extends AbstractType
                 'label' => 'Dirección'
             ])
             ->add('matricula', TextType::class,[
-                'label' => 'Matricula'
+                'label' => 'Matricula',
+                'help' => 'Ej. SCA-M00/2000'
             ])
             ->add('resolucion', TextType::class,[
-                'label' => 'Número de Resolución del Centro'
+                'label' => 'Número de Resolución del Centro',
+                'help' => 'Ej. 015/2000'
             ])
             ->add('vigencia', DateType::class,[
-                'label' => 'Vigenci de la Matricula',
+                'label' => 'Vigencia de la Matricula',
                 'widget' => 'single_text'
             ])
             ->add('tipo', ChoiceType::class,[
                 'label' => 'Tipo de Centro',
-                'placeholder' => 'Seleccione una opción',
+                'required' => true,
+                'multiple' => false,
+                'expanded' => true,
                 'choices' => [
                     'PRIVADO' => 'Privado',
-                    'PUBLICO' => 'Publico',
+                    'PUBLICO' => 'Publico'
                 ]
             ])
             ->add('representante', TextType::class,[
@@ -52,7 +56,7 @@ class CentroType extends AbstractType
             ])
             ->add('departamento', ChoiceType::class,[
                 'label' => 'Departamento',
-                'placeholder' => 'Seleccione una opción',
+                'placeholder' => 'Seleccione un departamento',
                 'choices' => [
                     'BENI' => 'Beni',
                     'CHUQUISACA' => 'Chuquisaca',
@@ -96,9 +100,10 @@ class CentroType extends AbstractType
                     ])
                 ]
             ])
-            ->add('guardar', SubmitType::class,[
-                'label' => 'Guardar'
-            ])
+
+            //->add('guardar', SubmitType::class,[
+            //    'label' => 'Guardar'
+            //])
         ;
     }
 
