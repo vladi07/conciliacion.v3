@@ -5,18 +5,16 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container-sm">
+    {# <div class="container-sm"> #}
         <div class="card card-success card-outline">
             <div class="card-header"> {# CARD CABEZERA #}
                 <h2 class="card-title">Detalle del Caso: <strong>{{ usuario }}</strong></h2>
                 <div class="card-tools">
                     <a class="btn btn-primary" href="{{ path('caso_index') }}">
-                        <i class="bi bi-arrow-left-square"></i>
-                        Volver
+                        <i class="bi bi-arrow-left-square"></i> Volver
                     </a>
                     <a class="btn btn-info" href="">
-                        <i class="bi bi-pencil-square"></i>
-                        Editar Datos
+                        <i class="bi bi-pencil-square"></i> Editar Datos
                     </a>
                     {{ include('caso/eliminar.html.twig') }}
                 </div>
@@ -56,5 +54,5 @@
                 </table>
             </div>
         </div>
-    </div>
+    {# </div> #}
 {% endblock %}

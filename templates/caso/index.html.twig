@@ -9,19 +9,13 @@
         <div class="card card-primary card-outline"> {# CARD #}
             <h2 class="card-header font-weight-bold">Casos Conciliatorios</h2>{# TITULO DL CARD #}
             <div class="card-body p-2">{# CUERPO DEL CARD #}
-
                 <div class="d-flex bd-highlight mb-1">
                     <div class="p-1 bd-highlight">
                         <a class="btn btn-primary" href="{{ path('principal') }}">
                             <i class="bi bi-arrow-left-square"></i>
                             Volver
                         </a>
-
-                        <button type="button" class="btn btn-success" data-toggle="modal" data-target="#crearModal">
-                            Nuevo Modal
-                        </button>
-
-                        <a class="btn btn-success" href="#">
+                        <a class="btn btn-success" href="{{ path('caso_nuevo') }}">
                             <i class="bi bi-plus-square"></i>
                             Nuevo Registro
                         </a>
@@ -35,18 +29,18 @@
                 <hr>
                 <table class="table">
                     <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Fecha de Registro</th>
-                        <th>Materia</th>
-                        <th>Tipo de Conciliación</th>
-                        <th>Idioma</th>
-                        <th>Invitación</th>
-                        <th>Documento</th>
-                        <th>Etapa</th>
-                        <th>Estado</th>
-                        <th>Acciones</th>
-                    </tr>
+                        <tr>
+                            <th>Id</th>
+                            <th>Fecha de Registro</th>
+                            <th>Materia</th>
+                            <th>Tipo de Conciliación</th>
+                            <th>Idioma</th>
+                            <th>Invitación</th>
+                            <th>Documento</th>
+                            <th>Etapa</th>
+                            <th>Estado</th>
+                            <th>Acciones</th>
+                        </tr>
                     </thead>
                     <tbody>
                     {% for casoConciliatorio in casos %}
@@ -66,17 +60,13 @@
                                         <i class="bi bi-eye-fill"></i>
                                         Ver
                                     </a>
-                                    <a class="btn btn-info btn-sm" href="{{ path('caso_edit',{'id':casoConciliatorio.id}) }}">
+                                    <a class="btn btn-info btn-sm" href="{{ path('caso_editar',{'id':casoConciliatorio.id}) }}">
                                         <i class="bi bi-pencil-square"></i>
                                         Editar
                                     </a>
                                 </div>
                             </td>
                         </tr>
-                        {#
-                        {% set submit_url = path('caso_nuevo') %}
-                        {% include '_modal.html.twig' with {url: submit_url} %}
-                        #}
                     {% else %}
                         <tr>
                             <td colspan="9">No se registraron CASOS</td>
@@ -85,14 +75,16 @@
                     </tbody>
                 </table>
             </div>
-
             <div class="card-footer"> {# PIE DEL CARD #}
                 Footer del CARD- Paginacion de los Casos
             </div>
         </div>
     {# </div> #}
 
-
+    {# BOTON MODAL #}
+    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#crearModal">
+        Abrir Modal
+    </button>
     {# MODAL #}
     <div class="modal fade" id="crearModal" tabindex="-1" role="dialog" aria-labelledby="añadirRegistro" aria-hidden="true">
         {# {{ form_start(casos) }}  #}
@@ -105,113 +97,16 @@
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
-
                 <!-- CUERPO DEL MODAL -->
                 <div class="modal-body">
-
-
                 </div>
                 <!-- PIE DEL MODAL -->
                 <div class="modal-footer justify-content-between">
                     <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                     <button type="submit" class="btn btn-success">Guardar</button>
                 </div>
-
             </div>
         </div>
-        {# {{ form_end(casos) }} #}
     </div>
-
-    {#
-    <script>
-        $("btnNuevo").click(function (){
-            $(".modal-header").css("background-color", "#0000FF");
-
-            $(".modal-title").text("Nuevo Centro");
-            $("modalCRUD").modal("show");
-        })
-    </script>
-    #}
-
 
 {% endblock %}
-
-{#
-<div class="card-body p-2">
-    <div class="d-flex bd-highlight mb-1">
-        <div class="p-1 bd-highlight">
-            <a class="btn btn-primary" href="{{ path('principal') }}">
-                <i class="bi bi-arrow-left-square"></i>
-                Volver
-            </a>
-            <a class="btn btn-success" href="">
-                <i class="bi bi-plus-square"></i>
-                Nuevo
-            </a>
-        </div>
-        <div class="ml-auto p-1 bd-highlight">
-            <a class="btn btn-warning">
-                Cantidad de Casos Registrados:
-            </a>
-        </div>
-    </div>
-    <hr>
-    <table id="" class="table table-responsive table-hover justify-content-center table-sm">
-        <thead>
-        <tr>
-            <th>Id</th>
-            <th>Fecha de Registro</th>
-            <th>Materia</th>
-            <th>Tipo de Conciliación</th>
-            <th>Idioma</th>
-            <th>Invitación</th>
-            <th>Documento</th>
-            <th>Etapa</th>
-            <th>Estado</th>
-            <th>Acciones</th>
-        </tr>
-        </thead>
-        <tbody>
-        {% for casosConciliatorio in casos %}
-            <tr>
-                <td>{{ casosConciliatorio.id }}</td>
-                <td>{{ casosConciliatorio.fecha|date('d-m-Y') }}</td>
-                <td>{{ casosConciliatorio.materia }}</td>
-                <td>{{ casosConciliatorio.tipoConciliacion }}</td>
-                <td>{{ casosConciliatorio.idioma }}</td>
-                <td>{{ casosConciliatorio.invitacion }}</td>
-                <td>{{ casosConciliatorio.documento }}</td>
-                <td>{{ casosConciliatorio.etapa }}</td>
-                <td>{{ casosConciliatorio.estado }}</td>
-                <td>
-                    <div class="text-center">
-                        <div class="btn-group">
-                            <a class="btn btn-success btn-sm" href="{{ path('',{'id':casoConciliatorio.id}) }}">
-                                <i class="bi bi-eye-fill"></i>
-                                Ver
-                            </a>
-                            <a class="btn btn-info btn-sm" href="">
-                                <i class="bi bi-pencil-square"></i>
-                                Editar
-                            </a>
-                        </div>
-                    </div>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="22">No se encontraron registros</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
-</div>
-#}
-
-{#
-<!-- MODAL -->
-<button id="btnNuevo" class="btn btn-success" type="button" data-toggle="modal" data-target="#nuevoCentro">
-    Abrir ventana modal
-</button>
-#}
-

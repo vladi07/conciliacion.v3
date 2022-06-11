@@ -5,19 +5,39 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Registrar Caso</h1>
-
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button class="btn btn-success">
-            <i class="bi bi-bookmark-check"></i>
-            {{ button-label | default('Guardar') }}
-        </button>
-    {{ form_end(form) }}
-
-    <a class="btn btn-primary" href="{{ path('caso_index') }}">
-        <i class="bi bi-arrow-left-square"></i>
-        Volver
-    </a>
-
+    <div class="container d-flex justify-content-center">
+        <div class="card card-success">
+            <div class="card-header">
+                <h3 class="card-title">Registrar Nuevo Caso</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widgett="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                {{ form_start(form) }}
+                    <div class="row">
+                        {{ form_row(form.descripcion) }}
+                        <div class="col">
+                            {{ form_row(form.materia) }}
+                        </div>
+                        <div class="col">
+                            {{ form_row(form.tipo_conciliacion) }}
+                        </div>
+                        {{ form_row(form.documento) }}
+                    </div>
+                {# {{ form_widget(form) }} #}
+                    <div class="card-footer">
+                        <button class="btn btn-success">
+                            <i class="bi bi-bookmark-check"></i> Guardar
+                        </button>
+                        <a class="btn btn-primary" href="{{ path('caso_index') }}">
+                            <i class="bi bi-arrow-left-square"></i> Volver
+                        </a>
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
 {% endblock %}

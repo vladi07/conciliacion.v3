@@ -5,12 +5,63 @@
 {% endblock %}
 
 {% block body %}
-    <h1>Registrar Nuevo Usuario</h1>
-
+    <div class="container justify-content-center">
+        <div class="card card-success">
+            <div class="card-header">
+                <h3 class="card-title">REGISTRAR NUEVO USUARIO</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widgett="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                {{ form_start(formulario) }}
+                    <div class="row">
+                        <div class="col">
+                            {{ form_row(formulario.username) }}
+                            {{ form_row(formulario.nombres) }}
+                            {{ form_row(formulario.tipo_documento) }}
+                            {{ form_row(formulario.fecha_nacimiento) }}
+                        </div>
+                        <div class="col">
+                            {{ form_row(formulario.password) }}
+                            {{ form_row(formulario.primer_apellido) }}
+                            {{ form_row(formulario.numero_documento) }}
+                            {{ form_row(formulario.telefono) }}
+                        </div>
+                        <div class="col">
+                            {{ form_row(formulario.roles) }}
+                            {{ form_row(formulario.segundo_apellido) }}
+                            {{ form_row(formulario.expedido) }}
+                            {{ form_row(formulario.genero) }}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            {{ form_row(formulario.domicilio) }}
+                            {{ form_row(formulario.grado_academico) }}
+                            {{ form_row(formulario.correo) }}
+                            {{ form_row(formulario.centro) }}
+                        </div>
+                        <div class="col">
+                            {{ form_row(formulario.departamento) }}
+                            {{ form_row(formulario.profesion) }}
+                            {{ form_row(formulario.foto) }}
+                            {{ form_row(formulario.activo) }}
+                        </div>
+                    </div>
+                    <button class="btn btn-success">
+                        <i class="bi bi-bookmark-check"></i> Guardar
+                    </button>
+                    <a class="btn btn-primary" href="{{ path('usuario_index') }}">
+                        <i class="bi bi-arrow-left-square"></i> Volver
+                    </a>
+                {{ form_end(formulario) }}
+            </div>
+        </div>
+    </div>
+    {#
     {{ include('usuario/_form.html.twig') }}
-
-    <a class="btn btn-primary" href="{{ path('usuario_index') }}">
-        <i class="bi bi-arrow-left-square"></i>
-        Volver
-    </a>
+    #}
 {% endblock %}

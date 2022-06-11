@@ -12,7 +12,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 #[ORM\Entity(repositoryClass: UsuarioRepository::class)]
 class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
 {
-    const REGISTRO_EXITOSO = "Se ha registrado exitosamente";
+    const REGISTRO_EXITOSO = "Se ha registrado exitosamente al Usuario";
+    const MODIFICACION_EXITOSA = "Se ha modificado exitosamente los Datos del Usuario";
 
     #[ORM\Id]
     #[ORM\GeneratedValue]

@@ -1,0 +1,71 @@
+{% extends'base.html.twig' %}
+
+{% block title %}
+    Nueva Conciliación|{{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="container justify-content-center">
+        <div class="card card-success">
+            <div class="card-header">
+                <h3 class="card-title">NUEVO CASO CONCILIATORIO</h3>
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widgett="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="card-body">
+                {{ form_start(form) }}
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.materia) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.tipo_conciliacion) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.descripcion) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.idioma) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(form.estado) }}
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(form.etapa) }}
+                        {{ form_row(form.invitacion ) }}
+                        {{ form_row(form.documento) }}
+                        {#
+                        {{ form_row(formulario.telefono) }}
+                        {{ form_row(formulario.correo) }}
+                        #}
+                    </div>
+                    {#
+                    <div class="col">
+                        {{ form_row(formulario.cargo_representante) }}
+                        {{ form_row(formulario.ciudad) }}
+                        {{ form_row(formulario.zona) }}
+                        {{ form_row(formulario.fax) }}
+                        {{ form_row(formulario.documento) }}
+                    </div>
+                    #}
+                </div>
+                <button class="btn btn-success">
+                    <i class="bi bi-bookmark-check"></i>
+                    Guardar
+                </button>
+                <a class="btn btn-primary" href="{{ path('conciliacion_index') }}">
+                    <i class="bi bi-arrow-left-square"></i>
+                    Volver
+                </a>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

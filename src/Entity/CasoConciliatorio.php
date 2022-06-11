@@ -11,6 +11,7 @@ use Doctrine\ORM\Mapping as ORM;
 class CasoConciliatorio
 {
     const REGISTRO_EXITOSO = "Se ha registrado exitosamente";
+    const REGISTRO_CASO_EXITOSO = "Se ha registrado el caso exitosamente";
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -81,10 +82,21 @@ class CasoConciliatorio
     public function __construct()
     {
         $this->fecha = new \DateTime();
-        $this->usuario_externo = new ArrayCollection();
+        //$this->usuario_externo = new ArrayCollection();
         $this->usuario = new ArrayCollection();
-        $this->sala = new ArrayCollection();
-        $this->agenda = new ArrayCollection();
+        //$this->sala = new ArrayCollection();
+        //$this->agenda = new ArrayCollection();
+        //$this->usuario = '';
+        $this->usuario_externo = '';
+        $this->sala = '';
+        $this->agenda ='';
+        $this->estado ='Nuevo';
+        $this->invitacion = '';
+        $this->fecha_audiencia = new \DateTime();
+        //$this->fecha_rechazo = '';
+        $this->motivo_rechazo = '';
+
+
     }
 
     public function __toString()

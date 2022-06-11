@@ -10,7 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CentroRepository::class)]
 class Centro
 {
-    const REGISTRO_EXITOSO = "Se ha registrado exitosamente";
+    const REGISTRO_EXITOSO = "Se ha registrado exitosamente el Centro";
+    const MODIFICACION_EXITOSA = "Se ha modificado exitosamente los Datos del Centro";
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -80,6 +81,7 @@ class Centro
         $this->caso_conciliatorio = new ArrayCollection();
         $this->sala = new ArrayCollection();
         $this->actividad = new ArrayCollection();
+        $this->matricula = 'SCA- M';
     }
 
     public function __toString()

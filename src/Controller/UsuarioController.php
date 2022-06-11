@@ -28,8 +28,6 @@ class UsuarioController extends AbstractController
     #[Route('/', name: 'usuario_index', methods: ['GET'])]
     public function index(UsuarioRepository $usuarioRepository): Response
     {
-        $this->addFlash('success', Usuario::REGISTRO_EXITOSO);
-
         return $this->render('usuario/index.html.twig', [
             'usuarios' => $usuarioRepository->findBy([],['nombres'=>'ASC']),
         ]);
@@ -61,12 +59,13 @@ class UsuarioController extends AbstractController
 
             $entityManager->persist($usuario);
             $entityManager->flush();
+            $this->addFlash('success', Usuario::REGISTRO_EXITOSO);
 
             return $this->redirectToRoute('usuario_index', [], Response::HTTP_SEE_OTHER);
         }
         return $this->renderForm('usuario/new.html.twig', [
             'usuario' => $usuario,
-            'form' => $form,
+            'formulario' => $form,
         ]);
     }
 
@@ -87,14 +86,15 @@ class UsuarioController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             //Enriptamos el Password
             $usuario -> setPassword($passwordEncoder -> encodePassword($usuario, $form['password']->getData()));
-
             $entityManager->flush();
+
+            $this->addFlash('alert', Usuario::MODIFICACION_EXITOSA);
             return $this->redirectToRoute('usuario_index', [], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('usuario/edit.html.twig', [
             'usuario' => $usuario,
-            'form' => $form,
+            'formulario' => $form,
         ]);
     }
 

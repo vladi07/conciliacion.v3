@@ -387,19 +387,18 @@
             Envoltorio de contenido. Contiene contenido de página-->
             <div class="content-wrapper bg-transparent">
                 <!-- Content Header (Page header)
-                 Encabezado de contenido (encabezado de página)-->
+                 Encabezado de contenido (NOMBRE DEL CENTRO)-->
                 <div class="content-header">
-                    <div class="container-fluid">
-                        <div class="row mb-2 text-right">
-                            <div class="col-sm-12">
-                                <h2 class="m-0 font-weight-bold">{{ app.user.centro }}</h2>
-                            </div><!-- /.col -->
-                        </div><!-- /.row -->
+                    <div class="container-fluid row mb-2 text-right">
+                        {# <div class="">  #}
+                        <div class="col-sm-12">
+                            <h2 class="m-0 font-weight-bold">{{ app.user.centro }}</h2>
+                        </div><!-- /.col -->
+                        {# </div><!-- /.row --> #}
                     </div><!-- /.container-fluid -->
-                </div>
-                <!-- /.content-header -->
+                </div> <!-- /.content-header -->
 
-                <!-- Main content -->
+                <!-- MAIN CONTENT -->
                 <section class="content">
                     <div class="container-fluid">
                         {% block body %}
@@ -447,11 +446,9 @@
                             </div>
                         </div>
                         #}
-                    </div><!-- /.container-fluid -->
-                </section>
-                <!-- /.content -->
-            </div>
-            <!-- /.content-wrapper -->
+                    </div> <!-- /.container-fluid -->
+                </section> <!-- /.content -->
+            </div> <!-- /.content-wrapper -->
 
             <!-- Main Footer -->
             <footer class="main-footer">
@@ -461,8 +458,7 @@
                 <div class="float-right d-none d-sm-inline-block">
                     <b>Version</b> 1.0
                 </div>
-            </footer>
-            <!-- /. Main Footer -->
+            </footer> <!-- /. Main Footer -->
 
         {# </div> #}
         <!-- ./wrapper -->

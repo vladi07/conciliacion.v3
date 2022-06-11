@@ -143,7 +143,7 @@ class UsuarioType extends AbstractType
                 'expanded' => false,
             ])
             ->add('activo', CheckboxType::class, [
-                'label' => 'Activo',
+                'label' => '¿Habilitar usuario?',
                 'label_attr' => ['class' => 'switch-custom'],
                 'required' => false,
             ])

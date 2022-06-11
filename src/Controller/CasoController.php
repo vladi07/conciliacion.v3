@@ -7,6 +7,7 @@ use App\Form\CasoType;
 use App\Repository\CasoConciliatorioRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,51 +15,47 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/caso')]
 class CasoController extends AbstractController
 {
-    #[Route('/', name: 'caso_index', methods:['GET','POST'])]
-    public function index(CasoConciliatorioRepository $casoConciliatorioRepository, Request $request, EntityManagerInterface $entityManager): Response
+    #[Route('/', name: 'caso_index', methods:['GET'])]
+    public function index(CasoConciliatorioRepository $casoConciliatorioRepository): Response
     {
         $this -> addFlash('success', CasoConciliatorio::REGISTRO_EXITOSO);
 
-        $caso = new CasoConciliatorio();
-        $formulario = $this->createForm(CasoType::class,$caso);
-        $formulario->handleRequest($request);
-        $mensaje = "";
-        if ($formulario->isSubmitted()&&$formulario->isValid()){
-            $entityManager->persist($caso);
-            $entityManager->flush();
-
-            return $this->redirectToRoute('caso_index');
-        }else{
-            $mensaje = "Los datos son incorrectos";
-        }
-
-        //$casos = $casoConciliatorioRepository -> findBy([],['id'=>'ASC']);
-
         return $this->render('caso/index.html.twig', [
             'casos' => $casoConciliatorioRepository ->findBy([],['id' => 'DESC']),
-            'formulario' => $formulario->createView(),
         ]);
     }
 
     #[Route('/nuevo', name: 'caso_nuevo', methods:['GET','POST']) ]
-    public function nuevo(Request $request, EntityManagerInterface $entityManager){
+    public function nuevo(Request $request, EntityManagerInterface $entityManager, string $docDir):Response
+    {
         $caso = new CasoConciliatorio();
         $formulario = $this->createForm(CasoType::class, $caso);
         $formulario -> handleRequest($request);
-        $mensaje = "";
-        if ($formulario->isSubmitted()&&$formulario->isValid()){
+        $mensaje = '';
+        if ($formulario->isSubmitted() && $formulario->isValid()){
             //$this->addFlash('success','Nuevo Registro');
+            //$usuario = $this->getUser();
+            //$caso->addUsuario($usuario);
+            if ($documento = $formulario['documento']->getData()){
+                $nombreDocumento = bin2hex(random_bytes(4)).'.'.$documento->guessExtension();
+                try {
+                    $documento->move($docDir, $nombreDocumento);
+                }catch (FileException $exception){
+                    //no se pudo cargar el archivo
+                }
+                $caso -> setDocumento($nombreDocumento);
+            }
             $entityManager->persist($caso);
             $entityManager->flush();
 
             return $this->redirectToRoute('caso_index');
         }else{
-            $mensaje = "Los datos son invalidos";
+            $mensaje = 'Los datos son invalidos';
         }
-        //$template = $request->isXmlHttpRequest() ? 'nuevo.html.twig';
-        return  $this->render('caso/index.html.twig',[
+
+        return  $this->renderForm('caso/nuevo.html.twig',[
            'caso' => $caso,
-           'form' => $formulario->createView(),
+           'form' => $formulario,
         ]);
     }
 
@@ -76,7 +73,7 @@ class CasoController extends AbstractController
         $formulario = $this->createForm(CasoType::class, $casoConciliatorio);
         $formulario->handleRequest($request);
 
-        if ($formulario->isSubmitted() && $formulario->isValid()){
+        if ($formulario->isSubmitted() && $formulario->isValid()) {
             $entityManager->flush();
             return $this->redirectToRoute('caso_index');
         }
@@ -87,42 +84,12 @@ class CasoController extends AbstractController
     }
 
     #[Route('/{id}', name:'caso_eliminar', methods:['POST'])]
-    public function eliminar(): Response
+    public function eliminar(Request $request, CasoConciliatorio $casoConciliatorio, EntityManagerInterface $entityManager): Response
     {
+        if ($this->isCsrfTokenValid('delete'.$casoConciliatorio->getId(), $request->request->get('_token'))) {
+            $entityManager->remove($casoConciliatorio);
+            $entityManager->flush();
+        }
         return $this->redirectToRoute('caso_index',[],Response::HTTP_SEE_OTHER);
     }
-
-    //**
-    // * Lista de los casos conciliatorios
-    // *
-    // */
-    /*
-    public function index(CasoConciliatorioRepository $casoConciliatorioRepository): Response
-    {
-        return $this -> render('caso/index.html.twig',[
-            'casos' => $casoConciliatorioRepository -> findAll(),
-        ]);
-    }
-
-    //**
-    // * Crear nuavo caso
-    // */
-    /*
-    public function nuevo(Request $request, EntityManagerInterface $entityManager){
-        $caso = new CasoConciliatorio();
-        $form = $this -> createForm(CasoConciliatorio::class,$caso);
-        $form -> handleRequest($request);
-
-        if ($form -> isSubmitted() && $form -> isValid() ) {
-            $entityManager -> persist($caso);
-            $entityManager -> flush();
-
-            return $this -> redirect($this->generateUrl('caso_detalle', array('id' => $caso->getId())));
-        }
-        return $this -> render('caso/index.html.twig',[
-            'caso' => $caso,
-            'form' => $form->createView(),
-        ]);
-    }
-    */
 }

@@ -91,6 +91,7 @@ class CentroType extends AbstractType
                 'required' => false
             ])
             ->add('documento', FileType::class,[
+                'label' => 'Documentación de respaldo',
                 'required' => false,
                 'mapped' => false,
                 'constraints' => [

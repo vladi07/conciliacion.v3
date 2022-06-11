@@ -1,0 +1,10 @@
+
+
+<form method="post" action="{{ path('centro_eliminar', {'id': centro.id}) }}"
+      onsubmit="return confirm('¿Esta seguro de eliminar este CENTRO?');">
+    <input type="hidden" name="_method" value="DELETE">
+    <input type="hidden" name="_token" value="{{ csrf_token('delete' ~ centro.id) }}">
+    <button class="btn btn-danger">
+        <i class="bi bi-trash-fill"></i> Eliminar
+    </button>
+</form>
