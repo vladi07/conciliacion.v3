@@ -18,8 +18,6 @@ class CasoController extends AbstractController
     #[Route('/', name: 'caso_index', methods:['GET'])]
     public function index(CasoConciliatorioRepository $casoConciliatorioRepository): Response
     {
-        $this -> addFlash('success', CasoConciliatorio::REGISTRO_EXITOSO);
-
         return $this->render('caso/index.html.twig', [
             'casos' => $casoConciliatorioRepository ->findBy([],['id' => 'DESC']),
         ]);

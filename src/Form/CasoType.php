@@ -59,36 +59,35 @@ class CasoType extends AbstractType
                     'GUARANI' => 'Guarani',
                 ]
             ])
-            ->add('fecha_rechazo', null)
-            ->add('motivo_rechazo', TextareaType::class,[
-                'attr' => ['class' => 'tinymce'],
-            ])
-            ->add('estado', null)
-            ->add('etapa', null)
-            ->add('invitacion')
-            ->add('fecha_audiencia', DateType::class, [
-                'label' => 'Fecha de Audiencia',
-                'widget' => 'single_text',
-                'required' => false,
-            ])
-            ->add('hora_audiencia', TimeType::class,[
-                'input' => 'datetime',
-                'widget' => 'choice',
-                'required' => false,
-            ])
-            ->add('detalle_asistencia', ChoiceType::class,[
-                'label' => 'Solicitante(s):',
-                'multiple' => false,
-                'required' => true,
-                'expanded' => true,
-                'choices' => [
-                    'ASISTIO' => 'Asistio',
-                    'NO ASISTIO' => 'No Asistio'
-                ]
-            ])
-            ->add('fecha_asistencia', DateType::class, [
-                'required' => false,
-            ])
+            //->add('fecha_rechazo', null)
+            //->add('motivo_rechazo', TextareaType::class,[
+            //    'attr' => ['class' => 'tinymce'],
+            //])
+
+            //->add('invitacion')
+            //->add('fecha_audiencia', DateType::class, [
+            //    'label' => 'Fecha de Audiencia',
+            //    'widget' => 'single_text',
+            //    'required' => false,
+            //])
+            //->add('hora_audiencia', TimeType::class,[
+            //    'input' => 'datetime',
+            //    'widget' => 'choice',
+            //    'required' => false,
+            //])
+            //->add('detalle_asistencia', ChoiceType::class,[
+            //    'label' => 'Solicitante(s):',
+            //    'multiple' => false,
+            //    'required' => true,
+            //    'expanded' => true,
+            //    'choices' => [
+            //        'ASISTIO' => 'Asistio',
+            //        'NO ASISTIO' => 'No Asistio'
+            //    ]
+            //])
+            //->add('fecha_asistencia', DateType::class, [
+            //    'required' => false,
+            //])
             ->add('documento', FileType::class,[
                 'label' => 'Cargar archivo en PDF',
                 'required' => false, //Que no sea obligatorio
@@ -101,7 +100,8 @@ class CasoType extends AbstractType
                     ])
                 ],
             ])
-
+            ->add('estado', null)
+            ->add('etapa', null)
             //->add('centro')
             //->add('usuario_externo')
             ->add('usuario')

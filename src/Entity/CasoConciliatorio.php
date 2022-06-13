@@ -83,17 +83,13 @@ class CasoConciliatorio
     {
         $this->fecha = new \DateTime();
         //$this->usuario_externo = new ArrayCollection();
-        $this->usuario = new ArrayCollection();
+        //$this->usuario = new ArrayCollection();
         //$this->sala = new ArrayCollection();
         //$this->agenda = new ArrayCollection();
-        //$this->usuario = '';
-        $this->usuario_externo = '';
-        $this->sala = '';
-        $this->agenda ='';
         $this->estado ='Nuevo';
         $this->invitacion = '';
         $this->fecha_audiencia = new \DateTime();
-        //$this->fecha_rechazo = '';
+        $this->fecha_rechazo = new \DateTime();
         $this->motivo_rechazo = '';
 
 

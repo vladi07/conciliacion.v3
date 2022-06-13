@@ -23,8 +23,6 @@ class ConciliacionController extends AbstractController
     #[Route('/', name: 'conciliacion_index', methods:['GET', 'POST'])]
     public function index(UsuarioRepository $usuarioRepository, CentroRepository $centroRepository, CasoConciliatorioRepository $casoConciliatorioRepository): Response
     {
-        $this -> addFlash('success', CasoConciliatorio::REGISTRO_CASO_EXITOSO );
-
         $conciliacion = $casoConciliatorioRepository -> findBy([],['id'=>'DESC']);
 
         return $this->render('conciliacion/index.html.twig', [
@@ -33,19 +31,21 @@ class ConciliacionController extends AbstractController
     }
 
     #[Route ('/nuevo', name:'conciliacion_nuevo', methods:['GET','POST'])]
-    public function nuevo(CasoConciliatorio $casoConciliatorio, Request $request, EntityManagerInterface $entityManager): Response
+    public function nuevo(Usuario $usuario, Request $request, EntityManagerInterface $entityManager)
     {
         $conciliacion = new CasoConciliatorio();
-        $formulario = $this->createForm(CasoType::class, $conciliacion);
-        $formulario->handleRequest($request);
+        $form = $this->createForm(CasoType::class, $conciliacion);
+        $form -> handleRequest($request);
         $mensaje = "";
 
-        if ($formulario->isSubmitted() && $formulario->isValid()){
+        if ($form->isSubmitted() && $form->isValid()){
             //$conciliacion->setCentro($centro);
-            //$conciliacion->getUsuario();
+            $conciliacion->addUsuario($usuario);
 
             $entityManager->persist($conciliacion);
             $entityManager->flush();
+
+            $this->addFlash('success', CasoConciliatorio::REGISTRO_CASO_EXITOSO);
 
             return $this->redirectToRoute('conciliacion_index');
 
@@ -55,7 +55,7 @@ class ConciliacionController extends AbstractController
 
         return $this->renderForm('conciliacion/nuevo.html.twig',[
             'conciliacion' => $conciliacion,
-            'form'=>$formulario,
+            'formulario'=>$form,
         ]);
 
     }
