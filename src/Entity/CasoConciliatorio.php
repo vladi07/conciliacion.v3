@@ -84,10 +84,10 @@ class CasoConciliatorio
         //$this->sala = new ArrayCollection();
         //$this->agenda = new ArrayCollection();
         //$this->estado ='Nuevo';
-        $this->invitacion = '';
-        $this->fecha_audiencia = new \DateTime();
-        $this->fecha_rechazo = new \DateTime();
-        $this->motivo_rechazo = 'sin motivo';
+        //$this->invitacion = '';
+        //$this->fecha_audiencia = new \DateTime();
+        //$this->fecha_rechazo = new \DateTime();
+        //$this->motivo_rechazo = 'sin motivo';
     }
 
     public function __toString()

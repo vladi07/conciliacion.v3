@@ -16,7 +16,7 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CasoConciliatorioRepository extends ServiceEntityRepository
 {
-    public const PAGINATOR_PER_PAGE = 1;
+    public const PAGINATOR_PER_PAGE = 3;
 
     public function __construct(ManagerRegistry $registry)
     {
@@ -36,6 +36,16 @@ class CasoConciliatorioRepository extends ServiceEntityRepository
         return new Paginator($query);
     }
 
+    public function getCasosTratameinto(int $offset): Paginator
+    {
+        $consulta = $this->createQueryBuilder('cas')
+            ->orderBy('cas.fecha', 'ASC')
+            ->setMaxResults(self::PAGINATOR_PER_PAGE)
+            ->setFirstResult($offset)
+            ->getQuery()
+        ;
+        return new Paginator($consulta);
+    }
 
     // /**
     //  * @return CasoConciliatorio[] Returns an array of CasoConciliatorio objects

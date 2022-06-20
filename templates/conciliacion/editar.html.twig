@@ -1,14 +1,14 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Editar Conciliacion|{{ parent() }}
+    Datos|{{ parent() }}
 {% endblock %}
 
 {% block body %}
     <div class="container-sm">
         <div class="card card-warning card-outline">
             <div class="card-header">
-                <h2 class="card-title">Editar datos de la Conciliación: <strong>SCA N°{{ conciliacion.id }}/2022</strong></h2>
+                <h2 class="card-title">Información del Caso Conciliatorio: <strong>SCA N°{{ conciliacion.id }}/2022</strong></h2>
             </div>
             <div class="card-body">
                 {{ form_start(formulario) }}
@@ -35,10 +35,39 @@
                         {{ form_row(formulario.usuario) }}
                     </div>
                 </div>
-
                 <button class="btn btn-success">
                     <i class="bi bi-bookmark-check"></i> Actualizar
                 </button>
+                <hr>
+                {# AGENDAR INVITACION #}
+                <div class="card card-warning card-outline">
+                    <h4 class="card-title">Invitacion de Audiencia Conciliatoria</h4>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                {{ form_row(formulario.fecha_audiencia) }}
+                            </div>
+                            <div class="col">
+                                {{ form_row(formulario.hora_audiencia) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                {# AUDIENCIA CONCILIATORIA #}
+                <div class="card card-blue card-outline">
+                    <h4 class="card-title">Audiencia Conciliatoria</h4>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                {{ form_row(formulario.detalle_asistencia) }}
+                            </div>
+                            <div class="col">
+                                {{ form_row(formulario.fecha_asistencia) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 {{ form_end(formulario) }}
             </div>
         </div>

@@ -63,36 +63,44 @@ class CasoType extends AbstractType
                     'GUARANI' => 'Guarani',
                 ]
             ])
-            //->add('fecha_rechazo', null)
-            //->add('motivo_rechazo', TextareaType::class,[
-            //    'attr' => ['class' => 'tinymce'],
-            //])
+            ->add('fecha_rechazo', DateType::class,[
+                'label' => 'Fecha de Rechazo del Caso',
+                'widget' => 'single_text',
+                'required' => false,
+            ])
+            ->add('motivo_rechazo', TextareaType::class,[
+                'attr' => ['class' => 'tinymce'],
+                'required' => false,
+            ])
             //->add('estado', null)
             //->add('etapa', null)
             //->add('invitacion')
-            //->add('fecha_audiencia', DateType::class, [
-            //    'label' => 'Fecha de Audiencia',
-            //    'widget' => 'single_text',
-            //    'required' => false,
-            //])
-            //->add('hora_audiencia', TimeType::class,[
-            //    'input' => 'datetime',
-            //    'widget' => 'choice',
-            //    'required' => false,
-            //])
-            //->add('detalle_asistencia', ChoiceType::class,[
-            //    'label' => 'Solicitante(s):',
-            //    'multiple' => false,
-            //    'required' => true,
-            //    'expanded' => true,
-            //    'choices' => [
-            //        'ASISTIO' => 'Asistio',
-            //        'NO ASISTIO' => 'No Asistio'
-            //    ]
-            //])
-            //->add('fecha_asistencia', DateType::class, [
-            //    'required' => false,
-            //])
+            ->add('fecha_audiencia', DateType::class, [
+                'label' => 'Fecha de Audiencia',
+                'widget' => 'single_text',
+                'required' => false,
+            ])
+            ->add('hora_audiencia', TimeType::class,[
+                'label' => 'Hora de Audiencia',
+                'input' => 'datetime',
+                'widget' => 'choice',
+                'required' => false,
+            ])
+            ->add('detalle_asistencia', ChoiceType::class,[
+                'label' => 'Solicitante(s)',
+                'required' => false,
+                'multiple' => false,
+                'expanded' => true,
+                'choices' => [
+                    'ASISTIERON' => 'Asistio',
+                    'NO ASISTIERON' => 'No Asistio'
+                ]
+            ])
+            ->add('fecha_asistencia', DateType::class, [
+                'label' => 'Fecha Asistencia de Audiencia',
+                'widget' => 'single_text',
+                'required' => false,
+            ])
             ->add('documento', FileType::class,[
                 'label' => 'Cargar archivo en PDF',
                 'required' => false, //Que no sea obligatorio
@@ -105,26 +113,21 @@ class CasoType extends AbstractType
                     ])
                 ],
             ])
-
             ->add('centro', EntityType::class,[
                 'label' => 'Centro Conciliatorio',
                 'placeholder' => 'Un centro',
                 'class' => Centro::class,
-                'choice_label' => 'nombre',
+                'query_builder' => function(EntityRepository $er){
+                    return $er -> createQueryBuilder('c')
+                        ->orderBy('c.nombre', 'ASC');
+                },
+                'choice_label' => function ($centro){
+                    return $centro->getNombre();
+                },
                 'multiple' => false,
-                'expanded' => false
+                'expanded' => false,
+                'required' => false,
             ])
-
-            //->add('conciliador', EntityType::class, [
-            //    'label' => 'Conciliador',
-            //    'placeholder' => 'Seleccione un Conciliador',
-            //    'class' => Usuario::class,
-            //    'choice_label' => 'nombres',
-            //    'multiple' => false,
-            //    'expanded' => false
-            //])
-            //->add('usuario_externo')
-
             ->add('usuario', EntityType::class,[
                 'label' => 'Conciliador a asignar',
                 'placeholder' => 'Selecciones un Conciliador',
@@ -140,6 +143,7 @@ class CasoType extends AbstractType
                 'expanded' => false,
                 'required' => false,
             ])
+            //->add('usuario_externo')
             //->add('sala')
             //->add('agenda')
         ;

@@ -24,13 +24,28 @@ use Symfony\Component\Routing\Annotation\Route;
 class ConciliacionController extends AbstractController
 {
     #[Route('/', name: 'conciliacion_index', methods:['GET','POST'])]
-    public function index(UsuarioRepository $usuarioRepository, CentroRepository $centroRepository, CasoConciliatorioRepository $casoConciliatorioRepository): Response
+    public function index(CasoConciliatorioRepository $casoConciliatorioRepository, EntityManagerInterface $entityManager): Response
     {
-        $conciliacion = $casoConciliatorioRepository -> findBy([],['id'=>'DESC']);
+        $obtenerUsuario = $this -> getUser();
 
-        return $this->render('conciliacion/index.html.twig', [
-            'conciliaciones' => $conciliacion,
-        ]);
+        if ($obtenerUsuario){
+
+            //Obtener mis casos conciliatorios
+            $misCasos = $entityManager ->getRepository(CasoConciliatorio::class)->findBy(['usuario'=>$obtenerUsuario]);
+            //obtener todos los casos
+            $conciliacion = $casoConciliatorioRepository -> findBy([],['id'=>'DESC']);
+
+            return $this->render('conciliacion/index.html.twig',[
+                //mostramos mis casos
+                'misConciliaciones' => $misCasos,
+                //mostarmos todos los casos
+                'conciliaciones' => $conciliacion,
+
+            ]);
+
+        }else{
+            return $this -> redirectToRoute('app_login');
+        }
     }
 
     #[Route ('/nuevo', name:'conciliacion_nuevo', methods:['GET','POST'])]
@@ -42,9 +57,6 @@ class ConciliacionController extends AbstractController
         $mensaje = "";
 
         if ($form->isSubmitted() && $form->isValid()){
-            //$usuario = $this->getUser();
-            //$conciliacion ->setUsuario($usuario);
-
             //$centro = $this->redirectToRoute()
             //$conciliacion -> setCentro($centro);
 
@@ -92,6 +104,35 @@ class ConciliacionController extends AbstractController
 
             //'userExterno' => $form -> createView(),
             'externos' => $usuariosExternos,
+        ]);
+    }
+
+    #[Route('{id}/seguimiento', name:'conciliacion_seguimiento', methods:['GET','POST'])]
+    public function seguimiento(CasoConciliatorio $casoConciliatorio, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $form = $this -> createForm(CasoType::class,$casoConciliatorio);
+        $form -> handleRequest($request);
+        if ($form->isSubmitted() && $form->isValid()){
+            if ( $casoConciliatorio->getEstado() == 'NUEVO'){
+                $casoConciliatorio -> setEstado('TRATAMIENTO');
+                $casoConciliatorio -> setEtapa('INVITACION');
+                $entityManager -> flush();
+
+                return $this->redirectToRoute('conciliacion_index');
+            }else{
+                if ($casoConciliatorio ->getEstado() == 'TRATAMIENTO'){
+                    $casoConciliatorio -> setEstado('CONCLUIDO');
+                    $casoConciliatorio -> setEtapa('CERRADO');
+                    $entityManager -> flush();
+
+                    return $this->redirectToRoute('conciliacion_index');
+                 }
+            }
+            return $this->redirectToRoute('conciliacion_index');
+        }
+        return $this->renderForm('conciliacion/editar.html.twig',[
+            'conciliacion' => $casoConciliatorio,
+            'formulario' => $form,
         ]);
     }
 

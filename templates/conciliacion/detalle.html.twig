@@ -19,7 +19,7 @@
                             <a class="btn btn-info mr-2" href="{{ path('conciliacion_editar',{'id':conciliacion.id}) }}">
                                 <i class="bi bi-pencil-square"></i> Editar
                             </a>
-                            {# Restringimos roles de acceso #}
+                            {# RESTRICCIONES DE PERMISOS #}
                             {% if is_granted('ROLE_SCA','ROLE_DIRECTOR') %}
                                 <button class="btn btn-danger">Eiminar</button>
                             {% endif %}

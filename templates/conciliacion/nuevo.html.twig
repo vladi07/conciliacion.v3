@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block body %}
-    <div class="container justify-content-center">
+    <div class="container-sm justify-content-center">
         <div class="card card-success">
             <div class="card-header">
                 <h3 class="card-title">NUEVO CASO CONCILIATORIO</h3>
@@ -48,6 +48,52 @@
                     <a class="btn btn-primary" href="{{ path('conciliacion_index') }}">
                         <i class="bi bi-arrow-left-square"></i> Volver
                     </a>
+                    <hr>
+                    {# RECHAZAR CASO CONCILIATORIO #}
+                    <div class="card card-danger card-outline">
+                        <h4 class="card-title"><strong>¿Se rechaza el Caso?</strong></h4>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    {{ form_row(formulario.fecha_rechazo) }}
+                                </div>
+                                <div class="col">
+                                    {{ form_row(formulario.motivo_rechazo) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    {# AGENDAR INVITACION #}
+                    <div class="card card-warning card-outline">
+                        <h4 class="card-title">Invitación de Audiencia Conciliatoria</h4>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    {{ form_row(formulario.fecha_audiencia) }}
+                                </div>
+                                <div class="col">
+                                    {{ form_row(formulario.hora_audiencia) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <hr>
+                    {# AUDIENCIA CONCILIATORIA #}
+                    <div class="card card-blue card-outline">
+                        <h4 class="card-title">Audiencia Conciliatoria</h4>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col">
+                                    {{ form_row(formulario.detalle_asistencia) }}
+                                </div>
+                                <div class="col">
+                                    {{ form_row(formulario.fecha_asistencia) }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 {{ form_end(formulario) }}
             </div>
         </div>

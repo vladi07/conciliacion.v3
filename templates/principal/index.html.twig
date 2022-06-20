@@ -17,58 +17,64 @@
 
     <!-- Small boxes (Stat box) -->
     <div class="row">
-        {# Gestion de Casos Conciliatorios #}
-        <div class="col-lg-4 col-6">
-            <!-- small box -->
-            <div class="small-box bg-primary">
-                <div class="inner">
-                    <h2 class="font-weight-bold">CASOS CONCILIATORIOS</h2>
-                    <br>
+        {# Gestion de Casos Conciliatorios
+        {% if is_granted('ROLE_DIRECTOR','ROLE_CONCILIADOR','ROLE_PLATAFORMA') %} #}
+            <div class="col-lg-4 col-6">
+                <!-- small box -->
+                <div class="small-box bg-primary">
+                    <div class="inner">
+                        <h2 class="font-weight-bold">CASOS CONCILIATORIOS</h2>
+                        <br>
+                    </div>
+                    <div class="icon">
+                        <i class="ion bi bi-inboxes-fill"></i>
+                    </div>
+                    <a href="{{ path('conciliacion_index') }}" class="small-box-footer">
+                        Ingresar <i class="fas fa-arrow-circle-right"></i>
+                    </a>
                 </div>
-                <div class="icon">
-                    <i class="ion bi bi-inboxes-fill"></i>
-                </div>
-                <a href="{{ path('conciliacion_index') }}" class="small-box-footer">
-                    Ingresar <i class="fas fa-arrow-circle-right"></i>
-                </a>
             </div>
-        </div>
+        {# {% endif %} #}
         <!-- ./col -->
 
-        {# Agenda de Conciliaciones #}
-        <div class="col-lg-4 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-                <div class="inner">
-                    <h2 class="font-weight-bold">AGENDA DE CONCILIACIONES</h2>
-                    <br>
+        {# Agenda de Conciliaciones
+        {% if is_granted('ROLE_DIRECTOR','ROLE_CONCILIADOR','ROLE_PLATAFORMA') %} #}
+            <div class="col-lg-4 col-6">
+                <!-- small box -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h2 class="font-weight-bold">AGENDA DE CONCILIACIONES</h2>
+                        <br>
+                    </div>
+                    <div class="icon">
+                        <i class="ion bi bi-calendar3"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">
+                        Ingresar <i class="fas fa-arrow-circle-right"></i>
+                    </a>
                 </div>
-                <div class="icon">
-                    <i class="ion bi bi-calendar3"></i>
-                </div>
-                <a href="#" class="small-box-footer">
-                    Ingresar <i class="fas fa-arrow-circle-right"></i>
-                </a>
             </div>
-        </div>
+        {# {% endif %} #}
         <!-- ./col -->
 
-        {# Reportes Semestrales #}
-        <div class="col-lg-4 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-                <div class="inner">
-                    <h2 class="font-weight-bold">REPORTES SEMESTRALES</h2>
-                    <br>
+        {# Reportes Semestrales
+        {% if is_granted('ROLE_SCA','ROLE_DIRECTOR','ROLE_CONCILIADOR') %}#}
+            <div class="col-lg-4 col-6">
+                <!-- small box -->
+                <div class="small-box bg-info">
+                    <div class="inner">
+                        <h2 class="font-weight-bold">REPORTES SEMESTRALES</h2>
+                        <br>
+                    </div>
+                    <div class="icon">
+                        <i class="ion bi bi-bar-chart-line-fill"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">
+                        Ingresar <i class="fas fa-arrow-circle-right"></i>
+                    </a>
                 </div>
-                <div class="icon">
-                    <i class="ion bi bi-bar-chart-line-fill"></i>
-                </div>
-                <a href="#" class="small-box-footer">
-                    Ingresar <i class="fas fa-arrow-circle-right"></i>
-                </a>
             </div>
-        </div>
+        {# {% endif %} #}
         <!-- ./col -->
 
         {# Gestion de Usuarios #}
@@ -112,7 +118,6 @@
         <!-- ./col -->
     </div>
 
-
     <!-- MODAL -->
     {#
     <button class="btn btn-success" data-toggle="modal" data-target="#ventanaModal">
@@ -149,4 +154,5 @@
             </div>
         </div>
     </div>
+
 {% endblock %}
