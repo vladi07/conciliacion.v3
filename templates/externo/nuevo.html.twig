@@ -1,0 +1,69 @@
+{% extends'base.html.twig' %}
+
+{% block title %}
+    Nuevo Solicitante|{{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="container-sm justify-content-center">
+        <div class="card card-success">
+            <div class="card-header">
+                <h3 class="card-title">Nuevo Solicitante</h3>
+                {#
+                <div class="card-tools">
+                    <button type="button" class="btn btn-tool" data-card-widgett="remove">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+                #}
+            </div>
+            <div class="card-body">
+                {{ form_start(formulario) }}
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(formulario.nombres) }}
+                        {{ form_row(formulario.tipo_documento) }}
+                        {{ form_row(formulario.edad) }}
+                        {{ form_row(formulario.domicilio) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(formulario.primer_apellido) }}
+                        {{ form_row(formulario.numero_documento) }}
+                        {{ form_row(formulario.genero) }}
+                        {{ form_row(formulario.telefono) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(formulario.segundo_apellido) }}
+                        {{ form_row(formulario.tipo_usuario) }}
+                        {{ form_row(formulario.grado_instruccion) }}
+                        {{ form_row(formulario.correo) }}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <h4><strong>Llenar estos datos si el Solicitante o Invitado es REPRESENTANTE LEGAL</strong></h4>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        {{ form_row(formulario.autoridad_emision) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(formulario.orden_judicial) }}
+                    </div>
+                    <div class="col">
+                        {{ form_row(formulario.fecha_emision) }}
+                    </div>
+                </div>
+                <button class="btn btn-success">
+                    <i class="bi bi-bookmark-check"></i> Guardar
+                </button>
+                {#
+                <a class="btn btn-primary" href="{{ path('conciliacion_detalle')}}">
+                    <i class="bi bi-arrow-left-square"></i> Volver
+                </a>
+                #}
+                {{ form_end(formulario) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}

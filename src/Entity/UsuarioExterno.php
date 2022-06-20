@@ -60,12 +60,13 @@ class UsuarioExterno
     #[ORM\Column(type: 'date', nullable: true)]
     private $fecha_emision;
 
-    #[ORM\ManyToMany(targetEntity: CasoConciliatorio::class, mappedBy: 'usuario_externo')]
-    private $caso_conciliatorio;
+    #[ORM\ManyToOne(targetEntity: CasoConciliatorio::class, inversedBy: 'usuario_externo')]
+    private $casoConciliatorio;
+
 
     public function __construct()
     {
-        $this->caso_conciliatorio = new ArrayCollection();
+
     }
 
     public function __toString()
@@ -258,29 +259,14 @@ class UsuarioExterno
         return $this;
     }
 
-    /**
-     * @return Collection|CasoConciliatorio[]
-     */
-    public function getCasoConciliatorio(): Collection
+    public function getCasoConciliatorio(): ?CasoConciliatorio
     {
-        return $this->caso_conciliatorio;
+        return $this->casoConciliatorio;
     }
 
-    public function addCasoConciliatorio(CasoConciliatorio $casoConciliatorio): self
+    public function setCasoConciliatorio(?CasoConciliatorio $casoConciliatorio): self
     {
-        if (!$this->caso_conciliatorio->contains($casoConciliatorio)) {
-            $this->caso_conciliatorio[] = $casoConciliatorio;
-            $casoConciliatorio->addUsuarioExterno($this);
-        }
-
-        return $this;
-    }
-
-    public function removeCasoConciliatorio(CasoConciliatorio $casoConciliatorio): self
-    {
-        if ($this->caso_conciliatorio->removeElement($casoConciliatorio)) {
-            $casoConciliatorio->removeUsuarioExterno($this);
-        }
+        $this->casoConciliatorio = $casoConciliatorio;
 
         return $this;
     }

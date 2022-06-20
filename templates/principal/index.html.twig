@@ -5,9 +5,19 @@
 {% endblock %}
 
 {% block body %}
+    {#
+    <div class="card card-warning justify-content-center">
+        <h2>Lista de Centros</h2>
+        {% for centro in misCentros %}
+            <h6>{{ centro }}</h6>
+            <a class="btn" href="{{ path('mis_centros',{'id':centro.id}) }}">Ver</a>
+        {% endfor %}
+    </div>
+    #}
 
     <!-- Small boxes (Stat box) -->
     <div class="row">
+        {# Gestion de Casos Conciliatorios #}
         <div class="col-lg-4 col-6">
             <!-- small box -->
             <div class="small-box bg-primary">
@@ -18,10 +28,14 @@
                 <div class="icon">
                     <i class="ion bi bi-inboxes-fill"></i>
                 </div>
-                <a href="{{ path('conciliacion_index') }}" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="{{ path('conciliacion_index') }}" class="small-box-footer">
+                    Ingresar <i class="fas fa-arrow-circle-right"></i>
+                </a>
             </div>
         </div>
         <!-- ./col -->
+
+        {# Agenda de Conciliaciones #}
         <div class="col-lg-4 col-6">
             <!-- small box -->
             <div class="small-box bg-success">
@@ -32,10 +46,14 @@
                 <div class="icon">
                     <i class="ion bi bi-calendar3"></i>
                 </div>
-                <a href="#" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer">
+                    Ingresar <i class="fas fa-arrow-circle-right"></i>
+                </a>
             </div>
         </div>
         <!-- ./col -->
+
+        {# Reportes Semestrales #}
         <div class="col-lg-4 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
@@ -46,45 +64,61 @@
                 <div class="icon">
                     <i class="ion bi bi-bar-chart-line-fill"></i>
                 </div>
-                <a href="#" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
+                <a href="#" class="small-box-footer">
+                    Ingresar <i class="fas fa-arrow-circle-right"></i>
+                </a>
             </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-4 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-                <div class="inner">
-                    <h2 class="font-weight-bold">GESTIÓN DE USUARIOS</h2>
-                    <br>
+
+        {# Gestion de Usuarios #}
+        {% if is_granted('ROLE_SCA') %}
+            <div class="col-lg-4 col-6">
+                <!-- small box -->
+                <div class="small-box bg-warning">
+                    <div class="inner">
+                        <h2 class="font-weight-bold">GESTIÓN DE USUARIOS</h2>
+                        <br>
+                    </div>
+                    <div class="icon">
+                        <i class="ion bi bi-people-fill"></i>
+                    </div>
+                    <a href="{{ path('usuario_index') }}" class="small-box-footer">
+                        Ingresar <i class="fas fa-arrow-circle-right"></i>
+                    </a>
                 </div>
-                <div class="icon">
-                    <i class="ion bi bi-people-fill"></i>
-                </div>
-                <a href="{{ path('usuario_index') }}" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-        </div>
+        {% endif %}
         <!-- ./col -->
-        <div class="col-lg-4 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-                <div class="inner">
-                    <h2 class="font-weight-bold">GESTIÓN DE CENTROS</h2>
-                    <br>
+
+        {# Gestion de Centros #}
+        {% if is_granted('ROLE_SCA') %}
+            <div class="col-lg-4 col-6">
+                <!-- small box -->
+                <div class="small-box bg-danger">
+                    <div class="inner">
+                        <h2 class="font-weight-bold">GESTIÓN DE CENTROS</h2>
+                        <br>
+                    </div>
+                    <div class="icon">
+                        <i class="ion bi bi-house-door-fill"></i>
+                    </div>
+                    <a href="{{ path('centro_index') }}" class="small-box-footer">
+                        Ingresar <i class="fas fa-arrow-circle-right"></i>
+                    </a>
                 </div>
-                <div class="icon">
-                    <i class="ion bi bi-house-door-fill"></i>
-                </div>
-                <a href="{{ path('centro_index') }}" class="small-box-footer">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
             </div>
-        </div>
+        {% endif %}
         <!-- ./col -->
     </div>
 
 
     <!-- MODAL -->
+    {#
     <button class="btn btn-success" data-toggle="modal" data-target="#ventanaModal">
         Abrir ventana modal
     </button>
+    #}
 
     <div class="modal fade" id="ventanaModal" tabindex="-1" role="dialog" aria-labelledby="tituloVentana" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -115,5 +149,4 @@
             </div>
         </div>
     </div>
-
 {% endblock %}

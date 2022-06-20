@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Centro;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -101,10 +102,11 @@ class CentroType extends AbstractType
                     ])
                 ]
             ])
-
-            //->add('guardar', SubmitType::class,[
-            //    'label' => 'Guardar'
-            //])
+            ->add('activo', CheckboxType::class , [
+                'label' => '¿Habilitar Centro?',
+                'label_attr' => ['class' => 'switch-custom'],
+                'required' => false,
+            ])
         ;
     }
 

@@ -8,7 +8,7 @@
     {# <div class="container-sm justify-content-center"> #}
         <div class="card card-success card-outline w-50"> {# style="width: 50rem" #}
             <div class="card-header">
-                <h1 class="card-title">Datos del Centro: <strong>{{ centro }}</strong></h1>
+                <h1 class="card-title">Datos del Centro: <strong>{{ centro.nombre }}</strong></h1>
                 <div class="card-tools text-center btn-group">
                     <a class="btn btn-primary mr-2" href="{{ path('centro_index') }}">
                         <i class="bi bi-arrow-left-square"></i> Volver
@@ -77,6 +77,10 @@
                     <tr>
                         <th>Número de Fax</th>
                         <td>{{ centro.fax }}</td>
+                    </tr>
+                    <tr>
+                        <th>Centro Activo</th>
+                        <td>{{ centro.activo ? 'si' : 'No' }}</td>
                     </tr>
                     </tbody>
                 </table>

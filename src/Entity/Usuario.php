@@ -85,17 +85,15 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\JoinColumn(nullable: true)]
     private $centro;
 
-    #[ORM\ManyToMany(targetEntity: CasoConciliatorio::class, inversedBy: 'usuario')]
-    private $caso_conciliatorio;
-
-    #[ORM\ManyToMany(targetEntity: Agenda::class, mappedBy: 'usuario')]
-    private $agenda;
+    #[ORM\OneToMany(mappedBy: 'usuario', targetEntity: CasoConciliatorio::class)]
+    private $caso;
 
     public function __construct()
     {
         $this->fecha_creacion = new \DateTime();
-        $this->caso_conciliatorio = new ArrayCollection();
-        $this->agenda = new ArrayCollection();
+        //$this->agenda = new ArrayCollection();
+        //$this->caso_conciliatorio = new ArrayCollection();
+        $this->caso = new ArrayCollection();
     }
 
     public function __toString()
@@ -404,53 +402,33 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     }
 
     /**
-     * @return Collection|CasoConciliatorio[]
+     * @return Collection<int, CasoConciliatorio>
      */
-    public function getCasoConciliatorio(): Collection
+    public function getCaso(): Collection
     {
-        return $this->caso_conciliatorio;
+        return $this->caso;
     }
 
-    public function addCasoConciliatorio(CasoConciliatorio $casoConciliatorio): self
+    public function addCaso(CasoConciliatorio $caso): self
     {
-        if (!$this->caso_conciliatorio->contains($casoConciliatorio)) {
-            $this->caso_conciliatorio[] = $casoConciliatorio;
+        if (!$this->caso->contains($caso)) {
+            $this->caso[] = $caso;
+            $caso->setUsuario($this);
         }
 
         return $this;
     }
 
-    public function removeCasoConciliatorio(CasoConciliatorio $casoConciliatorio): self
+    public function removeCaso(CasoConciliatorio $caso): self
     {
-        $this->caso_conciliatorio->removeElement($casoConciliatorio);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Agenda[]
-     */
-    public function getAgenda(): Collection
-    {
-        return $this->agenda;
-    }
-
-    public function addAgenda(Agenda $agenda): self
-    {
-        if (!$this->agenda->contains($agenda)) {
-            $this->agenda[] = $agenda;
-            $agenda->addUsuario($this);
+        if ($this->caso->removeElement($caso)) {
+            // set the owning side to null (unless already changed)
+            if ($caso->getUsuario() === $this) {
+                $caso->setUsuario(null);
+            }
         }
 
         return $this;
     }
 
-    public function removeAgenda(Agenda $agenda): self
-    {
-        if ($this->agenda->removeElement($agenda)) {
-            $agenda->removeUsuario($this);
-        }
-
-        return $this;
-    }
 }

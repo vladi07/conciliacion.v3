@@ -31,16 +31,14 @@ class Sala
     #[ORM\JoinColumn(nullable: false)]
     private $centro;
 
-    #[ORM\ManyToMany(targetEntity: CasoConciliatorio::class, mappedBy: 'sala')]
-    private $caso_conciliatorio;
-
-    #[ORM\ManyToMany(targetEntity: Agenda::class, mappedBy: 'sala')]
-    private $agenda;
+    #[ORM\OneToMany(mappedBy: 'sala', targetEntity: casoConciliatorio::class)]
+    private $casoConciliatorio;
 
     public function __construct()
     {
-        $this->caso_conciliatorio = new ArrayCollection();
-        $this->agenda = new ArrayCollection();
+        //$this->caso_conciliatorio = new ArrayCollection();
+        //$this->agenda = new ArrayCollection();
+        $this->casoConciliatorio = new ArrayCollection();
     }
 
     public function __toString()
@@ -114,56 +112,33 @@ class Sala
     }
 
     /**
-     * @return Collection|CasoConciliatorio[]
+     * @return Collection<int, casoConciliatorio>
      */
     public function getCasoConciliatorio(): Collection
     {
-        return $this->caso_conciliatorio;
+        return $this->casoConciliatorio;
     }
 
-    public function addCasoConciliatorio(CasoConciliatorio $casoConciliatorio): self
+    public function addCasoConciliatorio(casoConciliatorio $casoConciliatorio): self
     {
-        if (!$this->caso_conciliatorio->contains($casoConciliatorio)) {
-            $this->caso_conciliatorio[] = $casoConciliatorio;
-            $casoConciliatorio->addSala($this);
+        if (!$this->casoConciliatorio->contains($casoConciliatorio)) {
+            $this->casoConciliatorio[] = $casoConciliatorio;
+            $casoConciliatorio->setSala($this);
         }
 
         return $this;
     }
 
-    public function removeCasoConciliatorio(CasoConciliatorio $casoConciliatorio): self
+    public function removeCasoConciliatorio(casoConciliatorio $casoConciliatorio): self
     {
-        if ($this->caso_conciliatorio->removeElement($casoConciliatorio)) {
-            $casoConciliatorio->removeSala($this);
+        if ($this->casoConciliatorio->removeElement($casoConciliatorio)) {
+            // set the owning side to null (unless already changed)
+            if ($casoConciliatorio->getSala() === $this) {
+                $casoConciliatorio->setSala(null);
+            }
         }
 
         return $this;
     }
 
-    /**
-     * @return Collection|Agenda[]
-     */
-    public function getAgenda(): Collection
-    {
-        return $this->agenda;
-    }
-
-    public function addAgenda(Agenda $agenda): self
-    {
-        if (!$this->agenda->contains($agenda)) {
-            $this->agenda[] = $agenda;
-            $agenda->addSala($this);
-        }
-
-        return $this;
-    }
-
-    public function removeAgenda(Agenda $agenda): self
-    {
-        if ($this->agenda->removeElement($agenda)) {
-            $agenda->removeSala($this);
-        }
-
-        return $this;
-    }
 }

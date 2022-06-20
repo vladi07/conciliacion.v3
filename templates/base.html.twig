@@ -194,7 +194,7 @@
                         </div>
                         <div class="info">
                             <h5 class="text-wrap text-justify text-center brand-text">{{ app.user }}</h5>
-                            {# <a href="#" class="d-block"></a> #}
+                            {# <a href="#" class="d-block"></a>#}
                             <h6 class="d-block text-center">{{ app.user.roles | json_encode }}</h6>
                             <h6 class="d-block text-center text-wrap">{{ app.user.departamento }}</h6>
                         </div>
@@ -393,6 +393,7 @@
                         {# <div class="">  #}
                         <div class="col-sm-12">
                             <h2 class="m-0 font-weight-bold">{{ app.user.centro }}</h2>
+                            {# <a href="{{ path('centro_detalle',{'id':usuario.centro}) }}"></a> #}
                         </div><!-- /.col -->
                         {# </div><!-- /.row --> #}
                     </div><!-- /.container-fluid -->
@@ -459,7 +460,6 @@
                     <b>Version</b> 1.0
                 </div>
             </footer> <!-- /. Main Footer -->
-
         {# </div> #}
         <!-- ./wrapper -->
     </body>

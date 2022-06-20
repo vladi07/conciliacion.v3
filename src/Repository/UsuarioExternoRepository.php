@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\CasoConciliatorio;
 use App\Entity\UsuarioExterno;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -17,6 +18,17 @@ class UsuarioExternoRepository extends ServiceEntityRepository
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, UsuarioExterno::class);
+    }
+
+    public function getMisExternos(CasoConciliatorio $casoConciliatorio): ConsultaUsuario
+    {
+        $query = $this -> createQueryBuilder('e')
+            -> andWhere('e.casoConciliatorio = : casoConciliatorio')
+            -> setParameter('casoConciliatorio', $casoConciliatorio)
+            -> orderBy('e.nombres', 'DESC')
+            ->getQuery()
+        ;
+        return new ConsultaUsuario($query);
     }
 
     // /**

@@ -3,7 +3,9 @@
 namespace App\Repository;
 
 use App\Entity\CasoConciliatorio;
+use App\Entity\Centro;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,10 +16,26 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CasoConciliatorioRepository extends ServiceEntityRepository
 {
+    public const PAGINATOR_PER_PAGE = 1;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, CasoConciliatorio::class);
     }
+
+    public function getCasoPaginator(Centro $centro, int $offset): Paginator
+    {
+        $query = $this->createQueryBuilder('cs')
+            ->andWhere('cs.centro = :centro')
+            ->setParameter('centro', $centro)
+            ->orderBy('cs.id', 'DESC')
+            ->setMaxResults(self::PAGINATOR_PER_PAGE)
+            ->setFirstResult($offset)
+            ->getQuery()
+        ;
+        return new Paginator($query);
+    }
+
 
     // /**
     //  * @return CasoConciliatorio[] Returns an array of CasoConciliatorio objects

@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ misCentros }}
+{% endblock %}
+
+{% block body %}
+    
+    <h3>Centro de Conciliacion <strong>{{ misCentros }}</strong></h3>
+
+    {% if misConciliaciones|length > 0 %}
+
+        <div>
+            CAntidad de casos {{ misConciliaciones|length }} que atender
+        </div>
+
+        {% for casoConciliatorio in misConciliaciones  %}
+            <h4>Nro: {{ casoConciliatorio.id }}</h4>
+            <h4>Fecha: {{ casoConciliatorio.fecha|date('d/m/Y') }}</h4>
+            <h4>Tipo: {{ casoConciliatorio.tipoConciliacion }}</h4>
+            <h4>{{ casoConciliatorio.descripcion }}</h4>
+            <h4>{{ casoConciliatorio.etapa }}</h4>
+            <h4>{{ casoConciliatorio.estado }}</h4>
+        {% endfor %}
+
+        {% if anterior >= 0 %}
+            <a href="{{ path('mis_centros', {id:misCentros.id, offset: anterior}) }}">Anterior</a>
+        {% endif %}
+        {% if siguiente < misConciliaciones|length %}
+            <a href="{{ path('mis_centros', {id:misCentros.id, offset: siguiente}) }}">Siguiente</a>
+        {% endif %}
+    {% else%}    
+        <div>No hay CAsos Conciliatorios</div>
+    {% endif %}
+    
+{% endblock %}

@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Centro;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -14,9 +15,33 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class CentroRepository extends ServiceEntityRepository
 {
+    public const PAGINADOR_POR_PAGINA = 5;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Centro::class);
+    }
+
+    public function getCentrosAll(){
+        return $this->createQueryBuilder('c')
+            ->select('c.id')
+            ->addSelect('c.nombre')
+            ->addSelect('c.matricula')
+            ->addSelect('c.departamento')
+            ->orderBy('c.nombre','ASC')
+            ->getQuery()
+        ;
+    }
+
+    public function getPaginadorCentro (int $offset): Paginator
+    {
+        $consulta = $this->createQueryBuilder('cent')//Definimos un alias para la tabla principal (CENTRO)
+            ->orderBy('cent.nombre', 'ASC') //Definimos el orden alfabetico que se mostrara
+            ->setMaxResults(self::PAGINADOR_POR_PAGINA) //Mencionamos cuantos resgistros se mostraran por pagina
+            ->setFirstResult($offset)
+            ->getQuery()
+        ;
+        return new Paginator($consulta);
     }
 
     // /**

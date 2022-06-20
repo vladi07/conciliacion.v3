@@ -10,8 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: CasoConciliatorioRepository::class)]
 class CasoConciliatorio
 {
-    const REGISTRO_EXITOSO = "Se ha registrado exitosamente";
     const REGISTRO_CASO_EXITOSO = "Se ha registrado el caso exitosamente";
+    const MODIFICACION_CASO_EXITOSO = "Se ha modificado el caso exitosamente";
 
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -64,35 +64,30 @@ class CasoConciliatorio
     private $documento;
 
     #[ORM\ManyToOne(targetEntity: Centro::class, inversedBy: 'caso_conciliatorio')]
-    #[ORM\JoinColumn(nullable: false)]
+    #[ORM\JoinColumn(nullable: true)]
     private $centro;
 
-    #[ORM\ManyToMany(targetEntity: UsuarioExterno::class, inversedBy: 'caso_conciliatorio')]
+    #[ORM\OneToMany(mappedBy: 'casoConciliatorio', targetEntity: UsuarioExterno::class)]
     private $usuario_externo;
 
-    #[ORM\ManyToMany(targetEntity: Usuario::class, mappedBy: 'caso_conciliatorio')]
-    private $usuario;
-
-    #[ORM\ManyToMany(targetEntity: Sala::class, inversedBy: 'caso_conciliatorio')]
+    #[ORM\ManyToOne(targetEntity: Sala::class, inversedBy: 'caso_conciliatorio')]
     private $sala;
 
-    #[ORM\ManyToMany(targetEntity: Agenda::class, mappedBy: 'caso_conciliatorio')]
-    private $agenda;
+    #[ORM\ManyToOne(targetEntity: Usuario::class, inversedBy: 'caso')]
+    private $usuario;
 
     public function __construct()
     {
+        $this->usuario_externo = new ArrayCollection();
+
         $this->fecha = new \DateTime();
-        //$this->usuario_externo = new ArrayCollection();
-        //$this->usuario = new ArrayCollection();
         //$this->sala = new ArrayCollection();
         //$this->agenda = new ArrayCollection();
-        $this->estado ='Nuevo';
+        //$this->estado ='Nuevo';
         $this->invitacion = '';
         $this->fecha_audiencia = new \DateTime();
         $this->fecha_rechazo = new \DateTime();
-        $this->motivo_rechazo = '';
-
-
+        $this->motivo_rechazo = 'sin motivo';
     }
 
     public function __toString()
@@ -285,6 +280,7 @@ class CasoConciliatorio
         return $this;
     }
 
+
     public function getCentro(): ?Centro
     {
         return $this->centro;
@@ -297,105 +293,44 @@ class CasoConciliatorio
         return $this;
     }
 
-    /**
-     * @return Collection|UsuarioExterno[]
-     */
-    public function getUsuarioExterno(): Collection
-    {
-        return $this->usuario_externo;
-    }
-
-    public function addUsuarioExterno(UsuarioExterno $usuarioExterno): self
-    {
-        if (!$this->usuario_externo->contains($usuarioExterno)) {
-            $this->usuario_externo[] = $usuarioExterno;
-        }
-
-        return $this;
-    }
-
-    public function removeUsuarioExterno(UsuarioExterno $usuarioExterno): self
-    {
-        $this->usuario_externo->removeElement($usuarioExterno);
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Usuario[]
-     */
-    public function getUsuario(): Collection
+    public function getUsuario(): ?Usuario
     {
         return $this->usuario;
     }
 
-    public function addUsuario(Usuario $usuario): self
+    public function setUsuario(?Usuario $usuario): self
     {
-        if (!$this->usuario->contains($usuario)) {
-            $this->usuario[] = $usuario;
-            $usuario->addCasoConciliatorio($this);
-        }
+        $this->usuario = $usuario;
 
         return $this;
     }
 
-    public function removeUsuario(Usuario $usuario): self
-    {
-        if ($this->usuario->removeElement($usuario)) {
-            $usuario->removeCasoConciliatorio($this);
-        }
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|sala[]
-     */
-    public function getSala(): Collection
+    public function getSala(): ?Sala
     {
         return $this->sala;
     }
 
-    public function addSala(sala $sala): self
+    public function setSala(?Sala $sala): self
     {
-        if (!$this->sala->contains($sala)) {
-            $this->sala[] = $sala;
-        }
-
-        return $this;
-    }
-
-    public function removeSala(sala $sala): self
-    {
-        $this->sala->removeElement($sala);
+        $this->sala = $sala;
 
         return $this;
     }
 
     /**
-     * @return Collection|Agenda[]
+     * @return mixed
      */
-    public function getAgenda(): Collection
+    public function getUsuarioExterno()
     {
-        return $this->agenda;
+        return $this->usuario_externo;
     }
 
-    public function addAgenda(Agenda $agenda): self
+    /**
+     * @param mixed $usuario_externo
+     */
+    public function setUsuarioExterno($usuario_externo): void
     {
-        if (!$this->agenda->contains($agenda)) {
-            $this->agenda[] = $agenda;
-            $agenda->addCasoConciliatorio($this);
-        }
-
-        return $this;
+        $this->usuario_externo = $usuario_externo;
     }
 
-    public function removeAgenda(Agenda $agenda): self
-    {
-        if ($this->agenda->removeElement($agenda)) {
-            $agenda->removeCasoConciliatorio($this);
-        }
-
-        return $this;
-    }
 }

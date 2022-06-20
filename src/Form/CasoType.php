@@ -3,6 +3,10 @@
 namespace App\Form;
 
 use App\Entity\CasoConciliatorio;
+use App\Entity\Centro;
+use App\Entity\Usuario;
+use Doctrine\ORM\EntityRepository;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
@@ -63,7 +67,8 @@ class CasoType extends AbstractType
             //->add('motivo_rechazo', TextareaType::class,[
             //    'attr' => ['class' => 'tinymce'],
             //])
-
+            //->add('estado', null)
+            //->add('etapa', null)
             //->add('invitacion')
             //->add('fecha_audiencia', DateType::class, [
             //    'label' => 'Fecha de Audiencia',
@@ -96,15 +101,45 @@ class CasoType extends AbstractType
                     new File([
                         'maxSize' => '5M',
                         'mimeTypes' => 'application/pdf',
-                        'mimeTypesMessage' => 'CArgar archivo valido',
+                        'mimeTypesMessage' => 'Cargar archivo valido',
                     ])
                 ],
             ])
-            ->add('estado', null)
-            ->add('etapa', null)
-            //->add('centro')
+
+            ->add('centro', EntityType::class,[
+                'label' => 'Centro Conciliatorio',
+                'placeholder' => 'Un centro',
+                'class' => Centro::class,
+                'choice_label' => 'nombre',
+                'multiple' => false,
+                'expanded' => false
+            ])
+
+            //->add('conciliador', EntityType::class, [
+            //    'label' => 'Conciliador',
+            //    'placeholder' => 'Seleccione un Conciliador',
+            //    'class' => Usuario::class,
+            //    'choice_label' => 'nombres',
+            //    'multiple' => false,
+            //    'expanded' => false
+            //])
             //->add('usuario_externo')
-            ->add('usuario')
+
+            ->add('usuario', EntityType::class,[
+                'label' => 'Conciliador a asignar',
+                'placeholder' => 'Selecciones un Conciliador',
+                'class' => Usuario::class,
+                'query_builder' => function(EntityRepository $er){
+                    return $er -> createQueryBuilder('u')
+                        ->orderBy('u.nombres','ASC');
+                },
+                'choice_label' => function ($usuario){
+                    return $usuario->getNombres();
+                },
+                'multiple' => false,
+                'expanded' => false,
+                'required' => false,
+            ])
             //->add('sala')
             //->add('agenda')
         ;

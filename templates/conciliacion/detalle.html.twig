@@ -1,0 +1,139 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Datos Conciliación|{{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="container-sm align-items-center">
+        <div class="row {# align-items-center #}">
+            {# Card DATOS DEL CASO #}
+            <div class="col">
+                <div class="card card-success card-outline">
+                    <div class="card-header">
+                        <h2 class="card-title">Datos del Caso Conciliatorio</h2>
+                        <div class="card-tools text-center btn-group">
+                            <a class="btn btn-primary mr-2" href="{{ path('conciliacion_index') }}">
+                                <i class="bi bi-arrow-left-square"></i> Volver
+                            </a>
+                            <a class="btn btn-info mr-2" href="{{ path('conciliacion_editar',{'id':conciliacion.id}) }}">
+                                <i class="bi bi-pencil-square"></i> Editar
+                            </a>
+                            {# Restringimos roles de acceso #}
+                            {% if is_granted('ROLE_SCA','ROLE_DIRECTOR') %}
+                                <button class="btn btn-danger">Eiminar</button>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-responsive-sm table-striped table-sm">
+                            <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ conciliacion.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Fecha de Registro</th>
+                                <td>{{ conciliacion.fecha|date('d-m-y') }}</td>
+                            </tr>
+                            <tr>
+                                <th>Idioma</th>
+                                <td>{{ conciliacion.idioma }}</td>
+                            </tr>
+                            <tr>
+                                <th>Tipo de Conciliación</th>
+                                <td>{{ conciliacion.tipoConciliacion }}</td>
+                            </tr>
+                            <tr>
+                                <th>Materia</th>
+                                <td>{{ conciliacion.materia }}</td>
+                            </tr>
+                            <tr>
+                                <th>Descripcion del Caso Conciliatorio</th>
+                                <td>{{ conciliacion.descripcion }}</td>
+                            </tr>
+                            <tr>
+                                <th>Etapa de la Conciliación</th>
+                                <td>{{ conciliacion.etapa }}</td>
+                            </tr>
+                            <tr>
+                                <th>Estado</th>
+                                <td>{{ conciliacion.estado }}</td>
+                            </tr>
+                            <tr>
+                                <th>CEntro</th>
+                                <td>{{ conciliacion.centro }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">REgistrar invitacion</h3>
+                        </div>
+                    </div>
+                </div>
+            </div> {# Fin Datos del Caso #}
+            {# Card REGISTRAR NUEVO SOLICITANTE #}
+            <div class="col">
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h3 class="card-title">Registrar Solicitante</h3>
+                    </div>
+                    <div class="card-body">
+                        <a class="btn btn-success" href="{{ path('externo_nuevo',{'id':conciliacion.id}) }}">
+                            <i class="bi bi-plus-square"></i> Nuevo Solicitante
+                        </a>
+                        <table class="table table-responsive-sm table-striped table-sm">
+                            <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombres</th>
+                                <th>Primer Apellido</th>
+                                <th>Segundo Apellido</th>
+                                <th>Edad</th>
+                                <th>Teléfono</th>
+                                <th>Dirección</th>
+                                <th>Género</th>
+                                <th>Nro de Caso</th>
+                                <th>Acciones</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for usuarioExterno in externos %}
+                                <tr>
+                                    <td>{{ usuarioExterno.id }}</td>
+                                    <td>{{ usuarioExterno.nombres }}</td>
+                                    <td>{{ usuarioExterno.primerApellido }}</td>
+                                    <td>{{ usuarioExterno.segundoApellido }}</td>
+                                    <td>{{ usuarioExterno.edad }}</td>
+                                    <td>{{ usuarioExterno.telefono }}</td>
+                                    <td>{{ usuarioExterno.domicilio }}</td>
+                                    <td>{{ usuarioExterno.genero }}</td>
+                                    <td>{{ usuarioExterno.casoConciliatorio }}</td>
+                                    <td>
+                                        <div class="text-center btn-group-sm">
+                                            <a class="btn btn-success btn-sm" href="">
+                                                <i class="bi bi-eye-fill"></i> Ver
+                                            </a>
+                                            <a class="btn btn-info btn-sm" href="">
+                                                <i class="bi bi-pencil-square"></i> Editar
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% else %}
+                                <tr>
+                                    <td colspan="9">No se registraron solicitantes en este caso</td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

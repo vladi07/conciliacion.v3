@@ -34,6 +34,7 @@ class CasoController extends AbstractController
             //$this->addFlash('success','Nuevo Registro');
             //$usuario = $this->getUser();
             //$caso->addUsuario($usuario);
+
             if ($documento = $formulario['documento']->getData()){
                 $nombreDocumento = bin2hex(random_bytes(4)).'.'.$documento->guessExtension();
                 try {
@@ -53,7 +54,7 @@ class CasoController extends AbstractController
 
         return  $this->renderForm('caso/nuevo.html.twig',[
            'caso' => $caso,
-           'form' => $formulario,
+           'formulario' => $formulario,
         ]);
     }
 

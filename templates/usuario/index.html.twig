@@ -31,7 +31,7 @@
                     </div>
                     <div class="ml-auto p-1 bd-highlight">
                         <a class="btn btn-warning" href="">
-                            Cantidad de Usuarios Registrados:
+                            Cantidad de Usuarios Registrados: <strong>{{ usuarios|length }}</strong>
                         </a>
                     </div>
                 </div>
@@ -48,8 +48,8 @@
                         <th>Fecha de Nacimiento</th>
                         <th>Teléfono</th>
                         <th>Departamento</th>
-                        {# <th>Usuario</th>
-                        <th>Cargo</th> #}
+                        {# <th>Usuario</th> #}
+                        <th>Cargo</th>
                         <th>Centro de Conciliación</th>
                         {#<th>Password</th>
                         <th>Expedido</th>
@@ -69,15 +69,15 @@
                         <tr>
                             <td>{{ usuario.id }}</td>
                             <td>{{ usuario.nombres|upper }}</td>
-                            <td>{{ usuario.primerApellido }}</td>
-                            <td>{{ usuario.segundoApellido }}</td>
+                            <td>{{ usuario.primerApellido|upper }}</td>
+                            <td>{{ usuario.segundoApellido|upper }}</td>
                             <td>{{ usuario.tipoDocumento }}</td>
                             <td>{{ usuario.numeroDocumento }}</td>
                             <td>{{ usuario.fechaNacimiento|date('d-m-Y')}}</td>
                             <td>{{ usuario.telefono }}</td>
-                            <td>{{ usuario.departamento }}</td>
-                            {# <td>{{ usuario.username }}</td>
-                            <td>{{ usuario.roles ? usuario.roles|json_encode : '' }}</td> #}
+                            <td>{{ usuario.departamento|upper }}</td>
+                            {# <td>{{ usuario.username }}</td> #}
+                            <td>{{ usuario.roles ? usuario.roles|json_encode : '' }}</td>
                             <td>{{ usuario.centro }}</td>
                             {#<td>{{ usuario.password }}</td>
                             <td>{{ usuario.expedido }}</td>
@@ -109,7 +109,19 @@
                 </table>
             </div>
             <div class="card-footer">
-                Footer donde ira la paginacion
+                <p>Mostrando de <strong>{{ desde }}</strong>
+                hasta <strong>{{ next }}</strong> registros
+                de <strong>{{ usuarios|length }}</strong> Usuarios Registrados</p>
+                {% if previous >= 0 %}
+                    <a class="btn btn-primary" href="{{ path('usuario_index', {offset:previous}) }}">
+                        <i class="bi bi-arrow-left-short"></i> Anterior
+                    </a>
+                {% endif %}
+                {% if next < usuarios|length %}
+                    <a class="btn btn-primary" href="{{ path('usuario_index', {offset:next}) }}">
+                        Siguiente <i class="bi bi-arrow-right-short"></i>
+                    </a>
+                {% endif %}
             </div>
         </div>
     {# </div> #}

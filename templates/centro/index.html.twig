@@ -31,17 +31,16 @@
                     </div>
                     <div class="ml-auto p-1 bd-highlight">
                         <a class="btn btn-warning">
-                            Cantidad de Centros Registrados:
+                            Cantidad de Centros Registrados: <strong>{{ centros|length }}</strong>
                         </a>
                     </div>
                 </div>
-                <hr>
 
                 <table id="" class="table table-hover justify-content-center table-sm table-responsive-sm">
                     <thead>
                         <tr>
                             <th>Id</th>
-                            <th>Nombre</th>
+                            <th>Nombre del Centro</th>
                             <th>Matrícula</th>
                             <th>Fecha de Actualización</th>
                             <th>Tipo</th>
@@ -61,7 +60,7 @@
                             <td>{{ centro.departamento }}</td>
                             <td>{{ centro.telefono }}</td>
                             <td>
-                                <div class="text-center">
+                                <div class="text-center btn-group-sm">
                                     <div class="btn-group">
                                         <a class="btn btn-success btn-sm" href="{{ path('centro_detalle',{'id':centro.id}) }}">
                                             <i class="bi bi-eye-fill"></i> Ver
@@ -81,8 +80,20 @@
                     </tbody>
                 </table>
             </div>
-            <div class="card-footer">
-                Footer del CARD- Paginacion de los CEntros
+            <div class="card-footer align-items-center">
+                <p>Mostrando de <strong>{{ desde }}</strong>
+                    hasta <strong>{{ next }}</strong> registros
+                    de <strong>{{ centros|length }}</strong> Centros Acreditados</p>
+                {% if previous >= 0 %}
+                    <a class="btn btn-primary" href="{{ path('centro_index', {offset:previous}) }}" >
+                        <i class="bi bi-arrow-left-short"></i> Anterior
+                    </a>
+                {% endif %}
+                {% if next < centros|length %}
+                    <a class="btn btn-primary" href="{{ path('centro_index', {offset:next}) }}">
+                        Siguiente <i class="bi bi-arrow-right-short"></i>
+                    </a>
+                {% endif %}
             </div>
         </div>
     {# </div> #}

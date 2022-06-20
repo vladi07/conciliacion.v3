@@ -16,16 +16,17 @@
                 </div>
             </div>
             <div class="card-body">
-                {{ form_start(form) }}
+                {{ form_start(formulario) }}
                     <div class="row">
-                        {{ form_row(form.descripcion) }}
+                        {{ form_row(formulario.descripcion) }}
                         <div class="col">
-                            {{ form_row(form.materia) }}
+                            {{ form_row(formulario.materia) }}
                         </div>
                         <div class="col">
-                            {{ form_row(form.tipo_conciliacion) }}
+                            {{ form_row(formulario.tipo_conciliacion) }}
                         </div>
-                        {{ form_row(form.documento) }}
+                        {{ form_row(formulario.documento) }}
+                        {{ form_row(formulario.centro) }}
                     </div>
                 {# {{ form_widget(form) }} #}
                     <div class="card-footer">
@@ -36,7 +37,7 @@
                             <i class="bi bi-arrow-left-square"></i> Volver
                         </a>
                     </div>
-                {{ form_end(form) }}
+                {{ form_end(formulario) }}
             </div>
         </div>
     </div>

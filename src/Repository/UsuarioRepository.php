@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Usuario;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -17,6 +18,8 @@ use Symfony\Component\Security\Core\User\PasswordUpgraderInterface;
  */
 class UsuarioRepository extends ServiceEntityRepository implements PasswordUpgraderInterface
 {
+    public const PAGINADOR_POR_PAGINA = 4;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Usuario::class);
@@ -34,6 +37,17 @@ class UsuarioRepository extends ServiceEntityRepository implements PasswordUpgra
         $user->setPassword($newHashedPassword);
         $this->_em->persist($user);
         $this->_em->flush();
+    }
+
+    public function getPaginadorUsuario (int $offset): Paginator
+    {
+        $consulta = $this->createQueryBuilder('u')
+            ->orderBy('u.nombres', 'ASC')
+            ->setMaxResults(self::PAGINADOR_POR_PAGINA)
+            ->setFirstResult($offset)
+            ->getQuery()
+        ;
+        return new Paginator($consulta);
     }
 
     // /**

@@ -4,6 +4,7 @@ namespace App\Form;
 
 use App\Entity\Centro;
 use App\Entity\Usuario;
+use Doctrine\ORM\EntityRepository;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -40,7 +41,8 @@ class UsuarioType extends AbstractType
                     'DIRECTOR CENTRO' => 3,
                     'AJAN- SCA' => 4,
                     'ADMINISTRADOR' => 5
-                ]
+                ],
+                'required' => true,
             ])
             ->add('nombres', TextType::class,[
                 'label' => 'Nombre(s)'
@@ -63,7 +65,7 @@ class UsuarioType extends AbstractType
             ])
             ->add('numero_documento', NumberType::class, [
                 'label' => 'Número de Documento',
-                'required' => false
+                'required' => true,
             ])
             ->add('expedido', ChoiceType::class,[
                 'label' => 'Expedido en',
@@ -138,9 +140,14 @@ class UsuarioType extends AbstractType
                 'label' => 'Centro de Conciliación',
                 'placeholder' => 'Seleccione un Centro',
                 'class' => Centro::class,
+                'query_builder' => function(EntityRepository $er){
+                    return $er -> createQueryBuilder('c')
+                        ->orderBy('c.nombre', 'ASC');
+                },
                 'choice_label' => 'nombre',
                 'multiple' => false,
                 'expanded' => false,
+                'required' => true,
             ])
             ->add('activo', CheckboxType::class, [
                 'label' => '¿Habilitar usuario?',

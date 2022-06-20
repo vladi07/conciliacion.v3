@@ -26,10 +26,17 @@ class UsuarioController extends AbstractController
     ];
 
     #[Route('/', name: 'usuario_index', methods: ['GET'])]
-    public function index(UsuarioRepository $usuarioRepository): Response
+    public function index(UsuarioRepository $usuarioRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
+        $offset = max(0, $request->query->getInt('offset',0));
+        $paginator = $usuarioRepository->getPaginadorUsuario($offset);
+
         return $this->render('usuario/index.html.twig', [
-            'usuarios' => $usuarioRepository->findBy([],['nombres'=>'ASC']),
+            //'usuarios' => $usuarioRepository->findBy([],['nombres'=>'ASC']),
+            'usuarios' => $paginator,
+            'previous' => $offset - UsuarioRepository::PAGINADOR_POR_PAGINA,
+            'next' => min(count($paginator), $offset + UsuarioRepository::PAGINADOR_POR_PAGINA),
+            'desde' => $offset + 1
         ]);
     }
 
@@ -86,6 +93,8 @@ class UsuarioController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             //Enriptamos el Password
             $usuario -> setPassword($passwordEncoder -> encodePassword($usuario, $form['password']->getData()));
+            $rolAsignado = $form['roles'] ->getData();
+            $usuario -> setRoles($this->permisos[$rolAsignado]);
             $entityManager->flush();
 
             $this->addFlash('alert', Usuario::MODIFICACION_EXITOSA);

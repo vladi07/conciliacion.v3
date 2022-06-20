@@ -75,6 +75,9 @@ class Centro
     #[ORM\OneToMany(mappedBy: 'centro', targetEntity: Actividad::class)]
     private $actividad;
 
+    #[ORM\Column(type: 'boolean', nullable: true)]
+    private $activo;
+
     public function __construct()
     {
         $this->usuario = new ArrayCollection();
@@ -274,6 +277,18 @@ class Centro
         return $this;
     }
 
+    public function isActivo(): ?bool
+    {
+        return $this->activo;
+    }
+
+    public function setActivo(?bool $activo): self
+    {
+        $this->activo = $activo;
+
+        return $this;
+    }
+
     /**
      * @return Collection|usuario[]
      */
@@ -288,7 +303,6 @@ class Centro
             $this->usuario[] = $usuario;
             $usuario->setCentro($this);
         }
-
         return $this;
     }
 

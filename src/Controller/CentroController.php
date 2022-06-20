@@ -2,7 +2,9 @@
 
 namespace App\Controller;
 
+use App\Entity\CasoConciliatorio;
 use App\Entity\Centro;
+use App\Form\CasoType;
 use App\Form\CentroType;
 use App\Repository\CentroRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -14,11 +16,18 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/centro')]
 class CentroController extends AbstractController
 {
-    #[Route('/', name: 'centro_index', methods: ['GET'])]
-    public function index(CentroRepository $centroRepository): Response
+    #[Route('/', name: 'centro_index', methods: ['GET','POST'])]
+    public function index(CentroRepository $centroRepository, Request $request,EntityManagerInterface $entityManager): Response
     {
+        $offset = max(0, $request->query->getInt('offset', 0));
+        $paginator = $centroRepository->getPaginadorCentro($offset);
+
         return $this->render('centro/index.html.twig', [
-            'centros' => $centroRepository -> findBy([],['nombre'=>'ASC']),
+            //'centros' => $centroRepository -> findBy([],['nombre'=>'ASC']),
+            'centros' => $paginator,
+            'previous' => $offset - CentroRepository::PAGINADOR_POR_PAGINA,
+            'next' => min(count($paginator), $offset + CentroRepository::PAGINADOR_POR_PAGINA),
+            'desde' => $offset + 1
         ]);
     }
 
@@ -46,7 +55,7 @@ class CentroController extends AbstractController
     }
 
     #[Route('/{id}', name:'centro_detalle', methods:['GET','POST'])]
-    public function show(Centro $centro): Response
+    public function show(Centro $centro, Request $request): Response
     {
         return $this -> render('centro/detalle.html.twig',[
             'centro' => $centro,

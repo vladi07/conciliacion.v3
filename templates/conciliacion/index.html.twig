@@ -5,6 +5,17 @@
 {% endblock %}
 
 {% block body %}
+    {% for messaje in app.flashes('success') %}
+        <div class="alert alert-success alert-dismissible" role="alert">
+            <h4><strong>{{ messaje }}</strong></h4>
+        </div>
+    {% endfor %}
+    {% for messaje in app.flashes('alert') %}
+        <div class="alert alert-warning alert-dismissible" role="alert">
+            <h4><strong>{{ messaje }}</strong></h4>
+        </div>
+    {% endfor %}
+
     <div class="p-1 bd-highlight">
         <a class="btn btn-primary" href="{{ path('principal') }}">
             <i class="bi bi-arrow-left-square"></i> Volver
@@ -17,21 +28,28 @@
     <div class="card card-primary card-tabs">
         <div class="card-header p-0 pt-1">
             <ul class="nav nav-tabs" id="custom-tabs-one-tab" role="tablist">
-                <li class="nav-item">
-                    <a class="nav-link active" id="custom-tabs-one-valoracion-tab" data-toggle="pill"
-                       href="#custom-tabs-one-valoracion" role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">
-                        <h4>Valoración de Casos <span class="badge badge-secondary">25</span></h4></a>
-                </li>
+                {# FICHERO VALORACION
+                {% if is_granted('ROLE_DIRECTOR') %} #}
+                    <li class="nav-item">
+                        <a class="nav-link active" id="custom-tabs-one-valoracion-tab" data-toggle="pill"
+                           href="#custom-tabs-one-valoracion" role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">
+                            <h4>Valoración de Casos <span class="badge badge-secondary">25</span></h4></a>
+                    </li>
+                {# {% endif %} #}
+
+                {# FICHERO NUEVOS #}
                 <li class="nav-item">
                     <a class="nav-link" id="custom-tabs-one-nuevo-tab" data-toggle="pill"
                        href="#custom-tabs-one-nuevo" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">
                         <h4>Casos Nuevos <span class="badge badge-success">8</span></h4></a>
                 </li>
+                {# FICHERO TRATAMIENTO #}
                 <li class="nav-item">
                     <a class="nav-link" id="custom-tabs-one-tratamiento-tab" data-toggle="pill"
                        href="#custom-tabs-one-tratamiento" role="tab" aria-controls="custom-tabs-one-messages" aria-selected="false">
                         <h4>Casos en Tratamiento <span class="badge badge-warning">15</span></h4></a>
                 </li>
+                {# FICHERO CONCLUIDOS #}
                 <li class="nav-item">
                     <a class="nav-link" id="custom-tabs-one-concluidos-tab" data-toggle="pill"
                        href="#custom-tabs-one-concluidos" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="false">
@@ -42,7 +60,64 @@
         <div class="card-body p-0">
             <div class="tab-content" id="custom-tabs-one-tabContent">
                 <div class="tab-pane fade show active" id="custom-tabs-one-valoracion" role="tabpanel" aria-labelledby="custom-tabs-one-valoracion-tab">
-                    {# Inicio de la tabla de VALORACION #}
+                    {# Inicio de la tabla de VALORACION
+                    {% if is_granted('ROLE_DIRECTOR') %} #}
+                        <div class="card-body p-2">
+                            <table class="table table-responsive-sm table-sm">
+                                <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    {# <th>Solicitante</th> #}
+                                    <th>Fecha de Registro</th>
+                                    <th>Conciliador</th>
+                                    <th>Materia</th>
+                                    <th>Tipo</th>
+                                    <th>Estado</th>
+                                    <th>Centro</th>
+                                    <th>Acciones</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for casoConciliatorio in conciliaciones %}
+                                    <tr>
+                                        <td>{{ casoConciliatorio.id }}</td>
+                                        {# <td>{{ casoConciliatorio.usuarioExterno|json_encode}}</td> #}
+                                        <td>{{ casoConciliatorio.fecha|date('d-m-Y') }}</td>
+                                        <td>{{ casoConciliatorio.usuario }}</td>  {# <td>Se visualisa al consiliador</td>#}
+                                        <td>{{ casoConciliatorio.materia }}</td>
+                                        <td>{{ casoConciliatorio.tipoConciliacion }}</td>
+                                        <td>{{ casoConciliatorio.estado }}</td>
+                                        <td>{{ casoConciliatorio.centro }}</td>
+                                        <td>
+                                            <div class="text-center btn-group-sm">
+                                                <a class="btn btn-success btn-sm" href="{{ path('conciliacion_detalle',{'id':casoConciliatorio.id}) }}">
+                                                    <i class="bi bi-eye-fill"></i>Ver
+                                                </a>
+                                                <a class="btn btn-info btn-sm" href="{{ path('conciliacion_editar', {'id':casoConciliatorio.id}) }}">
+                                                    <i class="bi bi-pencil-square"></i>Editar
+                                                </a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <tr>
+                                        <td colspan="9">No se registraron Casos Conciliatorios asignado a este usuario</td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                        <div class="card-footer">
+                            Footer del CARD
+                        </div>
+                    {# {% endif %}
+                    Fin de VALORACIO #}
+                </div>
+                <div class="tab-pane fade" id="custom-tabs-one-nuevo" role="tabpanel" aria-labelledby="custom-tabs-one-nuevo-tab">
+                    Contenido de Perfil
+                </div>
+                <div class="tab-pane fade" id="custom-tabs-one-tratamiento" role="tabpanel" aria-labelledby="custom-tabs-one-tratamiento-tab">
+                    {# Inicio de la tabla de TRATAMIENTO #}
                     <div class="card-body p-2">
                         <table class="table">
                             <thead>
@@ -55,6 +130,7 @@
                                 <th>Materia</th>
                                 <th>Tipo</th>
                                 <th>Estado</th>
+                                <th>CEntro</th>
                                 <th>Acciones</th>
                             </tr>
                             </thead>
@@ -62,20 +138,21 @@
                             {% for casoConciliatorio in conciliaciones %}
                                 <tr>
                                     <td>{{ casoConciliatorio.id }}</td>
-                                    <td>{{ casoConciliatorio.addUsuarioExterno() }}</td>
-                                    <td>{{ casoConciliatorio.usuario }}</td>
+                                    {# <td>{{ casoConciliatorio. }}</td> #} <td>Se registra al solicitante</td>
+                                    {# <td>{{ casoConciliatorio. }}</td>#} <td>Se registra al Usuario que registro</td>
                                     <td>{{ casoConciliatorio.fecha|date('d-m-Y') }}</td>
-                                    <td>{{ casoConciliatorio.addUsuario() }}</td>
+                                    {# <td>{{ casoConciliatorio. }}</td> #} <td>Se visualisa al consiliador</td>
                                     <td>{{ casoConciliatorio.materia }}</td>
                                     <td>{{ casoConciliatorio.tipoConciliacion }}</td>
                                     <td>{{ casoConciliatorio.estado }}</td>
+                                    <td>{{ casoConciliatorio.centro }}</td>
                                     <td>
                                         <div class="text-center btn-group-sm">
                                             <a class="btn btn-success btn-sm" href="{{ path('conciliacion_detalle',{'id':casoConciliatorio.id}) }}">
-                                                <i class="bi bi-eye-fill"></i>Ver
+                                                <i class="bi bi-eye-fill"></i> Ver
                                             </a>
-                                            <a class="btn btn-info btn-sm" href="{{ path('conciliacion_editar',{'id':casoConciliatorio.id}) }}">
-                                                <i class="bi bi-pencil-square"></i>Editar
+                                            <a class="btn btn-info btn-sm" href="">
+                                                <i class="bi bi-pencil-square"></i> Editar
                                             </a>
                                         </div>
                                     </td>
@@ -91,13 +168,7 @@
                     <div class="card-footer">
                         Footer del CARD
                     </div>
-                    {# Fin de VALORACIO #}
-                </div>
-                <div class="tab-pane fade" id="custom-tabs-one-nuevo" role="tabpanel" aria-labelledby="custom-tabs-one-nuevo-tab">
-                    Contenido de Perfil
-                </div>
-                <div class="tab-pane fade" id="custom-tabs-one-tratamiento" role="tabpanel" aria-labelledby="custom-tabs-one-tratamiento-tab">
-                    Contemido de Mensages
+                    {# Fin de TRATAMIENTO #}
                 </div>
                 <div class="tab-pane fade" id="custom-tabs-one-concluidos" role="tabpanel" aria-labelledby="custom-tabs-one-concluidos-tab">
                     Contenido de configuracoip
