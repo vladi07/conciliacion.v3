@@ -81,29 +81,15 @@ class ConciliacionController extends AbstractController
     }
 
     #[Route('/{id}/detalle', name:'conciliacion_detalle', methods:['GET','POST'])]
-    public function show(CasoConciliatorio $casoConciliatorio, UsuarioExternoRepository  $usuarioExternoRepository,Request $request, EntityManagerInterface $entityManager): Response
+    public function show(CasoConciliatorio $casoConciliatorio, UsuarioExternoRepository  $usuarioExternoRepository, Request $request, EntityManagerInterface $entityManager): Response
     {
-        //$externo = new UsuarioExterno();
-        //$form = $this->createForm(UsuarioExternoType::class, $externo);
-        //$form -> handleRequest($request);
-
-        //if ($form->isSubmitted() && $form->isValid()){
-        //    $externo -> setCasoConciliatorio($casoConciliatorio);
-
-        //    $entityManager->persist($externo);
-        //    $entityManager->flush();
-            //$this->addFlash();
-        //    return $this->redirectToRoute('conciliacion_detalle', ['id'=>$casoConciliatorio->getId()]);
-        //}
-        //$userExterno = $usuarioExternoRepository->getMisExternos($casoConciliatorio);
-
-        $usuariosExternos = $usuarioExternoRepository -> findBy([],['id'=>'DESC']);
+        //$userExternos = $usuarioExternoRepository -> findBy([],['id'=>'DESC']);
+        $usuariosExternos = $usuarioExternoRepository -> findBy(array('casoConciliatorio'=>$casoConciliatorio), array('nombres'=>'ASC'),10);
 
         return $this->render('conciliacion/detalle.html.twig', [
             'conciliacion' => $casoConciliatorio,
-
-            //'userExterno' => $form -> createView(),
-            'externos' => $usuariosExternos,
+            'externosCaso' => $usuariosExternos,
+            //'usuariosExternos' => $userExternos
         ]);
     }
 

@@ -85,7 +85,7 @@ class UsuarioController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'usuario_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Usuario $usuario, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager): Response
+    public function edit(Request $request, Usuario $usuario, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager, string $fotoDir): Response
     {
         $form = $this->createForm(UsuarioType::class, $usuario);
         $form->handleRequest($request);
@@ -95,6 +95,17 @@ class UsuarioController extends AbstractController
             $usuario -> setPassword($passwordEncoder -> encodePassword($usuario, $form['password']->getData()));
             $rolAsignado = $form['roles'] ->getData();
             $usuario -> setRoles($this->permisos[$rolAsignado]);
+            //Cargamos la foto archivo del Ususario
+            if ($foto = $form['foto']-> getData()){
+                $nombreFoto = bin2hex(random_bytes(4)).'.'.$foto -> guessExtension();
+                try {
+                    $foto -> move($fotoDir, $nombreFoto);
+                } catch (FileException $exception){
+                    // No se puede subir la Foto
+                }
+                $usuario -> setFoto($nombreFoto);
+            }
+
             $entityManager->flush();
 
             $this->addFlash('alert', Usuario::MODIFICACION_EXITOSA);

@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\CasoConciliatorio;
 use App\Entity\UsuarioExterno;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
@@ -15,20 +16,24 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class UsuarioExternoRepository extends ServiceEntityRepository
 {
+    public const PAGINATOR_PER_PAGE = 2;
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, UsuarioExterno::class);
     }
 
-    public function getMisExternos(CasoConciliatorio $casoConciliatorio): ConsultaUsuario
+    public function getExternosDelCaso(CasoConciliatorio $casoConciliatorio, int $offset): Paginator
     {
-        $query = $this -> createQueryBuilder('e')
-            -> andWhere('e.casoConciliatorio = : casoConciliatorio')
+        $query = $this -> createQueryBuilder('ue')
+            -> andWhere('ue.casoConciliatorio = : casoConciliatorio')
             -> setParameter('casoConciliatorio', $casoConciliatorio)
-            -> orderBy('e.nombres', 'DESC')
+            -> orderBy('ue.nombres', 'DESC')
+            ->setMaxResults(self::PAGINATOR_PER_PAGE)
+            ->setFirstResult($offset)
             ->getQuery()
         ;
-        return new ConsultaUsuario($query);
+        return new Paginator($query);
     }
 
     // /**

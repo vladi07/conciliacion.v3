@@ -20,6 +20,7 @@
                 </div>
             </div>
             <div class="card-body">
+                <img class="rounded" src="{{ asset('uploads/photo/' ~ usuario.foto) }}" alt="{{ asset('img/profile/user-image.png') }}" width="150px">
                 <table class="table table-responsive-sm table-striped table-sm">
                     <tbody>
                     <tr>
@@ -94,10 +95,10 @@
                         <th>Correo Electronico</th>
                         <td>{{ usuario.correo }}</td>
                     </tr>
-                    <tr>
+                    {# <tr>
                         <th>Foto</th>
                         <td>{{ usuario.foto }}</td>
-                    </tr>
+                    </tr> #}
                     <tr>
                         <th>Fecha de Creación del Usuario</th>
                         <td>{{ usuario.fechaCreacion|date('d-m-Y H:i:s') }}</td>

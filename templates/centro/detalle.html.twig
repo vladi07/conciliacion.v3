@@ -6,7 +6,7 @@
 
 {% block body %}
     {# <div class="container-sm justify-content-center"> #}
-        <div class="card card-success card-outline w-50"> {# style="width: 50rem" #}
+        <div class="card card-success card-outline w-75"> {# style="width: 50rem" #}
             <div class="card-header">
                 <h1 class="card-title">Datos del Centro: <strong>{{ centro.nombre }}</strong></h1>
                 <div class="card-tools text-center btn-group">
@@ -39,8 +39,8 @@
                         <td>{{ centro.resolucion }}</td>
                     </tr>
                     <tr>
-                        <th>Fecha de Autorización</th>
-                        <td>{{ centro.vigencia|date('d-m-y')}}</td>
+                        <th>Fecha de Vigencia</th>
+                        <td>{{ centro.vigencia|date('d-m-Y')}}</td>
                     </tr>
                     <tr>
                         <th>Tipo de Centro</th>
@@ -77,6 +77,11 @@
                     <tr>
                         <th>Número de Fax</th>
                         <td>{{ centro.fax }}</td>
+                    </tr>
+                    <tr>
+                        <th>Documentación de Respaldo</th>
+                        <td><a href="{{ asset('uploads/archivo/' ~ centro.documento) }}">Ver Documento</a></td>
+
                     </tr>
                     <tr>
                         <th>Centro Activo</th>

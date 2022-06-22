@@ -23,8 +23,8 @@ class ExternoController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/externo', name:'externo_nuevo', methods:['GET', 'POST'])]
-    public function nuevo(Request $request, EntityManagerInterface $entityManager, CasoConciliatorio $casoConciliatorio){
+    #[Route('/{id}/externoNuevo', name:'externo_nuevo', methods:['GET', 'POST'])]
+    public function nuevo(Request $request, EntityManagerInterface $entityManager, CasoConciliatorio $casoConciliatorio, UsuarioExternoRepository $usuarioExternoRepository){
         $externo = new UsuarioExterno();
         $form = $this->createForm(UsuarioExternoType::class, $externo);
         $form-> handleRequest($request);
@@ -38,12 +38,12 @@ class ExternoController extends AbstractController
             return $this->redirectToRoute('conciliacion_detalle', ['id'=>$casoConciliatorio->getId()]);
         }
 
-        //$userExterno = $usuarioExternoRepository->getMisExternos($casoConciliatorio);
-
         return $this->render('externo/nuevo.html.twig', [
             'usuarioExterno' => $externo,
             'formulario' => $form -> createView(),
         ]);
     }
+
+
 
 }

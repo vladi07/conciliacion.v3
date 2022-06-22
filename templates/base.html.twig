@@ -120,6 +120,7 @@
                 <!-- Right navbar links -->
                 <ul class="navbar-nav ml-auto">
                     <!-- Notifications Dropdown Menu -->
+                    {#
                     <li class="nav-item dropdown">
                         <a class="nav-link" data-toggle="dropdown" href="#">
                             <i class="far fa-bell"></i>
@@ -146,7 +147,7 @@
                             <a href="#" class="dropdown-item dropdown-footer">Ver todas las Notificaciones</a>
                         </div>
                     </li>
-
+                    #}
                     <!-- Ver sistema en Pantalla Completa -->
                     <li class="nav-item">
                         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -162,7 +163,7 @@
                         </a>
                         <!-- Dropdown - User Información -->
                         <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="{{ path('usuario_show', {'id': app.user.id}) }}">
                                 <i class="fas fa-user fa-sm fa-fw mr-2 text-black"></i>
                                 Perfil
                             </a>
@@ -190,7 +191,7 @@
                     <!-- Sidebar user panel (optional) -->
                     <div class="user-panel mt-2 pb-2 mb-auto d-flex">
                         <div class="image">
-                            <img src="{{ asset('img/logos/mjti-vertical.jpg') }}" class="img-circle elevation-2" alt="">
+                            <img src="{{ asset('uploads/photo/' ~ app.user.foto) }}" class="img-circle elevation-2" alt="SIN FOTO">
                         </div>
                         <div class="info">
                             <h5 class="text-wrap text-justify text-center brand-text">{{ app.user }}</h5>
@@ -207,40 +208,43 @@
                                  con font-awesome o cualquier otra libreria fuentes de iconos -->
                             {#Boton INICIO#}
                             <li class="nav-item">
-                                <a href="" class="nav-link">
+                                <a class="nav-link" href="{{ path('principal') }}">
                                     <i class="nav-icon bi bi-house-fill"></i>
                                     <p>INICIO</p>
                                 </a>
                             </li>
                             {# CONCILIACION DE CASOS #}
                             <li class="nav-item">
-                                <a href="" class="nav-link">
+                                <a class="nav-link" href="">
                                     <i class="nav-icon bi bi-inboxes-fill"></i>
                                     <p>
                                         CONCILIACIONES
                                         <i class="fas fa-angle-left right"></i>
-                                        <span class="right badge badge-danger right">7</span>
+                                        {# <span class="right badge badge-danger right">7</span> #}
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="" class="nav-link">
+                                        <a href="{{ path('conciliacion_nuevo') }}" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Registro de Casos</p>
+                                            <p>Registrar Caso</p>
                                         </a>
                                     </li>
+                                    {#
                                     <li class="nav-item">
                                         <a href="" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Valoración y Asignación</p>
                                         </a>
                                     </li>
+                                    #}
                                     <li class="nav-item">
-                                        <a href="" class="nav-link">
+                                        <a href="{{ path('conciliacion_index') }}" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Casos Conciliatorios</p>
                                         </a>
                                     </li>
+                                    {#
                                     <li class="nav-item">
                                         <a href="" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
@@ -259,16 +263,17 @@
                                             <p>Actas de Conciliación</p>
                                         </a>
                                     </li>
+                                    #}
                                 </ul>
                             </li>
                             {# AGENDAS DE CONCILIACIONES #}
+                            {#
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
                                     <i class="nav-icon bi bi-calendar3"></i>
                                     <p>
                                         AGENDA
                                         <i class="fas fa-angle-left right"></i>
-                                        {#<span class="badge badge-info right">6</span>#}
                                     </p>
                                 </a>
                                 <ul class="nav nav-treeview">
@@ -292,6 +297,7 @@
                                     </li>
                                 </ul>
                             </li>
+                            #}
                             {# REPORTES ESTADISTICOS #}
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
@@ -327,23 +333,25 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="" class="nav-link">
+                                        <a href="{{ path('usuario_new') }}" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Acreditación</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="" class="nav-link">
+                                        <a href="{{ path('usuario_index') }}" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Modificación de Datos</p>
+                                            <p>Usuarios Registrados</p>
                                         </a>
                                     </li>
+                                    {#
                                     <li class="nav-item">
                                         <a href="" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Baja de Usuarios</p>
                                         </a>
                                     </li>
+                                    #}
                                 </ul>
                             </li>
                             {# GESTIÓN DE CENTROS #}
@@ -357,23 +365,25 @@
                                 </a>
                                 <ul class="nav nav-treeview">
                                     <li class="nav-item">
-                                        <a href="" class="nav-link">
+                                        <a href="{{ path('centro_nuevo') }}" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Autorización</p>
+                                            <p>Nueva Acreditación</p>
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="" class="nav-link">
+                                        <a href="{{ path('centro_index') }}" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
-                                            <p>Actualización</p>
+                                            <p>Centros Registrados</p>
                                         </a>
                                     </li>
+                                    {#
                                     <li class="nav-item">
                                         <a href="" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Suspención</p>
                                         </a>
                                     </li>
+                                    #}
                                 </ul>
                             </li>
                         </ul>
