@@ -5,6 +5,8 @@ namespace App\Repository;
 use App\Entity\CasoConciliatorio;
 use App\Entity\Centro;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\From;
+use Doctrine\ORM\Query\Expr\Select;
 use Doctrine\ORM\Tools\Pagination\Paginator;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -22,6 +24,17 @@ class CasoConciliatorioRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, CasoConciliatorio::class);
     }
+
+    public function getCasoIdioma($centro){
+        return $this -> getEntityManager()
+            ->createQuery('
+                SELECT cas, cent
+                FROM App:casoConciliatorio cas 
+                JOIN cas.centro cent
+                WHERE  cas.idioma =: Español
+            ')-> setParameter ('id', $centro);
+    }
+
 
     public function getCasoPaginator(Centro $centro, int $offset): Paginator
     {

@@ -1,0 +1,256 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    Conciliaciones|{{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="container-sm align-items-center">
+        <div class="row">
+            <div class="col">
+                <div class="card card-success">
+                    <div class="card-header">
+                        <h2 class="card-title">Datos del Centro</h2>
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-striped">
+                            <tbody>
+                            <tr>
+                                <th>Id</th>
+                                <td>{{ centro.id }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nombre del Centro</th>
+                                <td>{{ centro.nombre }}</td>
+                            </tr>
+                            <tr>
+                                <th>Matricula</th>
+                                <td>{{ centro.matricula }}</td>
+                            </tr>
+                            <tr>
+                                <th>Resolución</th>
+                                <td>{{ centro.resolucion }}</td>
+                            </tr>
+                            <tr>
+                                <th>Fecha de Vigencia</th>
+                                <td>{{ centro.vigencia|date('d-m-Y')}}</td>
+                            </tr>
+                            <tr>
+                                <th>Tipo de Centro</th>
+                                <td>{{ centro.tipo }}</td>
+                            </tr>
+                            <tr>
+                                <th>Nombre del Representante Legal</th>
+                                <td>{{ centro.representante }}</td>
+                            </tr>
+                            <tr>
+                                <th>Cargo del Representante Legal</th>
+                                <td>{{ centro.cargoRepresentante }}</td>
+                            </tr>
+                            <tr>
+                                <th>Dirección</th>
+                                <td>{{ centro.direccion }}</td>
+                            </tr>
+                            <tr>
+                                <th>Zona</th>
+                                <td>{{ centro.zona }}</td>
+                            </tr>
+                            <tr>
+                                <th>Departamento</th>
+                                <td>{{ centro.departamento }}</td>
+                            </tr>
+                            <tr>
+                                <th>Teléfono o Celular</th>
+                                <td>{{ centro.telefono }}</td>
+                            </tr>
+                            <tr>
+                                <th>Correo Electronico</th>
+                                <td>{{ centro.correo }}</td>
+                            </tr>
+                            <tr>
+                                <th>Número de Fax</th>
+                                <td>{{ centro.fax }}</td>
+                            </tr>
+                            <tr>
+                                <th>Documentación de Respaldo</th>
+                                {% if centro.documento == '' %}
+                                    <td><span>Sin documento</span></td>
+                                {% else %}
+                                    <td><a href="{{ asset('uploads/archivo/' ~ centro.documento) }}">Ver Documento</a></td>
+                                {% endif %}
+                            </tr>
+                            <tr>
+                                <th>Centro Activo</th>
+                                <td>{{ centro.activo ? 'si' : 'No' }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            {# REPORTE #}
+            <div class="col">
+                <div class="card card-primary">
+                    <div class="card-header">
+                        <h2 class="card-title">Datos Estadisticos</h2>
+                    </div>
+                    <h3>Datos de los Solicitantes</h3>
+                    <h4>Segun Instruccion Academica</h4>
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <th>Nivel Secundario</th>
+                            <td>{{ nivSecundaria|length }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nivel Licenciatura</th>
+                            <td>{{ nivLicenciatura|length }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nivel Maestria</th>
+                            <td>{{ nivMaestria|length }}</td>
+                        </tr>
+                        <tr>
+                            <th>Nivel Doctorado</th>
+                            <td>{{ nivDoctorado|length }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+
+                    <h4>Segun Género</h4>
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <th>Femenino</th>
+                            <td>{{ genFemenino|length }}</td>
+                        </tr>
+                        <tr>
+                            <th>Masculino</th>
+                            <td>{{ genMasculino|length }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h3>Datos de las Conciliaciones</h3>
+                    <h4>Segun idioma expresado</h4>
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <th>Español</th>
+                            <td>{{ idmEspañol|length }}</td>
+                        </tr>
+                        <tr>
+                            <th>Aymara</th>
+                            <td>{{ idmAymara|length }}</td>
+                        </tr>
+                        <tr>
+                            <th>Quechua</th>
+                            <td>{{ idmQuechua|length }}</td>
+                        </tr>
+                        <tr>
+                            <th>Guarani</th>
+                            <td>{{ idmGuarani|length }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h4>Segun tipo de materia</h4>
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <th>Civil</th>
+                            <td>{{ matCivil|length }}</td>
+                        </tr>
+                        <tr>
+                            <th>Familiar</th>
+                            <td>{{ matFamiliar|length }}</td>
+                        </tr>
+                        <tr>
+                            <th>Comercial</th>
+                            <td>{{ matComercial|length }}</td>
+                        </tr>
+                        <tr>
+                            <th>Vecinal</th>
+                            <td>{{ matVecinal|length }}</td>
+                        </tr>
+                        <tr>
+                            <th>Municipal</th>
+                            <td>{{ matMunicipal|length }}</td>
+                        </tr>
+                        <tr>
+                            <th>Escolar</th>
+                            <td>{{ matEscolar|length }}</td>
+                        </tr>
+                        <tr>
+                            <th>Cooperativo</th>
+                            <td>{{ matCooperativo|length }}</td>
+                        </tr>
+                        <tr>
+                            <th>Comunitario</th>
+                            <td>{{ matComunitario|length }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h4>Segun Tipo de Conciliación</h4>
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <th>Presencial</th>
+                            <td>{{ tipPresencial|length }}</td>
+                        </tr>
+                        <tr>
+                            <th>Virtual</th>
+                            <td>{{ tipVirtual|length }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <h4>Segun Tipo de Conclucion de Casos</h4>
+                    <table class="table table-striped">
+                        <tbody>
+                        <tr>
+                            <th>Nuevos</th>
+                            <td>{{ estNuevo|length }}</td>
+                        </tr>
+                        <tr>
+                            <th>En Tratameinto</th>
+                            <td>{{ estTratamiento|length }}</td>
+                        </tr>
+                        <tr>
+                            <th>Concluidos</th>
+                            <td>{{ estFin|length }}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        {#
+        <div class="">
+            <table class="table-striped">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>descripcoion</th>
+                        <th>materia</th>
+                        <th>etapa</th>
+                        <th>idioma</th>
+                    </tr>
+                </thead>
+                <tbody>
+                {% for conciliaiones in casosConciliados %}
+                    <tr>
+                        <td>{{ conciliaiones.id }}</td>
+                        <td>{{ conciliaiones.descripcion }}</td>
+                        <td>{{ conciliaiones.materia }}</td>
+                        <td>{{ conciliaiones.etapa }}</td>
+                        <td>{{ conciliaiones.idioma }}</td>
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="9">No se encontraron Conciliaciones</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        #}
+    </div>
+{% endblock %}

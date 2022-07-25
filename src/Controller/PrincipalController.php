@@ -14,13 +14,30 @@ use Symfony\Component\Routing\Annotation\Route;
 class PrincipalController extends AbstractController
 {
     #[Route('/', name: 'principal')]
-    public function index(CentroRepository $centroRepository): Response
+    public function index(CentroRepository $centroRepository, CasoConciliatorioRepository $casoConciliatorioRepository): Response
     {
-        $centro = $centroRepository->findAll();
+        //$centro = $centroRepository->findAll();
+
+        //return $this->render('principal/index.html.twig', [
+        //    'misCentros' => $centro,
+        //]);
+
+        $centros = $centroRepository -> findAll();
+
+        $centroCasos = [];
+        $centroCantidad = [];
+
+
+        foreach ( $centros as $centro ){
+            $centroCasos[] = $centro->getNombre();
+            $centroCantidad[] = count($centro -> getCasoConciliatorio());
+        }
 
         return $this->render('principal/index.html.twig', [
-            'misCentros' => $centro,
+            'centroCasos' => json_encode($centroCasos),
+            'centroCantidades' => json_encode($centroCantidad),
         ]);
+
     }
 
     #[Route('/mi_centro/{id}', name: 'mis_centros')]
@@ -43,4 +60,6 @@ class PrincipalController extends AbstractController
 
         ]);
     }
+
+
 }

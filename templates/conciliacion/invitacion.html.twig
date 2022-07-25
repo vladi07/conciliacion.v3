@@ -1,0 +1,43 @@
+<style>
+    .text-blue{
+        color:blue;
+    }
+</style>
+
+<page backtop="25mm" backleft="25mm" backbottom="25mm" backright="25mm">
+    <page_header>
+       <h1>INVITACIÓN A CONCILIACIÓN</h1>
+        <hr>
+        <br>
+        <h2>{{ datosCaso.centro.nombre }}</h2>
+        <br>
+        <h4>{{ datosCaso.centro.matricula }}</h4>
+    </page_header>
+    <br><br><br><br><br><br><br><br><br>
+        <h4><strong>Nro. de Caso: {{ datosCaso.id}} </strong></h4>
+
+        <br>
+        <p> Señor(a) en fecha <strong>{{ datosCaso.fecha|date('d-m-Y') }}</strong>, se presento ante mi el/la
+            señor(a), solicitando mi servicio como coniliador en representacion de la
+            <strong>{{ datosCaso.centro.nombre }}</strong> que autoriza el Ministerio de Justicia y Transparencia Institucional, en los problemas
+            que han surgido entre ustedes con relacion al supuesto conflicto sobre <strong>{{ datosCaso.descripcion }}</strong>,
+        </p>
+        <br>
+        <p>
+            Es por ello, que hago llegar a usted esta invitación, para que se puedan presentar y reunir el dia <strong>{{ datosCaso.fechaAudiencia|date('d-m-Y') }}</strong>
+            a horas <strong>{{ datosCaso.horaAudiencia|date('H:i') }}</strong> en el Centro de Conciliación de/la <strong>{{ datosCaso.centro.nombre }}</strong>, ubicado en la
+            <strong>{{ datosCaso.centro.direccion }}</strong>, acompañado de su Cedula de Identidad y docuemntación que considere pertinente, con el
+            proposito de procesar una solucion a su conflicto de una manera rapida y satisfactorias para ambas partes.
+        </p>
+        <br>
+        <p>
+            Atentamente,
+        </p>
+        <br><br><br><br><br>
+        <p>{{ datosCaso.usuario }}</p>
+        <p><strong>CONCILIADOR</strong></p>
+
+    <page_footer>
+        <h4 class="text-blue">Centro de Conciliacion NOMBRE</h4>
+    </page_footer>
+</page>

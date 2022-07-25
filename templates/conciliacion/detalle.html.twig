@@ -20,6 +20,9 @@
                             <a class="btn btn-info mr-2" href="{{ path('conciliacion_editar',{'id':conciliacion.id}) }}">
                                 <i class="bi bi-pencil-square"></i> Editar
                             </a>
+                            <a class="btn btn-danger" href="{{ path('conciliacion_pdf_invitacion',{'id':conciliacion.id}) }}">
+                                <i class="bi bi-file-earmark-pdf"></i> Invitacion
+                            </a>
                             {# RESTRICCIONES DE PERMISOS #}
                             {% if is_granted('ROLE_SCA','ROLE_DIRECTOR') %}
                                 <button class="btn btn-danger">Eiminar</button>

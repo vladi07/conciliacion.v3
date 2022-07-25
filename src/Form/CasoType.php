@@ -115,11 +115,12 @@ class CasoType extends AbstractType
             ])
             ->add('centro', EntityType::class,[
                 'label' => 'Centro Conciliatorio',
-                'placeholder' => 'Un centro',
+                'placeholder' => 'Centro de Conciliación',
                 'class' => Centro::class,
                 'query_builder' => function(EntityRepository $er){
                     return $er -> createQueryBuilder('c')
                         ->orderBy('c.nombre', 'ASC');
+
                 },
                 'choice_label' => function ($centro){
                     return $centro->getNombre();
@@ -141,6 +142,11 @@ class CasoType extends AbstractType
                 },
                 'multiple' => false,
                 'expanded' => false,
+                'required' => false,
+            ])
+            ->add('detalleActa', TextareaType::class,[
+                'attr' => ['class' => 'tinymce'],
+                'label' => 'Detalle del Acta',
                 'required' => false,
             ])
             //->add('usuario_externo')

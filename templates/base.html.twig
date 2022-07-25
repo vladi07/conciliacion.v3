@@ -31,6 +31,8 @@
             <link rel="stylesheet" href="{{ asset('dist/css/adminlte.min.css') }}">
             <!-- Iconos de Bootstrap 4 -->
             <link rel="stylesheet" href="{{ asset('icons/bootstrap-icons.css') }}">
+            <!-- SCC de los Charts -->
+            <link rel="stylesheet" href="{{ asset('plugins/chart.js/Chart.min.css') }}">
         {% endblock %}
 
         {% block javascripts %}
@@ -315,7 +317,7 @@
                                         </a>
                                     </li>
                                     <li class="nav-item">
-                                        <a href="pages/charts/flot.html" class="nav-link">
+                                        <a href="{{ path('reporte_index') }}" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Reportes por Centro</p>
                                         </a>

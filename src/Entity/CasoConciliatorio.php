@@ -76,6 +76,9 @@ class CasoConciliatorio
     #[ORM\ManyToOne(targetEntity: Usuario::class, inversedBy: 'caso')]
     private $usuario;
 
+    #[ORM\Column(type: 'text', nullable: true)]
+    private $detalleActa;
+
     public function __construct()
     {
         $this->usuario_externo = new ArrayCollection();
@@ -280,7 +283,6 @@ class CasoConciliatorio
         return $this;
     }
 
-
     public function getCentro(): ?Centro
     {
         return $this->centro;
@@ -331,6 +333,18 @@ class CasoConciliatorio
     public function setUsuarioExterno($usuario_externo): void
     {
         $this->usuario_externo = $usuario_externo;
+    }
+
+    public function getDetalleActa(): ?string
+    {
+        return $this->detalleActa;
+    }
+
+    public function setDetalleActa(?string $detalleActa): self
+    {
+        $this->detalleActa = $detalleActa;
+
+        return $this;
     }
 
 }
