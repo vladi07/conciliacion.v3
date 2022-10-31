@@ -26,7 +26,9 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'json')]
     private $roles = [];
 
-    //#[var string The hashed password]
+    /**
+     * @var string The hashed password for this user
+     */
     #[ORM\Column(type: 'string')]
     private $password;
 
@@ -192,7 +194,7 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setNombres(string $nombres): self
     {
-        $this->nombres = $nombres;
+        $this->nombres = strtoupper($nombres);
 
         return $this;
     }
@@ -204,7 +206,7 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setPrimerApellido(string $primer_apellido): self
     {
-        $this->primer_apellido = $primer_apellido;
+        $this->primer_apellido = strtoupper($primer_apellido);
 
         return $this;
     }
@@ -216,7 +218,7 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setSegundoApellido(?string $segundo_apellido): self
     {
-        $this->segundo_apellido = $segundo_apellido;
+        $this->segundo_apellido = strtoupper($segundo_apellido);
 
         return $this;
     }
@@ -264,7 +266,7 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setDomicilio(?string $domicilio): self
     {
-        $this->domicilio = $domicilio;
+        $this->domicilio = strtoupper($domicilio);
 
         return $this;
     }
@@ -324,7 +326,7 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function setProfesion(?string $profesion): self
     {
-        $this->profesion = $profesion;
+        $this->profesion = strtoupper($profesion);
 
         return $this;
     }

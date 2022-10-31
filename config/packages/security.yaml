@@ -38,11 +38,11 @@ security:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
 
-        - { path: ^/principal, roles: [ROLE_PLATAFORMA,
-                                       ROLE_CONCILIADOR,
-                                       ROLE_DIRECTOR,
-                                       ROLE_SCA,
-                                       ROLE_ADMIN,] }
+#        - { path: ^/principal, roles: [ROLE_PLATAFORMA,
+#                                       ROLE_CONCILIADOR,
+#                                       ROLE_DIRECTOR,
+#                                       ROLE_SCA,
+#                                       ROLE_ADMIN,] }
         - { path: ^/conciliacion, roles: [ROLE_PLATAFORMA,
                                           ROLE_CONCILIADOR,
                                           ROLE_DIRECTOR,

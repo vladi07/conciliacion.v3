@@ -12,7 +12,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 #[Route('/usuario')]
 class UsuarioController extends AbstractController
@@ -21,12 +20,12 @@ class UsuarioController extends AbstractController
       1 => ['ROLE_PLATAFORMA'],
       2 => ['ROLE_CONCILIADOR'],
       3 => ['ROLE_DIRECTOR'],
-      4 => ['ROLE_SCA'],
+      4 => ['ROLE_COMISION_TECNICA'],
       5 => ['ROLE_ADMIN']
     ];
 
     #[Route('/', name: 'usuario_index', methods: ['GET'])]
-    public function index(UsuarioRepository $usuarioRepository, Request $request, EntityManagerInterface $entityManager): Response
+    public function index(Request $request, EntityManagerInterface $entityManager, UsuarioRepository $usuarioRepository): Response
     {
         $offset = max(0, $request->query->getInt('offset',0));
         $paginator = $usuarioRepository->getPaginadorUsuario($offset);
@@ -41,7 +40,7 @@ class UsuarioController extends AbstractController
     }
 
     #[Route('/new', name: 'usuario_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordEncoderInterface $passwordEncoder , string $fotoDir): Response
+    public function new(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher , string $fotoDir): Response
     {
         $usuario = new Usuario();
         $form = $this->createForm(UsuarioType::class, $usuario);
@@ -49,10 +48,15 @@ class UsuarioController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
             //Encriptamos el Password
-            $usuario -> setPassword($passwordEncoder->encodePassword($usuario, $form['password']-> getData()));
+            $encriptarContraseña = $passwordHasher->hashPassword(
+                $usuario, $form['password']->getData()
+            );
+            $usuario -> setPassword($encriptarContraseña);
+
             //Aasiganmos los Roles a los Usuarios
             $rolAsignado = $form['roles'] -> getData();
             $usuario -> setRoles($this->permisos[$rolAsignado]);
+
             //Cargamos la foto archivo del Ususario
             if ($foto = $form['foto']-> getData()){
                 $nombreFoto = bin2hex(random_bytes(4)).'.'.$foto -> guessExtension();
@@ -85,16 +89,21 @@ class UsuarioController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'usuario_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Usuario $usuario, UserPasswordEncoderInterface $passwordEncoder, EntityManagerInterface $entityManager, string $fotoDir): Response
+    public function edit(Request $request, EntityManagerInterface $entityManager, UserPasswordHasherInterface $passwordHasher, Usuario $usuario, string $fotoDir): Response
     {
         $form = $this->createForm(UsuarioType::class, $usuario);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             //Enriptamos el Password
-            $usuario -> setPassword($passwordEncoder -> encodePassword($usuario, $form['password']->getData()));
+            $encriptarContraseña = $passwordHasher->hashPassword(
+              $usuario, $form['password']->getData()
+            );
+            $usuario->setPassword($encriptarContraseña);
+
             $rolAsignado = $form['roles'] ->getData();
             $usuario -> setRoles($this->permisos[$rolAsignado]);
+
             //Cargamos la foto archivo del Ususario
             if ($foto = $form['foto']-> getData()){
                 $nombreFoto = bin2hex(random_bytes(4)).'.'.$foto -> guessExtension();

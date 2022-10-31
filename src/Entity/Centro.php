@@ -104,7 +104,8 @@ class Centro
 
     public function setNombre(string $nombre): self
     {
-        $this->nombre = $nombre;
+
+        $this->nombre = strtoupper($nombre);
 
         return $this;
     }
@@ -116,7 +117,7 @@ class Centro
 
     public function setDireccion(string $direccion): self
     {
-        $this->direccion = $direccion;
+        $this->direccion = strtoupper($direccion);
 
         return $this;
     }
@@ -176,7 +177,7 @@ class Centro
 
     public function setRepresentante(string $representante): self
     {
-        $this->representante = $representante;
+        $this->representante = strtoupper($representante);
 
         return $this;
     }
@@ -188,7 +189,7 @@ class Centro
 
     public function setCargoRepresentante(string $cargo_representante): self
     {
-        $this->cargo_representante = $cargo_representante;
+        $this->cargo_representante = strtoupper($cargo_representante);
 
         return $this;
     }
@@ -212,7 +213,7 @@ class Centro
 
     public function setCiudad(string $ciudad): self
     {
-        $this->ciudad = $ciudad;
+        $this->ciudad = strtoupper($ciudad);
 
         return $this;
     }
@@ -224,7 +225,7 @@ class Centro
 
     public function setZona(?string $zona): self
     {
-        $this->zona = $zona;
+        $this->zona = strtoupper($zona);
 
         return $this;
     }

@@ -68,9 +68,10 @@
                     {% for usuario in usuarios %}
                         <tr>
                             <td>{{ usuario.id }}</td>
-                            <td>{{ usuario.nombres|upper }}</td>
-                            <td>{{ usuario.primerApellido|upper }}</td>
-                            <td>{{ usuario.segundoApellido|upper }}</td>
+                            {#<td>{{ usuario.nombres|upper }}</td>#}
+                            <td>{{ usuario.nombres }}</td>
+                            <td>{{ usuario.primerApellido }}</td>
+                            <td>{{ usuario.segundoApellido }}</td>
                             <td>{{ usuario.tipoDocumento }}</td>
                             <td>{{ usuario.numeroDocumento }}</td>
                             <td>{{ usuario.fechaNacimiento|date('d-m-Y')}}</td>

@@ -21,45 +21,25 @@ class PrincipalController extends AbstractController
         //return $this->render('principal/index.html.twig', [
         //    'misCentros' => $centro,
         //]);
+        // Obtenemos al usuario LOGUEADO
+        $usuarioLog = $this->getUser();
+        if ($usuarioLog){
+            $centros = $centroRepository -> findAll();
 
-        $centros = $centroRepository -> findAll();
+            $centroCasos = [];
+            $centroCantidad = [];
 
-        $centroCasos = [];
-        $centroCantidad = [];
+            foreach ( $centros as $centro ){
+                $centroCasos[] = $centro->getNombre();
+                $centroCantidad[] = count($centro -> getCasoConciliatorio());
+            }
 
-
-        foreach ( $centros as $centro ){
-            $centroCasos[] = $centro->getNombre();
-            $centroCantidad[] = count($centro -> getCasoConciliatorio());
+            return $this->render('principal/index.html.twig', [
+                'centroCasos' => json_encode($centroCasos),
+                'centroCantidades' => json_encode($centroCantidad),
+            ]);
+        } else {
+            return $this-> redirectToRoute('app_login');
         }
-
-        return $this->render('principal/index.html.twig', [
-            'centroCasos' => json_encode($centroCasos),
-            'centroCantidades' => json_encode($centroCantidad),
-        ]);
-
     }
-
-    #[Route('/mi_centro/{id}', name: 'mis_centros')]
-    public function show(Request $request, CasoConciliatorioRepository $casoConciliatorioRepository, Centro $centro)
-    {
-        $offset = max(0,$request->query->getInt('offset',0));
-
-        $paginator = $casoConciliatorioRepository->getCasoPaginator($centro, $offset);
-
-        //$conciliaciones = $centro->getCasoConciliatorio();
-        //$conciliaciones = $casoConciliatorioRepository->findBy(
-        //    ['centro' => $centro]
-        //);
-
-        return $this->render('principal/show.html.twig',[
-            'misCentros' => $centro,
-            'misConciliaciones' => $paginator,
-            'anterior' => $offset - CasoConciliatorioRepository::PAGINATOR_PER_PAGE,
-            'siguiente' => min(count($paginator), $offset + CasoConciliatorioRepository::PAGINATOR_PER_PAGE),
-
-        ]);
-    }
-
-
 }
