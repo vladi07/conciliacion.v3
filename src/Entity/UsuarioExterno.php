@@ -86,7 +86,7 @@ class UsuarioExterno
 
     public function setNombres(string $nombres): self
     {
-        $this->nombres = $nombres;
+        $this->nombres = strtoupper($nombres);
 
         return $this;
     }
@@ -98,7 +98,7 @@ class UsuarioExterno
 
     public function setPrimerApellido(string $primer_apellido): self
     {
-        $this->primer_apellido = $primer_apellido;
+        $this->primer_apellido = strtoupper($primer_apellido);
 
         return $this;
     }
@@ -110,7 +110,7 @@ class UsuarioExterno
 
     public function setSegundoApellido(?string $segundo_apellido): self
     {
-        $this->segundo_apellido = $segundo_apellido;
+        $this->segundo_apellido = strtoupper($segundo_apellido);
 
         return $this;
     }
@@ -170,7 +170,7 @@ class UsuarioExterno
 
     public function setDomicilio(string $domicilio): self
     {
-        $this->domicilio = $domicilio;
+        $this->domicilio = strtoupper($domicilio);
 
         return $this;
     }
@@ -242,7 +242,7 @@ class UsuarioExterno
 
     public function setAutoridadEmision(?string $autoridad_emision): self
     {
-        $this->autoridad_emision = $autoridad_emision;
+        $this->autoridad_emision = strtoupper($autoridad_emision);
 
         return $this;
     }

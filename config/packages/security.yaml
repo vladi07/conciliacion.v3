@@ -46,14 +46,27 @@ security:
         - { path: ^/conciliacion, roles: [ROLE_PLATAFORMA,
                                           ROLE_CONCILIADOR,
                                           ROLE_DIRECTOR,
-                                          ROLE_SCA,
+                                          ROLE_COMISION_TECNICA,
                                           ROLE_ADMIN ] }
-        - { path: ^/usuario, roles: [ROLE_DIRECTOR,
-                                     ROLE_SCA,
+        - { path: ^/usuario, roles: [ROLE_PLATAFORMA,
+                                     ROLE_CONCILIADOR,
+                                     ROLE_DIRECTOR,
+                                     ROLE_COMISION_TECNICA,
                                      ROLE_ADMIN] }
         - { path: ^/centro, roles: [ROLE_DIRECTOR,
-                                    ROLE_SCA,
+                                    ROLE_COMISION_TECNICA,
                                     ROLE_ADMIN] }
+        - { path: ^/caso, roles: [ROLE_PLATAFORMA,
+                                  ROLE_CONCILIADOR,
+                                  ROLE_DIRECTOR] }
+        - { path: ^/externo, roles: [ROLE_PLATAFORMA,
+                                     ROLE_CONCILIADOR,
+                                     ROLE_DIRECTOR] }
+        - { path: ^/reporte, roles: [ROLE_PLATAFORMA,
+                                     ROLE_CONCILIADOR,
+                                     ROLE_DIRECTOR,
+                                     ROLE_COMISION_TECNICA,
+                                     ROLE_ADMIN] }
 
 when@test:
     security:

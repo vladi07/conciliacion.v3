@@ -46,6 +46,7 @@
                         <th>Tipo Documento</th>
                         <th>Número Documento</th>
                         <th>Fecha de Nacimiento</th>
+                        <th>Edad</th>
                         <th>Teléfono</th>
                         <th>Departamento</th>
                         {# <th>Usuario</th> #}
@@ -75,10 +76,24 @@
                             <td>{{ usuario.tipoDocumento }}</td>
                             <td>{{ usuario.numeroDocumento }}</td>
                             <td>{{ usuario.fechaNacimiento|date('d-m-Y')}}</td>
+                            <td>edad</td>
                             <td>{{ usuario.telefono }}</td>
                             <td>{{ usuario.departamento|upper }}</td>
                             {# <td>{{ usuario.username }}</td> #}
-                            <td>{{ usuario.roles ? usuario.roles|json_encode : '' }}</td>
+                            {#<td>{{ usuario.roles ? usuario.roles|json_encode : '' }}</td>#}
+                            <td>
+                                {% if usuario.roles == ["ROLE_PLATAFORMA"] %}
+                                    <h6>Plataforma</h6>
+                                {% elseif usuario.roles == ["ROLE_CONCILIADOR"]%}
+                                    <h6>Conciliador(a)</h6>
+                                {% elseif usuario.roles == ["ROLE_DIRECTOR"] %}
+                                    <h6>Director(a) de Centro</h6>
+                                {% elseif usuario.roles ==["ROLE_COMISION_TECNICA"] %}
+                                    <h6>Comisión Técnica</h6>
+                                {% else %}
+                                    <h6>Administrador</h6>
+                                {% endif %}
+                            </td>
                             <td>{{ usuario.centro }}</td>
                             {#<td>{{ usuario.password }}</td>
                             <td>{{ usuario.expedido }}</td>
@@ -90,6 +105,7 @@
                             <td>{{ usuario.foto }}</td>
                             <td>{{ usuario.fechaCreacion|date('d-m-Y H:i:s')}}</td>#}
                             <td>{{ usuario.activo ? 'Si' : 'No' }}</td>
+                            {% if is_granted('ROLE_COMISION_TECNICA','ROLE_ADMIN') %}
                             <td>
                                 <div class="text-center btn-group">
                                     <a class="btn btn-success btn-sm" href="{{ path('usuario_show', {'id': usuario.id}) }}">
@@ -100,6 +116,7 @@
                                     </a>
                                 </div>
                             </td>
+                            {% endif %}
                         </tr>
                     {% else %}
                         <tr>

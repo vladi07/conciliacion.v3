@@ -17,8 +17,8 @@
 
     <!-- Small boxes (Stat box) -->
     <div class="row">
-        {# Gestion de Casos Conciliatorios
-        {% if is_granted('ROLE_DIRECTOR','ROLE_CONCILIADOR','ROLE_PLATAFORMA') %} #}
+        {# Gestion de Casos Conciliatorios #}
+{#        {% if is_granted('ROLE_DIRECTOR','ROLE_CONCILIADOR','ROLE_PLATAFORMA') %}#}
             <div class="col-lg-4 col-6">
                 <!-- small box -->
                 <div class="small-box bg-primary">
@@ -34,31 +34,31 @@
                     </a>
                 </div>
             </div>
-        {# {% endif %} #}
+{#        {% endif %}#}
         <!-- ./col -->
 
-        {# Agenda de Conciliaciones
-        {% if is_granted('ROLE_DIRECTOR','ROLE_CONCILIADOR','ROLE_PLATAFORMA') %}
-            <div class="col-lg-4 col-6">
-                <!-- small box -->
-                <div class="small-box bg-success">
-                    <div class="inner">
-                        <h2 class="font-weight-bold">AGENDA DE CONCILIACIONES</h2>
-                        <br>
-                    </div>
-                    <div class="icon">
-                        <i class="ion bi bi-calendar3"></i>
-                    </div>
-                    <a href="#" class="small-box-footer">
-                        Ingresar <i class="fas fa-arrow-circle-right"></i>
-                    </a>
-                </div>
-            </div>
-         {% endif %} #}
+        {# Agenda de Conciliaciones #}
+        {# {% if is_granted('ROLE_DIRECTOR','ROLE_CONCILIADOR','ROLE_PLATAFORMA') %}#}
+{#            <div class="col-lg-4 col-6">#}
+{#                <!-- small box -->#}
+{#                <div class="small-box bg-success">#}
+{#                    <div class="inner">#}
+{#                        <h2 class="font-weight-bold">AGENDA DE CONCILIACIONES</h2>#}
+{#                        <br>#}
+{#                    </div>#}
+{#                    <div class="icon">#}
+{#                        <i class="ion bi bi-calendar3"></i>#}
+{#                    </div>#}
+{#                    <a href="#" class="small-box-footer">#}
+{#                        Ingresar <i class="fas fa-arrow-circle-right"></i>#}
+{#                    </a>#}
+{#                </div>#}
+{#            </div>#}
+        {# {% endif %}#}
         <!-- ./col -->
 
-        {# Reportes Semestrales
-        {% if is_granted('ROLE_SCA','ROLE_DIRECTOR','ROLE_CONCILIADOR') %}#}
+        {# Reportes Semestrales #}
+{#        {% if is_granted('ROLE_COMISION_TECNICA','ROLE_DIRECTOR','ROLE_CONCILIADOR') %}#}
             <div class="col-lg-4 col-6">
                 <!-- small box -->
                 <div class="small-box bg-info">
@@ -74,11 +74,11 @@
                     </a>
                 </div>
             </div>
-        {# {% endif %} #}
+{#         {% endif %}#}
         <!-- ./col -->
 
         {# Gestion de Usuarios #}
-        {% if is_granted('ROLE_SCA') %}
+        {% if is_granted('ROLE_COMISION_TECNICA','ROLE_ADMIN') %}
             <div class="col-lg-4 col-6">
                 <!-- small box -->
                 <div class="small-box bg-warning">
@@ -98,7 +98,7 @@
         <!-- ./col -->
 
         {# Gestion de Centros #}
-        {% if is_granted('ROLE_SCA') %}
+        {% if is_granted('ROLE_COMISION_TECNICA','ROLE_ADMIN') %}
             <div class="col-lg-4 col-6">
                 <!-- small box -->
                 <div class="small-box bg-danger">

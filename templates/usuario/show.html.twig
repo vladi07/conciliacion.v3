@@ -5,111 +5,204 @@
 {% endblock %}
 
 {% block body %}
-    {# <div class="container-sm"> #}
-        <div class="card card-success card-outline mx-auto w-50">
-            <div class="card-header">
-                <h1 class="card-title">Datos del Usuario: <strong>{{ usuario }}</strong></h1>
-                <div class="card-tools text-center btn-group">
-                    <a class="btn btn-primary mr-2" href="{{ path('usuario_index') }}">
-                        <i class="bi bi-arrow-left-square"></i> Volver
-                    </a>
-                    <a class="btn btn-info mr-2" href="{{ path('usuario_edit', {'id': usuario.id}) }}">
-                        <i class="bi bi-pencil-square"></i> Editar
-                    </a>
-                    {{ include('usuario/_delete_form.html.twig') }}
+    <!-- Content Wrapper. Contains page content -->
+    <div class="card card-success card-outline container-fluid">
+        <!-- Content Header (Page header) -->
+        <section class="content-header">
+            <div class="container-fluid">
+                <div class="row">
+                    <h1>PERFIL DE USUARIO</h1>
+                    <div class="btn-group text-right">
+                        <a class="btn btn-primary mr-2" href="{{ path('usuario_index') }}">
+                            <i class="bi bi-arrow-left-square"></i> Volver
+                        </a>
+                        <a class="btn btn-info mr-2" href="{{ path('usuario_edit', {'id': usuario.id}) }}">
+                            <i class="bi bi-pencil-square"></i> Editar
+                        </a>
+                    </div>
                 </div>
-            </div>
-            <div class="card-body">
-                <img class="rounded" src="{{ asset('uploads/photo/' ~ usuario.foto) }}" alt="{{ asset('img/profile/user-image.png') }}" width="150px">
-                <table class="table table-responsive-sm table-striped table-sm">
-                    <tbody>
-                    <tr>
-                        <th>Id</th>
-                        <td>{{ usuario.id }}</td>
-                    </tr>
-                    <tr>
-                        <th>Username</th>
-                        <td>{{ usuario.username }}</td>
-                    </tr>
-                    <tr>
-                        <th>Roles</th>
-                        <td>{{ usuario.roles ? usuario.roles|json_encode : '' }}</td>
-                    </tr>
-                    <tr>
-                        <th>Password</th>
-                        <td>{{ usuario.password }}</td>
-                    </tr>
-                    <tr>
-                        <th>Nombres</th>
-                        <td>{{ usuario.nombres }}</td>
-                    </tr>
-                    <tr>
-                        <th>Primer Apellido</th>
-                        <td>{{ usuario.primerApellido }}</td>
-                    </tr>
-                    <tr>
-                        <th>Segundo Apellido</th>
-                        <td>{{ usuario.segundoApellido }}</td>
-                    </tr>
-                    <tr>
-                        <th>Tipo de Documento</th>
-                        <td>{{ usuario.tipoDocumento }}</td>
-                    </tr>
-                    <tr>
-                        <th>Número del Documento</th>
-                        <td>{{ usuario.numeroDocumento }}</td>
-                    </tr>
-                    <tr>
-                        <th>Expedido en</th>
-                        <td>{{ usuario.expedido }}</td>
-                    </tr>
-                    <tr>
-                        <th>Dirección del Domicilio</th>
-                        <td>{{ usuario.domicilio }}</td>
-                    </tr>
-                    <tr>
-                        <th>Departamento</th>
-                        <td>{{ usuario.departamento }}</td>
-                    </tr>
-                    <tr>
-                        <th>Fecha de Nacimiento</th>
-                        <td>{{ usuario.fechaNacimiento |date('d-m-Y') }}</td>
-                    </tr>
-                    <tr>
-                        <th>Género</th>
-                        <td>{{ usuario.genero }}</td>
-                    </tr>
-                    <tr>
-                        <th>Grado de Instrucción Academica</th>
-                        <td>{{ usuario.gradoAcademico }}</td>
-                    </tr>
-                    <tr>
-                        <th>Profesión</th>
-                        <td>{{ usuario.profesion }}</td>
-                    </tr>
-                    <tr>
-                        <th>Teléfono o Celular de Contacto</th>
-                        <td>{{ usuario.telefono }}</td>
-                    </tr>
-                    <tr>
-                        <th>Correo Electronico</th>
-                        <td>{{ usuario.correo }}</td>
-                    </tr>
-                    {# <tr>
-                        <th>Foto</th>
-                        <td>{{ usuario.foto }}</td>
-                    </tr> #}
-                    <tr>
-                        <th>Fecha de Creación del Usuario</th>
-                        <td>{{ usuario.fechaCreacion|date('d-m-Y H:i:s') }}</td>
-                    </tr>
-                    <tr>
-                        <th>Activo</th>
-                        <td>{{ usuario.activo ? 'Si' : 'No' }}</td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    {# </div> #}
+            </div><!-- /.container-fluid -->
+        </section>
+
+        <!-- Main content -->
+        <div class="container-fluid">
+            <div class="row">
+                <!-- Profile Image -->
+                <div class="col">
+                    <div class="card card-primary card-outline">
+                        <div class="card-body box-profile">
+                            <div class="text-center"> {# FOTO DE PERFIL #}
+                                {% if usuario.foto %}
+                                    <img src="{{ asset('uploads/photo/' ~ usuario.foto) }}" class="profile-user-img img-fluid" width="500px" alt="">
+                                {% else %}
+                                    <img src="{{ asset('img/profile/image_user.jpg') }}" class="profile-user-img img-fluid" width="500px" alt="">
+                                {% endif %}
+                            </div>
+                            <h3 class="profile-username text-center"><string>{{ usuario }}</string></h3>
+
+                            <p class="text-muted text-center"> {{ usuario.profesion}} </p>
+
+                            <ul class="list-group list-group-unbordered mb-3">
+                                <li class="list-group-item">
+                                    <b>{{ usuario.tipoDocumento }}</b> <a class="float-right">{{ usuario.numeroDocumento }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Edad</b> <a class="float-right">Calcular edad</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Género</b> <a class="float-right">{{ usuario.genero }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Departamento</b> <a class="float-right">{{ usuario.departamento }}</a>
+                                </li>
+                                <li class="list-group-item">
+                                    <b>Teléfono/Celular</b> <a class="float-right">{{ usuario.telefono }}</a>
+                                </li>
+                            </ul>
+                            {% if usuario.roles == ["ROLE_PLATAFORMA"] %}
+                                <a href="#" class="btn btn-primary btn-block"><b>PLATAFORMA</b></a>
+                            {% elseif usuario.roles == ["ROLE_CONCILIADOR"]%}
+                                <a href="#" class="btn btn-primary btn-block"><b>CONCILIADOR(A)</b></a>
+                            {% elseif usuario.roles == ["ROLE_DIRECTOR"] %}
+                                <a href="#" class="btn btn-primary btn-block"><b>DIRECTOR(A)</b></a>
+                            {% elseif usuario.roles ==["ROLE_COMISION_TECNICA"] %}
+                                <a href="#" class="btn btn-primary btn-block"><b>COMISIÓN TÉCNICA</b></a>
+                            {% else %}
+                                <a href="#" class="btn btn-primary btn-block"><b>ADMINISTRADOR</b></a>
+                            {% endif %}
+                        </div> <!-- /.card-body -->
+                    </div> <!-- /.card -->
+                </div> {# Cerramos Perfil Imagen #}
+
+                <!-- About Me Box -->
+                <div class="col">
+                    <div class="card card-primary">
+                        <div class="card-header">
+                            <h3 class="card-title">Mis Datos</h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <strong><i class="fas fa-book mr-1"></i> Formación Academica </strong>
+                            <p class="text-muted">{{ usuario.gradoAcademico }}</p>
+                            <hr>
+                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Dirección </strong>
+                            <p class="text-muted">{{ usuario.domicilio }}</p>
+                            <hr>
+                            <strong><i class="fas fa-mail-alt mr-1"></i> Correo </strong>
+                            <p class="text-muted"> {{ usuario.correo}} </p>
+                            <hr>
+                            <strong><i class="far fa-file-alt mr-1"></i> Centro de Conciliación </strong>
+                            <p class="text-muted"> {{ usuario.centro.nombre}} </p>
+                            <hr>
+                            <strong><i class="fas fa-map-marker-alt mr-1"></i> Fecha de Nacimiento </strong>
+                            <p class="text-muted">{{ usuario.fechaNacimiento | date('d-m-Y') }}</p>
+                        </div> <!-- /.card-body -->
+                    </div> <!-- /.card -->
+                </div> {# Cerramos Datos del Perfil #}
+            </div> <!-- /.row -->
+        </div> {# Contenido Prinicipal #}
+    </div> {# Contenido de la Pagina #}
+
+{#        <div class="card card-success card-outline mx-auto w-50">#}
+{#            <div class="card-header">#}
+{#                <h1 class="card-title">Datos del Usuario: <strong>{{ usuario }}</strong></h1>#}
+{#                <div class="card-tools text-center btn-group">#}
+{#                    <a class="btn btn-primary mr-2" href="{{ path('usuario_index') }}">#}
+{#                        <i class="bi bi-arrow-left-square"></i> Volver#}
+{#                    </a>#}
+{#                    <a class="btn btn-info mr-2" href="{{ path('usuario_edit', {'id': usuario.id}) }}">#}
+{#                        <i class="bi bi-pencil-square"></i> Editar#}
+{#                    </a>#}
+{#                    #}{# {{ include('usuario/_delete_form.html.twig') }} #}
+{#                </div>#}
+{#            </div>#}
+{#            <div class="card-body">#}
+{#                <img class="rounded" src="{{ asset('uploads/photo/' ~ usuario.foto) }}" alt="{{ asset('img/profile/user-image.png') }}" width="200px">#}
+{#                <table class="table table-responsive-sm table-striped table-sm">#}
+{#                    <tbody>#}
+{#                    <tr>#}
+{#                        <th>Id</th>#}
+{#                        <td>{{ usuario.id }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>Username</th>#}
+{#                        <td>{{ usuario.username }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>Roles</th>#}
+{#                        <td>{{ usuario.roles ? usuario.roles|json_encode : '' }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>Password</th>#}
+{#                        <td>{{ usuario.password }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>Nombres</th>#}
+{#                        <td>{{ usuario.nombres }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>Primer Apellido</th>#}
+{#                        <td>{{ usuario.primerApellido }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>Segundo Apellido</th>#}
+{#                        <td>{{ usuario.segundoApellido }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>Tipo de Documento</th>#}
+{#                        <td>{{ usuario.tipoDocumento }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>Número del Documento</th>#}
+{#                        <td>{{ usuario.numeroDocumento }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>Expedido en</th>#}
+{#                        <td>{{ usuario.expedido }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>Dirección del Domicilio</th>#}
+{#                        <td>{{ usuario.domicilio }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>Departamento</th>#}
+{#                        <td>{{ usuario.departamento }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>Fecha de Nacimiento</th>#}
+{#                        <td>{{ usuario.fechaNacimiento |date('d-m-Y') }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>Género</th>#}
+{#                        <td>{{ usuario.genero }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>Grado de Instrucción Academica</th>#}
+{#                        <td>{{ usuario.gradoAcademico }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>Profesión</th>#}
+{#                        <td>{{ usuario.profesion }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>Teléfono o Celular de Contacto</th>#}
+{#                        <td>{{ usuario.telefono }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>Correo Electronico</th>#}
+{#                        <td>{{ usuario.correo }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>Fecha de Creación del Usuario</th>#}
+{#                        <td>{{ usuario.fechaCreacion|date('d-m-Y H:i:s') }}</td>#}
+{#                    </tr>#}
+{#                    <tr>#}
+{#                        <th>Activo</th>#}
+{#                        <td>{{ usuario.activo ? 'Si' : 'No' }}</td>#}
+{#                    </tr>#}
+{#                    </tbody>#}
+{#                </table>#}
+{#            </div>#}
+{#        </div>#}
+
 {% endblock %}

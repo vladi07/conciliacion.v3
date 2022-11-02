@@ -39,7 +39,7 @@ class UsuarioType extends AbstractType
                     'PLATAFORMA' => 1,
                     'CONCILIADOR' => 2,
                     'DIRECTOR CENTRO' => 3,
-                    'AJAN- SCA' => 4,
+                    'COMISION TECNICA' => 4,
                     'ADMINISTRADOR' => 5
                 ],
                 'required' => true,

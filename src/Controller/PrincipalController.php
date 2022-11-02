@@ -16,13 +16,9 @@ class PrincipalController extends AbstractController
     #[Route('/', name: 'principal')]
     public function index(CentroRepository $centroRepository, CasoConciliatorioRepository $casoConciliatorioRepository): Response
     {
-        //$centro = $centroRepository->findAll();
-
-        //return $this->render('principal/index.html.twig', [
-        //    'misCentros' => $centro,
-        //]);
         // Obtenemos al usuario LOGUEADO
         $usuarioLog = $this->getUser();
+
         if ($usuarioLog){
             $centros = $centroRepository -> findAll();
 

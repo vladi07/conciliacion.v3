@@ -103,8 +103,8 @@
                         </a>
                         <!-- Linea de Busqueda -->
                         <div class="navbar-search-block">
-                            <form class="form-inline">
-                                <div class="input-group input-group-sm">
+                            <form class="form-check-input">
+                                <div class="input-group input-group">
                                     <input class="form-control form-control-navbar" type="search" placeholder="Buscar por CI" aria-label="Search">
                                     <div class="input-group-append">
                                         <button class="btn btn-navbar" type="submit">
@@ -121,35 +121,6 @@
                 </ul>
                 <!-- Right navbar links -->
                 <ul class="navbar-nav ml-auto">
-                    <!-- Notifications Dropdown Menu -->
-                    {#
-                    <li class="nav-item dropdown">
-                        <a class="nav-link" data-toggle="dropdown" href="#">
-                            <i class="far fa-bell"></i>
-                            <span class="badge badge-warning navbar-badge">15</span>
-                        </a>
-                        <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
-                            <span class="dropdown-item dropdown-header">15 Notifications</span>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <i class="fas fa-envelope mr-2"></i> 4 Mensajes nuevos
-                                <span class="float-right text-muted text-sm">3 mins</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <i class="fas fa-users mr-2"></i> 8 Respuestas de amigos
-                                <span class="float-right text-muted text-sm">12 hours</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item">
-                                <i class="fas fa-file mr-2"></i> 3 Nuevos casos
-                                <span class="float-right text-muted text-sm">2 days</span>
-                            </a>
-                            <div class="dropdown-divider"></div>
-                            <a href="#" class="dropdown-item dropdown-footer">Ver todas las Notificaciones</a>
-                        </div>
-                    </li>
-                    #}
                     <!-- Ver sistema en Pantalla Completa -->
                     <li class="nav-item">
                         <a class="nav-link" data-widget="fullscreen" href="#" role="button">
@@ -183,22 +154,38 @@
             <aside class="main-sidebar sidebar-light-blue elevation-4">
                 <!-- Brand Logo -->
                 <a href="{{ path('principal') }}" class="brand-link">
-                    <img src="{{ asset('img/logos/sca-vertical.jpeg') }}" class="brand-image img-circle elevation-3" style="opacity: .8">
+                    <img src="{{ asset('img/logos/sca-vertical.jpeg') }}" class="brand-image img-circle elevation-3" width="200px">
                     {# <span class="brand-text font-weight-bold badge text-wrap">Sistema de Conciliación</span> #}
                     <h2 class="text-wrap text-center badge brand-text">SISTEMA DE CONCILIACIÓN</h2>
                 </a>
 
                 <!-- Sidebar -->
                 <div class="sidebar">
-                    <!-- Sidebar user panel (optional) -->
+                    <!-- Sidebar PANEL DE USUARIO (optional) -->
                     <div class="user-panel mt-2 pb-2 mb-auto d-flex">
+                        {# Foto de Perfil #}
                         <div class="image">
-                            <img src="{{ asset('uploads/photo/' ~ app.user.foto) }}" class="img-circle elevation-2" alt="SIN FOTO">
+                            {% if app.user.foto %}
+                                <img src="{{ asset('uploads/photo/' ~ app.user.foto) }}" class="img-circle elevation-2" width="150px">
+                            {% else %}
+                                <img src="{{ asset('img/profile/image_user.jpg') }}" class="img-circle elevation-2" width="150px">
+                            {% endif %}
                         </div>
+                        {# Cargo o tipo de Usuario #}
                         <div class="info">
                             <h5 class="text-wrap text-justify text-center brand-text">{{ app.user }}</h5>
-                            {# <a href="#" class="d-block"></a>#}
-                            <h6 class="d-block text-center">{{ app.user.roles | json_encode }}</h6>
+                            {% if app.user.roles == ["ROLE_PLATAFORMA"] %}
+                                <h6 class="d-block text-center">PLATAFORMA</h6>
+                            {% elseif app.user.roles == ["ROLE_CONCILIADOR"] %}
+                                <h6 class="d-block text-center">CONCILIADOR(A)</h6>
+                            {% elseif app.user.roles == ["ROLE_DIRECTOR"] %}
+                                <h6 class="d-block text-center">DIRECTOR(A)</h6>
+                            {% elseif app.user.roles == ["ROLE_COMISION_TECNICA"] %}
+                                <h6 class="d-block text-center">COMISION TECNICA</h6>
+                            {% else %}
+                                <h6 class="d-block text-center">ADMINISTRADOR</h6>
+                            {% endif %}
+                            {#<h6 class="d-block text-center">{{ app.user.roles | json_encode }}</h6>#}
                             <h6 class="d-block text-center text-wrap">{{ app.user.departamento }}</h6>
                         </div>
                     </div>
@@ -208,7 +195,7 @@
                         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                             <!-- Agrega íconos a los enlaces usando la clase .nav-icon
                                  con font-awesome o cualquier otra libreria fuentes de iconos -->
-                            {#Boton INICIO#}
+                            {# Boton INICIO #}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('principal') }}">
                                     <i class="nav-icon bi bi-house-fill"></i>
@@ -232,74 +219,14 @@
                                             <p>Registrar Caso</p>
                                         </a>
                                     </li>
-                                    {#
-                                    <li class="nav-item">
-                                        <a href="" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Valoración y Asignación</p>
-                                        </a>
-                                    </li>
-                                    #}
                                     <li class="nav-item">
                                         <a href="{{ path('conciliacion_index') }}" class="nav-link">
                                             <i class="far fa-circle nav-icon"></i>
                                             <p>Casos Conciliatorios</p>
                                         </a>
                                     </li>
-                                    {#
-                                    <li class="nav-item">
-                                        <a href="" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Invitaciones</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Audiencias</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Actas de Conciliación</p>
-                                        </a>
-                                    </li>
-                                    #}
                                 </ul>
                             </li>
-                            {# AGENDAS DE CONCILIACIONES #}
-                            {#
-                            <li class="nav-item">
-                                <a href="#" class="nav-link">
-                                    <i class="nav-icon bi bi-calendar3"></i>
-                                    <p>
-                                        AGENDA
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
-                                <ul class="nav nav-treeview">
-                                    <li class="nav-item">
-                                        <a href="" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Conciliadores</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Salas de Conciliación</p>
-                                        </a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a href="" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Gestión de Salas</p>
-                                        </a>
-                                    </li>
-                                </ul>
-                            </li>
-                            #}
                             {# REPORTES ESTADISTICOS #}
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
@@ -346,14 +273,6 @@
                                             <p>Usuarios Registrados</p>
                                         </a>
                                     </li>
-                                    {#
-                                    <li class="nav-item">
-                                        <a href="" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Baja de Usuarios</p>
-                                        </a>
-                                    </li>
-                                    #}
                                 </ul>
                             </li>
                             {# GESTIÓN DE CENTROS #}
@@ -378,14 +297,6 @@
                                             <p>Centros Registrados</p>
                                         </a>
                                     </li>
-                                    {#
-                                    <li class="nav-item">
-                                        <a href="" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Suspención</p>
-                                        </a>
-                                    </li>
-                                    #}
                                 </ul>
                             </li>
                         </ul>
@@ -417,48 +328,6 @@
                         {% block body %}
 
                         {% endblock %}
-
-                        {#
-                        <div class="container">
-                            <div class="card-deck">
-                                <div class="card text-center bg-primary m-2">
-                                    <div class="card-body">
-                                        <h2 class="card-title font-weight-bold">CONCILIACIÓN DE CASOS</h2>
-                                        <br><br>
-                                        <a href="#" class="btn btn-light">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-                                    </div>
-                                </div>
-                                <div class="card text-center bg-success m-2">
-                                    <div class="card-body">
-                                        <h2 class="card-title font-weight-bold">AGENDA DE CONCILIACIONES</h2>
-                                        <br><br>
-                                        <a href="#" class="btn btn-light">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-                                    </div>
-                                </div>
-                                <div class="card text-center bg-info m-2">
-                                    <div class="card-body">
-                                        <h2 class="card-title font-weight-bold">RESPORTES SEMESTRALES</h2>
-                                        <br><br>
-                                        <a href="#" class="btn btn-light">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-                                    </div>
-                                </div>
-                                <div class="card text-center bg-warning m-2">
-                                    <div class="card-body">
-                                        <h2 class="card-title font-weight-bold">GESTIÓN DE USUARIOS</h2>
-                                        <br><br>
-                                        <a href="#" class="btn btn-light">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-                                    </div>
-                                </div>
-                                <div class="card text-center bg-danger m-2">
-                                    <div class="card-body">
-                                        <h2 class="card-title font-weight-bold">CONCILIACIÓN DE CENTROS</h2>
-                                        <br><br>
-                                        <a href="#" class="btn btn-light">Ingresar <i class="fas fa-arrow-circle-right"></i></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        #}
                     </div> <!-- /.container-fluid -->
                 </section> <!-- /.content -->
             </div> <!-- /.content-wrapper -->
