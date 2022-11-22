@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Repository\CentroRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CentroRepository::class)]
@@ -78,6 +79,12 @@ class Centro
     #[ORM\Column(type: 'boolean', nullable: true)]
     private $activo;
 
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $fecha_creacion = null;
+
+    #[ORM\Column(length: 200, nullable: true)]
+    private ?string $usuario_creador = null;
+
     public function __construct()
     {
         $this->usuario = new ArrayCollection();
@@ -85,6 +92,7 @@ class Centro
         $this->sala = new ArrayCollection();
         $this->actividad = new ArrayCollection();
         $this->matricula = 'SCA- M';
+        $this->fecha_creacion = new \DateTime();
     }
 
     public function __toString()
@@ -405,6 +413,30 @@ class Centro
                 $actividad->setCentro(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getFechaCreacion(): ?\DateTimeInterface
+    {
+        return $this->fecha_creacion;
+    }
+
+    public function setFechaCreacion(?\DateTimeInterface $fecha_creacion): self
+    {
+        $this->fecha_creacion = $fecha_creacion;
+
+        return $this;
+    }
+
+    public function getUsuarioCreador(): ?string
+    {
+        return $this->usuario_creador;
+    }
+
+    public function setUsuarioCreador(?string $usuario_creador): self
+    {
+        $this->usuario_creador = $usuario_creador;
 
         return $this;
     }

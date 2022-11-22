@@ -5,20 +5,11 @@
 {% endblock %}
 
 {% block body %}
-    {#
-    <div class="card card-warning justify-content-center">
-        <h2>Lista de Centros</h2>
-        {% for centro in misCentros %}
-            <h6>{{ centro }}</h6>
-            <a class="btn" href="{{ path('mis_centros',{'id':centro.id}) }}">Ver</a>
-        {% endfor %}
-    </div>
-    #}
 
     <!-- Small boxes (Stat box) -->
     <div class="row">
         {# Gestion de Casos Conciliatorios #}
-{#        {% if is_granted('ROLE_DIRECTOR','ROLE_CONCILIADOR','ROLE_PLATAFORMA') %}#}
+        {#{% if is_granted('ROLE_DIRECTOR','ROLE_CONCILIADOR','ROLE_PLATAFORMA') %}#}
             <div class="col-lg-4 col-6">
                 <!-- small box -->
                 <div class="small-box bg-primary">
@@ -27,38 +18,38 @@
                         <br>
                     </div>
                     <div class="icon">
-                        <i class="ion bi bi-inboxes-fill"></i>
+                        <i class="ion fa fa-inbox" aria-hidden="true"></i>
                     </div>
                     <a href="{{ path('conciliacion_index') }}" class="small-box-footer">
                         Ingresar <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
             </div>
-{#        {% endif %}#}
-        <!-- ./col -->
+        {#{% endif %}#}
 
         {# Agenda de Conciliaciones #}
-        {# {% if is_granted('ROLE_DIRECTOR','ROLE_CONCILIADOR','ROLE_PLATAFORMA') %}#}
-{#            <div class="col-lg-4 col-6">#}
-{#                <!-- small box -->#}
-{#                <div class="small-box bg-success">#}
-{#                    <div class="inner">#}
-{#                        <h2 class="font-weight-bold">AGENDA DE CONCILIACIONES</h2>#}
-{#                        <br>#}
-{#                    </div>#}
-{#                    <div class="icon">#}
-{#                        <i class="ion bi bi-calendar3"></i>#}
-{#                    </div>#}
-{#                    <a href="#" class="small-box-footer">#}
-{#                        Ingresar <i class="fas fa-arrow-circle-right"></i>#}
-{#                    </a>#}
-{#                </div>#}
-{#            </div>#}
-        {# {% endif %}#}
-        <!-- ./col -->
+        {#
+        {% if is_granted('ROLE_DIRECTOR','ROLE_CONCILIADOR','ROLE_PLATAFORMA') %}
+            <div class="col-lg-4 col-6">
+                <!-- small box -->
+                <div class="small-box bg-success">
+                    <div class="inner">
+                        <h2 class="font-weight-bold">AGENDA DE CONCILIACIONES</h2>
+                        <br>
+                    </div>
+                    <div class="icon">
+                        <i class="ion bi bi-calendar3"></i>
+                    </div>
+                    <a href="#" class="small-box-footer">
+                        Ingresar <i class="fas fa-arrow-circle-right"></i>
+                    </a>
+                </div>
+            </div>
+        {% endif %}
+        #}
 
         {# Reportes Semestrales #}
-{#        {% if is_granted('ROLE_COMISION_TECNICA','ROLE_DIRECTOR','ROLE_CONCILIADOR') %}#}
+        {#{% if is_granted('ROLE_COMISION_TECNICA','ROLE_DIRECTOR','ROLE_CONCILIADOR') %}#}
             <div class="col-lg-4 col-6">
                 <!-- small box -->
                 <div class="small-box bg-info">
@@ -67,15 +58,14 @@
                         <br>
                     </div>
                     <div class="icon">
-                        <i class="ion bi bi-bar-chart-line-fill"></i>
+                        <i class="fa fa-bar-chart" aria-hidden="true"></i>
                     </div>
                     <a href="{{ path('reporte_index') }}" class="small-box-footer">
                         Ingresar <i class="fas fa-arrow-circle-right"></i>
                     </a>
                 </div>
             </div>
-{#         {% endif %}#}
-        <!-- ./col -->
+        {#{% endif %}#}
 
         {# Gestion de Usuarios #}
         {% if is_granted('ROLE_COMISION_TECNICA','ROLE_ADMIN') %}
@@ -87,6 +77,7 @@
                         <br>
                     </div>
                     <div class="icon">
+                        <i class="fa fa-users" aria-hidden="true"></i>
                         <i class="ion bi bi-people-fill"></i>
                     </div>
                     <a href="{{ path('usuario_index') }}" class="small-box-footer">
@@ -95,7 +86,6 @@
                 </div>
             </div>
         {% endif %}
-        <!-- ./col -->
 
         {# Gestion de Centros #}
         {% if is_granted('ROLE_COMISION_TECNICA','ROLE_ADMIN') %}
@@ -107,7 +97,7 @@
                         <br>
                     </div>
                     <div class="icon">
-                        <i class="ion bi bi-house-door-fill"></i>
+                        <i class="ion fa fa-university" aria-hidden="true"></i>
                     </div>
                     <a href="{{ path('centro_index') }}" class="small-box-footer">
                         Ingresar <i class="fas fa-arrow-circle-right"></i>
@@ -115,7 +105,6 @@
                 </div>
             </div>
         {% endif %}
-        <!-- ./col -->
     </div>
 
     <div class="card card-body">

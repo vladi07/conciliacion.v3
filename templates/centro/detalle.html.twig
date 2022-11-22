@@ -5,20 +5,19 @@
 {% endblock %}
 
 {% block body %}
-    {# <div class="container-sm justify-content-center"> #}
+     <div class="container-sm justify-content-center">
         <div class="card card-success card-outline w-75"> {# style="width: 50rem" #}
             <div class="card-header">
                 <h1 class="card-title">Datos del Centro: <strong>{{ centro.nombre }}</strong></h1>
+
                 <div class="card-tools text-center btn-group">
                     <a class="btn btn-primary mr-2" href="{{ path('centro_index') }}">
-                        <i class="bi bi-arrow-left-square"></i> Volver
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i> Volver
                     </a>
                     <a class="btn btn-info mr-2" href="{{ path('centro_editar', {'id': centro.id}) }}">
-                        <i class="bi bi-pencil-square"></i> Editar
+                        <i class="fa fa-list" aria-hidden="true"></i> Editar
                     </a>
-                    {#
-                    {{ include('centro/eliminar.html.twig') }}
-                    #}
+                    {#{{ include('centro/eliminar.html.twig') }}#}
                 </div>
             </div>
             <div class="card-body">
@@ -82,8 +81,14 @@
                     </tr>
                     <tr>
                         <th>Documentación de Respaldo</th>
-                        <td><a href="{{ asset('uploads/archivo/' ~ centro.documento) }}">Ver Documento</a></td>
+                        <td>
+                            {% if centro.documento %}
+                                <a href="{{ asset('uploads/archivo/' ~ centro.documento) }}">Ver Documento</a>
+                            {% else %}
+                                No se cargo documento
+                            {% endif %}
 
+                        </td>
                     </tr>
                     <tr>
                         <th>Centro Activo</th>
@@ -93,5 +98,5 @@
                 </table>
             </div>
         </div>
-    {# </div> #}
+     </div>
 {% endblock %}

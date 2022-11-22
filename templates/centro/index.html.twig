@@ -23,10 +23,10 @@
                 <div class="d-flex bd-highlight mb-1">
                     <div class="p-1 bd-highlight">
                         <a class="btn btn-primary" href="{{ path('principal') }}">
-                            <i class="bi bi-arrow-left-square"></i> Volver
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i> Volver
                         </a>
                         <a class="btn btn-success" href="{{ path('centro_nuevo') }}">
-                            <i class="bi bi-plus-square"></i> Nuevo
+                            <i class="fa fa-plus" aria-hidden="true"></i> Nuevo
                         </a>
                     </div>
                     <div class="ml-auto p-1 bd-highlight">
@@ -60,13 +60,13 @@
                             <td>{{ centro.departamento }}</td>
                             <td>{{ centro.telefono }}</td>
                             <td>
-                                <div class="text-center btn-group-sm">
+                                <div class="btn-group-sm">
                                     <div class="btn-group">
                                         <a class="btn btn-success btn-sm" href="{{ path('centro_detalle',{'id':centro.id}) }}">
-                                            <i class="bi bi-eye-fill"></i> Ver
+                                            <i class="fa fa-eye" aria-hidden="true"></i> Ver
                                         </a>
                                         <a class="btn btn-info btn-sm" href="{{ path('centro_editar', {'id':centro.id}) }}">
-                                            <i class="bi bi-pencil-square"></i> Editar
+                                            <i class="fa fa-list" aria-hidden="true"></i> Editar
                                         </a>
                                     </div>
                                 </div>

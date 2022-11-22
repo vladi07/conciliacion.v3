@@ -12,12 +12,13 @@
             <div class="container-fluid">
                 <div class="row">
                     <h1>PERFIL DE USUARIO</h1>
-                    <div class="btn-group text-right">
+                    <hr>
+                    <div class="text-right btn-group">
                         <a class="btn btn-primary mr-2" href="{{ path('usuario_index') }}">
-                            <i class="bi bi-arrow-left-square"></i> Volver
+                            <i class="fa fa-arrow-left" aria-hidden="true"></i> Volver
                         </a>
                         <a class="btn btn-info mr-2" href="{{ path('usuario_edit', {'id': usuario.id}) }}">
-                            <i class="bi bi-pencil-square"></i> Editar
+                            <i class="fa fa-list" aria-hidden="true"></i> Editar
                         </a>
                     </div>
                 </div>

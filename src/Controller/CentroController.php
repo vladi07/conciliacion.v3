@@ -34,11 +34,13 @@ class CentroController extends AbstractController
     #[Route('/nuevo', name: 'centro_nuevo', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager)
     {
+        $obtenerUsuario = $this -> getUser();
         $centro = new Centro();
         $form = $this -> createForm(CentroType::class, $centro);
         $form -> handleRequest($request);
 
         if ($form -> isSubmitted() && $form -> isValid()){
+            $centro -> setUsuarioCreador($obtenerUsuario);
 
             $entityManager -> persist($centro);
             $entityManager -> flush();

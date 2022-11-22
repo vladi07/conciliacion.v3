@@ -14,7 +14,7 @@
         {% block stylesheets %}
             {#{{ encore_entry_link_tags('app') }}#}
             <!-- Font Awesome -->
-            <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+            <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.css') }}">
             <!-- Tempusdominus Bootstrap 4 -->
             <link rel="stylesheet" href="{{ asset('plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css') }}">
             <!-- iCheck -->
@@ -198,14 +198,14 @@
                             {# Boton INICIO #}
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ path('principal') }}">
-                                    <i class="nav-icon bi bi-house-fill"></i>
+                                    <i class="nav-icon fa fa-home" aria-hidden="true"></i>
                                     <p>INICIO</p>
                                 </a>
                             </li>
                             {# CONCILIACION DE CASOS #}
                             <li class="nav-item">
                                 <a class="nav-link" href="">
-                                    <i class="nav-icon bi bi-inboxes-fill"></i>
+                                    <i class="nav-icon fa fa-inbox" aria-hidden="true"></i>
                                     <p>
                                         CONCILIACIONES
                                         <i class="fas fa-angle-left right"></i>
@@ -230,7 +230,7 @@
                             {# REPORTES ESTADISTICOS #}
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon bi bi-bar-chart-line-fill"></i>
+                                    <i class="nav-icon fa fa-bar-chart" aria-hidden="true" ></i>
                                     <p>
                                         REPORTES ESTADISTICOS
                                         <i class="right fas fa-angle-left"></i>
@@ -254,7 +254,7 @@
                             {# GESTION DE USUARIOS #}
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon bi bi-people-fill"></i>
+                                    <i class="nav-icon fa fa-users" aria-hidden="true"></i>
                                     <p>
                                         GESTIÓN DE USUARIOS
                                         <i class="fas fa-angle-left right"></i>
@@ -278,7 +278,7 @@
                             {# GESTIÓN DE CENTROS #}
                             <li class="nav-item">
                                 <a href="#" class="nav-link">
-                                    <i class="nav-icon bi bi-columns-gap"></i>
+                                    <i class="nav-icon fa fa-university" aria-hidden="true"></i>
                                     <p>
                                         GESTIÓN DE CENTROS
                                         <i class="fas fa-angle-left right"></i>
