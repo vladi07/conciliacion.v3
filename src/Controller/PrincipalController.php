@@ -30,10 +30,24 @@ class PrincipalController extends AbstractController
                 $centroCantidad[] = count($centro -> getCasoConciliatorio());
             }
 
+            $casosConciliatorios = $casoConciliatorioRepository ->findAll();
+
+            $casosMateria = [];
+            $casosCantidad = [];
+
+            foreach ($casosConciliatorios as $conciliacion) {
+                $casosMateria[] = $conciliacion->getMateria();
+                $casosCantidad[] = ($conciliacion -> getUsuario());
+            }
+
             return $this->render('principal/index.html.twig', [
                 'centroCasos' => json_encode($centroCasos),
                 'centroCantidades' => json_encode($centroCantidad),
+
+                'casosMateria' => json_encode($casosMateria),
+                'casosCantidad' => json_encode($casosCantidad),
             ]);
+
         } else {
             return $this-> redirectToRoute('app_login');
         }

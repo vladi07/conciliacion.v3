@@ -110,7 +110,7 @@
     <div class="card card-body">
         <h2>Gráficos Estadísticos</h2>
         {# <h3><strong>Conciliaciones Efectuadas por Materias</strong></h3> #}
-        <canvas id="casos" width="400" height="100"></canvas>
+        <canvas id="casos" width="400" height="150"></canvas>
     </div>
 
     <script>
@@ -120,7 +120,7 @@
             data: {
                 labels: {{ centroCasos|raw }},
                 datasets: [{
-                    label: 'Conciliaciones efectudas',
+                    label: 'Conciliaciones efectudas por Centros',
                     data: {{ centroCantidades|raw }},
                     backgroundColor: [
                         'rgba(255, 99, 132, 0.5)',
@@ -161,12 +161,72 @@
         });
     </script>
 
+
+{#    <div class="card card-body">#}
+{#        <h2>Cantidad de Casos</h2>#}
+{#        #}{# <h3><strong>Conciliaciones Efectuadas por Materias</strong></h3> #}
+{#        <canvas id="casosMateria" width="400" height="150"></canvas>#}
+{#    </div>#}
+
+{#    <script>#}
+{#        let casos = document.querySelector("#casosMateria").getContext('2d');#}
+{#        let casosGrafico = new Chart(casos,{#}
+{#            type: "bar",#}
+{#            data: {#}
+{#                labels: {{ casosMateria|raw }},#}
+{#                datasets: [{#}
+{#                    label: 'Conciliaciones efectudas por materias',#}
+{#                    data: {{ centroCantidades|raw }},#}
+{#                    backgroundColor: [#}
+{#                        'rgba(255, 99, 132, 0.5)',#}
+{#                        'rgba(54, 162, 235, 0.5)',#}
+{#                        'rgba(255, 206, 86, 0.5)',#}
+{#                        'rgba(75, 192, 192, 0.5)',#}
+{#                        'rgba(153, 102, 255, 0.5)',#}
+{#                        'rgba(255, 159, 64, 0.5)',#}
+{#                        'rgba(255, 99, 132, 0.5)',#}
+{#                        'rgba(54, 162, 235, 0.5)',#}
+{#                        'rgba(255, 206, 86, 0.5)',#}
+{#                        'rgba(255, 99, 132, 0.5)',#}
+{#                    ],#}
+{#                    borderColor: [#}
+{#                        'rgba(255, 99, 132, 1)',#}
+{#                        'rgba(54, 162, 235, 1)',#}
+{#                        'rgba(255, 206, 86, 1)',#}
+{#                        'rgba(75, 192, 192, 1)',#}
+{#                        'rgba(153, 102, 255, 1)',#}
+{#                        'rgba(255, 159, 64, 1)',#}
+{#                        'rgba(255, 99, 132, 0.5)',#}
+{#                        'rgba(54, 162, 235, 0.5)',#}
+{#                        'rgba(255, 206, 86, 0.5)',#}
+{#                        'rgba(255, 99, 132, 1)',#}
+{#                    ],#}
+{#                    borderWidth:1#}
+{#                }]#}
+{#            },#}
+{#            options:{#}
+{#                scales:{#}
+{#                    yAxes:[{#}
+{#                        ticks:{#}
+{#                            beginAtZero:true#}
+{#                        }#}
+{#                    }]#}
+{#                }#}
+{#            }#}
+{#        });#}
+{#    </script>#}
+
+
+
+
+
+
     <!-- MODAL -->
     {#
     <button class="btn btn-success" data-toggle="modal" data-target="#ventanaModal">
         Abrir ventana modal
     </button>
-    #}
+
 
     <div class="modal fade" id="ventanaModal" tabindex="-1" role="dialog" aria-labelledby="tituloVentana" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -197,5 +257,5 @@
             </div>
         </div>
     </div>
-
+    #}
 {% endblock %}
