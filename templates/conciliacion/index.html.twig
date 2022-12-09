@@ -19,10 +19,10 @@
     {# BARRA DE TOOLS #}
     <div class="p-1 bd-highlight">
         <a class="btn btn-primary" href="{{ path('principal') }}">
-            <i class="bi bi-arrow-left-square"></i> Volver
+            <i class="fa fa-arrow-left" aria-hidden="true"></i> Volver
         </a>
         <a class="btn btn-success" href="{{ path('conciliacion_nuevo') }}">
-            <i class="bi bi-plus-square"></i> Nuevo Caso Conciliatorio
+            <i class="fa fa-plus" aria-hidden="true"></i> Nuevo Caso Conciliatorio
         </a>
     </div>
     {# TABLAS DE SEGUIMIENTO #}
@@ -34,26 +34,26 @@
                     <li class="nav-item">
                         <a class="nav-link active" id="custom-tabs-one-valoracion-tab" data-toggle="pill"
                            href="#custom-tabs-one-valoracion" role="tab" aria-controls="custom-tabs-one-home" aria-selected="true">
-                            <h4>Valoración de Casos {# <span class="badge badge-secondary">{{ misConciliaciones|length}} 25</span> #}</h4></a>
+                            <h4><i class="fa fa-pencil" aria-hidden="true"></i> Valoración de Casos {# <span class="badge badge-secondary">{{ misConciliaciones|length}} 25</span> #}</h4></a>
                     </li>
                 {% endif %}
                 {# FICHERO NUEVOS #}
                 <li class="nav-item">
                     <a class="nav-link" id="custom-tabs-one-nuevo-tab" data-toggle="pill"
                        href="#custom-tabs-one-nuevo" role="tab" aria-controls="custom-tabs-one-profile" aria-selected="false">
-                        <h4>Casos Nuevos {# <span class="badge badge-success">8</span> #}</h4></a>
+                        <h4><i class="fa fa-file" aria-hidden="true"></i> Casos Nuevos {# <span class="badge badge-success">8</span> #}</h4></a>
                 </li>
                 {# FICHERO TRATAMIENTO #}
                 <li class="nav-item">
                     <a class="nav-link" id="custom-tabs-one-tratamiento-tab" data-toggle="pill"
                        href="#custom-tabs-one-tratamiento" role="tab" aria-controls="custom-tabs-one-messages" aria-selected="false">
-                        <h4>Casos en Tratamiento {# <span class="badge badge-warning">15</span> #}</h4></a>
+                        <h4><i class="fa fa-clone" aria-hidden="true"></i> Casos en Tratamiento {# <span class="badge badge-warning">15</span> #}</h4></a>
                 </li>
                 {# FICHERO CONCLUIDOS #}
                 <li class="nav-item">
                     <a class="nav-link" id="custom-tabs-one-concluido-tab" data-toggle="pill"
                        href="#custom-tabs-one-concluido" role="tab" aria-controls="custom-tabs-one-settings" aria-selected="false">
-                        <h4>Casos Concluidos {# <span class="badge badge-danger">8</span> #}</h4></a>
+                        <h4><i class="fa fa-window-close" aria-hidden="true"></i> Casos Concluidos {# <span class="badge badge-danger">8</span> #}</h4></a>
                 </li>
             </ul>
         </div>
@@ -96,10 +96,10 @@
                                             <td>
                                                 <div class="text-center btn-group-sm">
                                                     <a class="btn btn-success btn-sm" href="{{ path('conciliacion_detalle',{'id':casoConciliatorio.id}) }}">
-                                                        <i class="bi bi-eye-fill"></i>Ver
+                                                        <i class="fa fa-eye" aria-hidden="true"></i> Ver
                                                     </a>
                                                     <a class="btn btn-info btn-sm" href="{{ path('conciliacion_editar', {'id':casoConciliatorio.id}) }}">
-                                                        <i class="bi bi-pencil-square"></i>Editar
+                                                        <i class="fa fa-list" aria-hidden="true"></i> Editar
                                                     </a>
                                                 </div>
                                             </td>
@@ -151,7 +151,7 @@
                                         <td>
                                             <div class="text-center btn-group-sm">
                                                 <a class="btn btn-primary" href="{{ path('conciliacion_seguimiento',{'id':misCasos.id}) }}">
-                                                    <i class="bi bi-card-checklist"></i> Seguimiento
+                                                    <i class="fa fa-file-text" aria-hidden="true"></i> Seguimiento
                                                 </a>
                                                 {#
                                                 <a class="btn btn-danger" href="{{ path('conciliacion_pdf_invitacion',{'id':misCasos.id}) }}">
@@ -159,10 +159,10 @@
                                                 </a>
                                                 #}
                                                 <a class="btn btn-success btn-sm" href="{{ path('conciliacion_detalle',{'id':misCasos.id}) }}">
-                                                    <i class="bi bi-eye-fill"></i> Ver
+                                                    <i class="fa fa-eye" aria-hidden="true"></i> Ver
                                                 </a>
                                                 <a class="btn btn-info btn-sm" href="{{ path('conciliacion_editar', {'id':misCasos.id}) }}">
-                                                    <i class="bi bi-pencil-square"></i> Editar
+                                                    <i class="fa fa-list" aria-hidden="true"></i> Editar
                                                 </a>
                                             </div>
                                         </td>
@@ -211,16 +211,16 @@
                                         <td>
                                             <div class="text-center btn-group-sm">
                                                 <a class="btn btn-primary" href="{{ path('conciliacion_seguimiento',{'id':misCasos.id}) }}">
-                                                    <i class="bi bi-card-checklist"></i> Seguimiento
+                                                    <i class="fa fa-file-text" aria-hidden="true"></i> Seguimiento
                                                 </a>
                                                 <a class="btn btn-danger" href="{{ path('conciliacion_pdf_invitacion',{'id':misCasos.id}) }}">
-                                                    <i class="bi bi-file-earmark-pdf"></i> Invitacion
+                                                    <i class="fa fa-file-pdf" aria-hidden="true"></i> Invitacion
                                                 </a>
                                                 <a class="btn btn-success btn-sm" href="{{ path('conciliacion_detalle',{'id':misCasos.id}) }}">
-                                                    <i class="bi bi-eye-fill"></i>Ver
+                                                    <i class="fa fa-eye" aria-hidden="true"></i> Ver
                                                 </a>
                                                 <a class="btn btn-info btn-sm" href="{{ path('conciliacion_editar', {'id':misCasos.id}) }}">
-                                                    <i class="bi bi-pencil-square"></i>Editar
+                                                    <i class="fa fa-list" aria-hidden="true"></i> Editar
                                                 </a>
                                             </div>
                                         </td>
@@ -274,7 +274,7 @@
                                                 </a>
                                                 #}
                                                 <a class="btn btn-success btn-sm" href="{{ path('conciliacion_detalle',{'id':misCasos.id}) }}">
-                                                    <i class="bi bi-eye-fill"></i>Ver
+                                                    <i class="fa fa-eye" aria-hidden="true"></i> Ver
                                                 </a>
                                                 {#
                                                 <a class="btn btn-info btn-sm" href="{{ path('conciliacion_editar', {'id':misCasos.id}) }}">

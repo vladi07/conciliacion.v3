@@ -12,6 +12,12 @@
             </div>
             <div class="card-body">
                 {{ form_start(formulario) }}
+                <button class="btn btn-success">
+                    <i class="fa fa-bookmark" aria-hidden="true"></i> Actualizar
+                </button>
+                <a class="btn btn-primary" href="{{ path('conciliacion_index') }}">
+                    <i class="fa fa-arrow-left" aria-hidden="true"></i> Volver
+                </a>
                 <div class="row">
                     <div class="col">
                         {{ form_row(formulario.idioma) }}
@@ -35,13 +41,25 @@
                         {{ form_row(formulario.usuario) }}
                     </div>
                 </div>
-                <button class="btn btn-success">
-                    <i class="bi bi-bookmark-check"></i> Actualizar
-                </button>
+                <hr>
+                {# RECHAZAR CASO CONCILIATORIO #}
+                <div class="card card-danger card-outline">
+                    <h4 class="card-title"><strong>¿Se rechaza el Caso?</strong></h4>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                {{ form_row(formulario.fecha_rechazo) }}
+                            </div>
+                            <div class="col">
+                                {{ form_row(formulario.motivo_rechazo) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <hr>
                 {# AGENDAR INVITACION #}
                 <div class="card card-warning card-outline">
-                    <h4 class="card-title">Invitacion de Audiencia Conciliatoria</h4>
+                    <h4 class="card-title"><strong>Invitacion de Audiencia Conciliatoria</strong></h4>
                     <div class="card-body">
                         <div class="row">
                             <div class="col">
@@ -56,7 +74,7 @@
                 <hr>
                 {# AUDIENCIA CONCILIATORIA #}
                 <div class="card card-blue card-outline">
-                    <h4 class="card-title">Audiencia Conciliatoria</h4>
+                    <h4 class="card-title"><strong>Audiencia Conciliatoria</strong></h4>
                     <div class="card-body">
                         <div class="row">
                             <div class="col">

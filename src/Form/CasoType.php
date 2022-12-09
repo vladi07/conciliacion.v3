@@ -63,6 +63,50 @@ class CasoType extends AbstractType
                     'GUARANI' => 'Guarani',
                 ]
             ])
+            ->add('centro', EntityType::class,[
+                'label' => 'Centro Conciliatorio',
+                'placeholder' => 'Seleccione un Centro Conciliatorio',
+                'class' => Centro::class,
+                'query_builder' => function(EntityRepository $er){
+                    return $er -> createQueryBuilder('c')
+                        ->orderBy('c.nombre', 'ASC');
+
+                },
+                'choice_label' => function ($centro){
+                    return $centro->getNombre();
+                },
+                'multiple' => false,
+                'expanded' => false,
+                'required' => true,
+            ])
+            ->add('usuario', EntityType::class,[
+                'label' => 'Conciliador a asignar',
+                'placeholder' => 'Seleccione un Conciliador',
+                'class' => Usuario::class,
+                'query_builder' => function(EntityRepository $er){
+                    return $er -> createQueryBuilder('u')
+                        ->orderBy('u.nombres','ASC');
+                },
+                'choice_label' => function ($usuario){
+                    return $usuario->getNombres();
+                },
+                'multiple' => false,
+                'expanded' => false,
+                'required' => true,
+            ])
+            ->add('documento', FileType::class,[
+                'label' => 'Documentación de Respaldo (PDF)',
+                'required' => false, //Que no sea obligatorio
+                'mapped' => false, //CAmpo no definido en la entidad
+                'constraints' => [
+                    new File([
+                        'maxSize' => '8M',
+                        'mimeTypes' => 'application/pdf',
+                        'mimeTypesMessage' => 'Cargar archivo valido',
+                    ])
+                ],
+            ])
+
             ->add('fecha_rechazo', DateType::class,[
                 'label' => 'Fecha de Rechazo del Caso',
                 'widget' => 'single_text',
@@ -72,9 +116,7 @@ class CasoType extends AbstractType
                 'attr' => ['class' => 'tinymce'],
                 'required' => false,
             ])
-            //->add('estado', null)
-            //->add('etapa', null)
-            //->add('invitacion')
+
             ->add('fecha_audiencia', DateType::class, [
                 'label' => 'Fecha de Audiencia',
                 'widget' => 'single_text',
@@ -86,6 +128,7 @@ class CasoType extends AbstractType
                 'widget' => 'choice',
                 'required' => false,
             ])
+
             ->add('detalle_asistencia', ChoiceType::class,[
                 'label' => 'Solicitante(s)',
                 'required' => false,
@@ -101,54 +144,15 @@ class CasoType extends AbstractType
                 'widget' => 'single_text',
                 'required' => false,
             ])
-            ->add('documento', FileType::class,[
-                'label' => 'Cargar archivo en PDF',
-                'required' => false, //Que no sea obligatorio
-                'mapped' => false, //CAmpo no definido en la entidad
-                'constraints' => [
-                    new File([
-                        'maxSize' => '5M',
-                        'mimeTypes' => 'application/pdf',
-                        'mimeTypesMessage' => 'Cargar archivo valido',
-                    ])
-                ],
-            ])
-            ->add('centro', EntityType::class,[
-                'label' => 'Centro Conciliatorio',
-                'placeholder' => 'Centro de Conciliación',
-                'class' => Centro::class,
-                'query_builder' => function(EntityRepository $er){
-                    return $er -> createQueryBuilder('c')
-                        ->orderBy('c.nombre', 'ASC');
-
-                },
-                'choice_label' => function ($centro){
-                    return $centro->getNombre();
-                },
-                'multiple' => false,
-                'expanded' => false,
-                'required' => false,
-            ])
-            ->add('usuario', EntityType::class,[
-                'label' => 'Conciliador a asignar',
-                'placeholder' => 'Selecciones un Conciliador',
-                'class' => Usuario::class,
-                'query_builder' => function(EntityRepository $er){
-                    return $er -> createQueryBuilder('u')
-                        ->orderBy('u.nombres','ASC');
-                },
-                'choice_label' => function ($usuario){
-                    return $usuario->getNombres();
-                },
-                'multiple' => false,
-                'expanded' => false,
-                'required' => false,
-            ])
             ->add('detalleActa', TextareaType::class,[
                 'attr' => ['class' => 'tinymce'],
                 'label' => 'Detalle del Acta',
                 'required' => false,
             ])
+
+            //->add('estado', null)
+            //->add('etapa', null)
+            //->add('invitacion')
             //->add('usuario_externo')
             //->add('sala')
             //->add('agenda')

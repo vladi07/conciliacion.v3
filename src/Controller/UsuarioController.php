@@ -57,6 +57,12 @@ class UsuarioController extends AbstractController
             $rolAsignado = $form['roles'] -> getData();
             $usuario -> setRoles($this->permisos[$rolAsignado]);
 
+//            $nacimiento = $form['fecha_nacimiento'] -> getData();
+//            $ahora = new \DateTime();
+//            $obtenerEdad = $ahora->diff($nacimiento);
+//            $obtenerEdad->format("%y");
+//            $usuario -> setEdad($obtenerEdad);
+
             //Cargamos la foto archivo del Ususario
             if ($foto = $form['foto']-> getData()){
                 $nombreFoto = bin2hex(random_bytes(4)).'.'.$foto -> guessExtension();

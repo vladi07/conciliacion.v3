@@ -46,7 +46,7 @@
                         <th>Tipo Documento</th>
                         <th>Número Documento</th>
                         <th>Fecha de Nacimiento</th>
-                        <th>Edad</th>
+{#                        <th>Edad</th>#}
                         <th>Teléfono</th>
                         <th>Departamento</th>
                         {# <th>Usuario</th> #}
@@ -76,7 +76,7 @@
                             <td>{{ usuario.tipoDocumento }}</td>
                             <td>{{ usuario.numeroDocumento }}</td>
                             <td>{{ usuario.fechaNacimiento|date('d-m-Y')}}</td>
-                            <td>edad</td>
+{#                            <td>{{ usuario.edad }}</td>#}
                             <td>{{ usuario.telefono }}</td>
                             <td>{{ usuario.departamento|upper }}</td>
                             {# <td>{{ usuario.username }}</td> #}
@@ -109,7 +109,7 @@
                             <td>
                                 <div class="text-center btn-group">
                                     <a class="btn btn-success btn-sm" href="{{ path('usuario_show', {'id': usuario.id}) }}">
-                                        <i class="fa fa-eye" aria-hidden="true"></i>  Ver
+                                        <i class="fa fa-eye" aria-hidden="true"></i> Ver
                                     </a>
                                     <a class="btn btn-info btn-sm" href="{{ path('usuario_edit', {'id': usuario.id}) }}">
                                         <i class="fa fa-list" aria-hidden="true"></i> Editar

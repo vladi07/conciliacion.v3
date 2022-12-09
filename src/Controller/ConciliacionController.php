@@ -61,6 +61,9 @@ class ConciliacionController extends AbstractController
             //$centro = $this->redirectToRoute()
             //$conciliacion -> setCentro($centro);
 
+//            $obtenerCentro = $this->getUser{$centro};
+//            $conciliacion -> setCentro($obtenerCentro);
+
             $conciliacion -> setEstado('NUEVO');
             $conciliacion -> setEtapa('VALORACION');
 
@@ -159,6 +162,37 @@ class ConciliacionController extends AbstractController
         $html2pdf -> writeHTML($html);
 
         $cadena = 'invitacion.pdf';
+        $originales = 'ÁÄÁ';
+        $modificadas = 'aaa';
+
+        $cadena = utf8_decode($cadena);
+        $cadena = strtr($cadena, utf8_decode($originales), $modificadas);
+        $cadena = strtoupper($cadena);
+
+        ob_end_clean();
+
+        return new Response($html2pdf->Output(utf8_decode($cadena), 'D'), 200,[
+            'Content-Type' => 'aplication/pdf;charset=UTF-8'
+        ]);
+    }
+
+    #[Route('/{id}/printpdfacta', name: 'conciliacion_pdf_acta', methods:['GET','POST'])]
+    public function printActa(CasoConciliatorio $casoConciliatorio, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        $datoCaso = $casoConciliatorio;
+
+        ob_start();
+
+        $html = $this->renderView('conciliacion/acta.html.twig', [
+            'datosCaso' => $datoCaso
+        ]);
+
+        $html2pdf = new Html2Pdf('p','LETTER', 'fr', true, 'UTF-8', array('10','10','10','10'));
+        $html2pdf -> pdf -> SetDisplayMode('real');
+        $html2pdf -> setDefaultFont('Arial');
+        $html2pdf -> writeHTML($html);
+
+        $cadena = 'acta_conciliacion.pdf';
         $originales = 'ÁÄÁ';
         $modificadas = 'aaa';
 

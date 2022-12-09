@@ -43,10 +43,10 @@
                         </div>
                     </div>
                     <button class="btn btn-success">
-                        <i class="bi bi-bookmark-check"></i> Guardar
+                        <i class="fa fa-bookmark" aria-hidden="true"></i> Guardar
                     </button>
                     <a class="btn btn-primary" href="{{ path('conciliacion_index') }}">
-                        <i class="bi bi-arrow-left-square"></i> Volver
+                        <i class="fa fa-arrow-left" aria-hidden="true"></i> Volver
                     </a>
                     <hr>
                     {# RECHAZAR CASO CONCILIATORIO #}
@@ -66,7 +66,7 @@
                     <hr>
                     {# AGENDAR INVITACION #}
                     <div class="card card-warning card-outline">
-                        <h4 class="card-title">Invitación de Audiencia Conciliatoria</h4>
+                        <h4 class="card-title"><strong>Invitación de Audiencia Conciliatoria</strong></h4>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
@@ -81,7 +81,7 @@
                     <hr>
                     {# AUDIENCIA CONCILIATORIA #}
                     <div class="card card-blue card-outline">
-                        <h4 class="card-title">Audiencia Conciliatoria</h4>
+                        <h4 class="card-title"><strong>Audiencia Conciliatoria</strong></h4>
                         <div class="card-body">
                             <div class="row">
                                 <div class="col">
@@ -93,7 +93,6 @@
                             </div>
                         </div>
                     </div>
-
                 {{ form_end(formulario) }}
             </div>
         </div>

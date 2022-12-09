@@ -82,19 +82,19 @@ class UsuarioExternoType extends AbstractType
                 'label' => 'Telefono o Celular',
                 'required' => false
             ])
-            ->add('orden_judicial', TextType::class,[
-                'label' => 'Número de la Orden Judicial',
-                'required' => false
-            ])
-            ->add('autoridad_emision', TextType::class,[
-                'label' => 'Nombre de la Autoridad que Emitio la Orden',
-                'required' => false
-            ])
-            ->add('fecha_emision', DateType::class,[
-                'label' => 'Fecha de Emision del Documento',
-                'widget' => 'single_text',
-                'required' => false,
-            ])
+//            ->add('orden_judicial', TextType::class,[
+//                'label' => 'Número de la Orden Judicial',
+//                'required' => false
+//            ])
+//            ->add('autoridad_emision', TextType::class,[
+//                'label' => 'Nombre de la Autoridad que Emitio la Orden',
+//                'required' => false
+//            ])
+//            ->add('fecha_emision', DateType::class,[
+//                'label' => 'Fecha de Emision del Documento',
+//                'widget' => 'single_text',
+//                'required' => false,
+//            ])
             //->add('caso_conciliatorio')
         ;
     }

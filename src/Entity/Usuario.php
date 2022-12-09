@@ -90,6 +90,9 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'usuario', targetEntity: CasoConciliatorio::class)]
     private $caso;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $edad = null;
+
     public function __construct()
     {
         $this->fecha_creacion = new \DateTime();
@@ -429,6 +432,18 @@ class Usuario implements UserInterface, PasswordAuthenticatedUserInterface
                 $caso->setUsuario(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getEdad(): ?int
+    {
+        return $this->edad;
+    }
+
+    public function setEdad(?int $edad): self
+    {
+        $this->edad = $edad;
 
         return $this;
     }
